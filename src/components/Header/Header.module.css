@@ -155,7 +155,7 @@
   }
 }
 
-@media screen and (min-width: 192-px) {
+@media screen and (min-width: 1920px) {
   .content {
     width: 1920px;
     padding: 30px 168px;
