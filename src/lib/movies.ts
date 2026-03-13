@@ -57,7 +57,7 @@ export async function getTopRatedMovies(page = 1) {
 }
 
 // Get the top level details of a movie by ID.
-export async function getMovieDetails(movieId) {
+export async function getMovieDetails(movieId: number) {
   try {
     const res = await api.get(`/movie/${movieId}`);
     return res.data;
@@ -68,7 +68,7 @@ export async function getMovieDetails(movieId) {
 }
 
 // Get the crew of the movie.
-export async function getMovieCredits(movieId) {
+export async function getMovieCredits(movieId: number) {
   try {
     const res = await api.get(`/movie/${movieId}/credits`);
     return res.data;
@@ -79,7 +79,7 @@ export async function getMovieCredits(movieId) {
 }
 
 // Get the user reviews for a movie.
-export async function getMovieReviews(movieId) {
+export async function getMovieReviews(movieId: number) {
   try {
     const res = await api.get(`/movie/${movieId}/reviews`);
     return res.data;
@@ -90,7 +90,7 @@ export async function getMovieReviews(movieId) {
 }
 
 // Search for movies by their original, translated and alternative titles.
-export async function getSearchMovies(query, page = 1) {
+export async function getSearchMovies(query: string, page = 1) {
   try {
     const res = await api.get("/search/movie", {
       params: {
@@ -117,7 +117,7 @@ export async function getGenres() {
 }
 
 // Find movies using over 30 filters and sort options.
-export async function getMoviesByGenre(genreId, page = 1) {
+export async function getMoviesByGenre(genreId: number, page = 1) {
   try {
     const res = await api.get("/discover/movie", {
       params: {

@@ -1,0 +1,125 @@
+/* eslint-disable react-hooks/purity */
+"use client";
+
+import { getPopularMovies } from "../../lib/movies";
+import { getPopularSeries } from "../../lib/series";
+import { useQuery } from "@tanstack/react-query";
+import css from "./Hero.module.css";
+import Image from "next/image";
+import Icon from "../Icon/Icon";
+import Link from "next/link";
+import { useState } from "react";
+import { useEffect } from "react";
+
+export default function Hero() {
+  const [gridSize, setGridSize] = useState(36);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 375) {
+        setGridSize(9);
+      } else if (window.innerWidth < 768) {
+        setGridSize(16);
+      } else if (window.innerWidth < 1440) {
+        setGridSize(30); 
+            } else if (window.innerWidth < 1920) {
+      setGridSize(36);  
+      } else {
+        setGridSize(48);
+      }
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const { data: moviesData } = useQuery({
+    queryKey: ["popularMovies"],
+    queryFn: async () => {
+    const [page1, page2] = await Promise.all([
+      getPopularMovies(1),
+      getPopularMovies(2),
+    ]);
+    return {
+      results: [...(page1?.results || []), ...(page2?.results || [])]
+    };
+  },
+});
+
+  const { data: tvData } = useQuery({
+    queryKey: ["popularTVShows"],
+    queryFn: async () => {
+    const [page1, page2] = await Promise.all([
+      getPopularSeries(1),
+      getPopularSeries(2),
+    ]);
+    return {
+      results: [...(page1?.results || []), ...(page2?.results || [])]
+    };
+  },
+});
+
+  const movies = moviesData?.results || [];
+  const tvShows = tvData?.results || [];
+
+  const allContent = [...movies, ...tvShows];
+
+  const shuffled = allContent.sort(() => Math.random() - 0.5);
+
+  const gridContent = shuffled.slice(0, gridSize);
+
+  if (!moviesData || !tvData) {
+    return <div className={css.loading}>Loading...</div>;
+  }
+
+  return (
+    <section className={css.page}>
+      <div className={css.grid}>
+        {gridContent.map((item, index) => (
+          <div key={`${item.id}-${index}`} className={css.poster}>
+            <Image
+              src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+              alt={item.title || item.name}
+              className={css.image}
+              width={143}
+              height={143}
+              unoptimized
+            />
+          </div>
+        ))}
+              <div className={css.gradientTop}></div>
+      <div className={css.gradientBottom}></div>
+      <div className={css.gradientLeft}></div>
+      <div className={css.gradientRight}></div>
+      </div>
+
+
+
+      <div className={css.content}>
+        <div className={css.icon}>
+          <Icon name="main" width={200} height={200} />
+        </div>
+
+        <h1 className={css.title}>The Best Streaming Experience</h1>
+        <p className={css.text}>
+          StreamVibe is the best streaming experience for watching your favorite
+          movies and shows on demand, anytime, anywhere.
+          {/* With
+            StreamVibe, you can enjoy a wide variety of content, including the
+            latest blockbusters, classic movies, popular TV shows, and more. You
+            can also create your own watchlists, so you can easily find the
+            content you want to watch. */}
+        </p>
+
+        <Link href="/" className={css.button}>
+          <Icon name="now" width={20} height={20} />
+          Start Watching Now
+        </Link>
+      </div>
+    </section>
+  );
+}
