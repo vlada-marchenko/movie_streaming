@@ -21,9 +21,9 @@ export default function Hero() {
       } else if (window.innerWidth < 768) {
         setGridSize(16);
       } else if (window.innerWidth < 1440) {
-        setGridSize(30); 
-            } else if (window.innerWidth < 1920) {
-      setGridSize(36);  
+        setGridSize(30);
+      } else if (window.innerWidth < 1920) {
+        setGridSize(36);
       } else {
         setGridSize(48);
       }
@@ -40,28 +40,28 @@ export default function Hero() {
   const { data: moviesData } = useQuery({
     queryKey: ["popularMovies"],
     queryFn: async () => {
-    const [page1, page2] = await Promise.all([
-      getPopularMovies(1),
-      getPopularMovies(2),
-    ]);
-    return {
-      results: [...(page1?.results || []), ...(page2?.results || [])]
-    };
-  },
-});
+      const [page1, page2] = await Promise.all([
+        getPopularMovies(1),
+        getPopularMovies(2),
+      ]);
+      return {
+        results: [...(page1?.results || []), ...(page2?.results || [])],
+      };
+    },
+  });
 
   const { data: tvData } = useQuery({
     queryKey: ["popularTVShows"],
     queryFn: async () => {
-    const [page1, page2] = await Promise.all([
-      getPopularSeries(1),
-      getPopularSeries(2),
-    ]);
-    return {
-      results: [...(page1?.results || []), ...(page2?.results || [])]
-    };
-  },
-});
+      const [page1, page2] = await Promise.all([
+        getPopularSeries(1),
+        getPopularSeries(2),
+      ]);
+      return {
+        results: [...(page1?.results || []), ...(page2?.results || [])],
+      };
+    },
+  });
 
   const movies = moviesData?.results || [];
   const tvShows = tvData?.results || [];
@@ -71,7 +71,6 @@ export default function Hero() {
   const shuffled = allContent.sort(() => Math.random() - 0.5);
 
   const gridContent = shuffled.slice(0, gridSize);
-
 
   return (
     <section className={css.page}>
@@ -85,17 +84,13 @@ export default function Hero() {
               width={143}
               height={143}
               unoptimized
-              loading='eager'
+              loading="eager"
             />
           </div>
         ))}
-              <div className={css.gradientTop}></div>
-      <div className={css.gradientBottom}></div>
-      <div className={css.gradientLeft}></div>
-      <div className={css.gradientRight}></div>
+        <div className={css.gradientTop}></div>
+        <div className={css.gradientBottom}></div>
       </div>
-
-
 
       <div className={css.content}>
         <div className={css.icon}>
