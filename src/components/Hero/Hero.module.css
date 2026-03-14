@@ -179,7 +179,7 @@
   }
   .grid {
     height: 85%;
-    grid-template-columns: repeat(6, 1fr); /* Changed from 5 to 6 */
+    grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(5, 1fr);
     padding: 0 20px;
     gap: 8px;
@@ -209,6 +209,11 @@
     font-size: 18px;
     width: 638px;
   }
+
+.iconImage {
+  width: 230px;
+  height: 230px;
+}
 }
 
 @media (min-width: 1440px) and (max-width: 1919px) {
@@ -248,6 +253,11 @@
     font-size: 18px;
     width: 638px;
   }
+
+  .iconImage {
+  width: 260px;
+  height: 260px;
+}
 }
 
 @media (min-width: 1920px) {

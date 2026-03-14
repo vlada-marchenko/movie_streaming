@@ -94,7 +94,7 @@ export default function Hero() {
 
       <div className={css.content}>
         <div className={css.icon}>
-          <Icon name="main" width={200} height={200} />
+          <Icon name="main" width={200} height={200} className={css.iconImage}/>
         </div>
 
         <h1 className={css.title}>The Best Streaming Experience</h1>
