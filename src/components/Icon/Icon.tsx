@@ -9,7 +9,7 @@ type IconProps = {
 export default function Icon({ name, width = 24, height = 24, className }: IconProps) {
   return (
     <svg width={width} height={height} className={className} aria-hidden="true">
-      <use href={`/icons.svg#icon-${name}`} />
+      <use href={`/icons.svg?v=2#icon-${name}`} />
     </svg>
   );
 }
