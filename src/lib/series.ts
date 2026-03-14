@@ -38,7 +38,7 @@ export async function getGenresTv() {
 }
 
 // Find tv shows using over 30 filters and sort options.
-export async function getSeriesByGenre(genreId, page = 1) {
+export async function getSeriesByGenre(genreId: number, page = 1) {
   try {
     const res = await api.get("/discover/tv", {
       params: {
@@ -54,7 +54,7 @@ export async function getSeriesByGenre(genreId, page = 1) {
 }
 
 // Search for tv shows by their original, translated and alternative titles.
-export async function getSearchSeries(query, page = 1) {
+export async function getSearchSeries(query: string, page = 1) {
   try {
     const res = await api.get("/search/tv", {
       params: {
@@ -100,7 +100,7 @@ export async function getNewSeries(page = 1) {
 }
 
 // Get the top level details of a tv show by ID.
-export async function getSeriesDetails(series_id) {
+export async function getSeriesDetails(series_id: number) {
   try {
     const res = await api.get(`tv/${series_id}`);
     return res.data;
@@ -111,7 +111,7 @@ export async function getSeriesDetails(series_id) {
 }
 
 // Get the crew of the movie.
-export async function getSeriesCredits(series_id) {
+export async function getSeriesCredits(series_id: number) {
   try {
     const res = await api.get(`/tv/${series_id}/credits`);
     return res.data;
@@ -122,7 +122,7 @@ export async function getSeriesCredits(series_id) {
 }
 
 // Get the user reviews for a movie.
-export async function getSeriesReviews(series_id) {
+export async function getSeriesReviews(series_id: number) {
   try {
     const res = await api.get(`/tv/${series_id}/reviews`);
     return res.data;
@@ -136,7 +136,7 @@ export async function getSeriesReviews(series_id) {
 
 
 // Get the details of season of a TV show.
-export async function getSeasonDetails(season_number ,series_id) {
+export async function getSeasonDetails(season_number: number ,series_id: number) {
   try {
     const res = await api.get(`tv/${series_id}/season/${season_number}`);
     return res.data;
@@ -147,7 +147,7 @@ export async function getSeasonDetails(season_number ,series_id) {
 }
 
 // Get the details of episode of season of a TV show.
-export async function getEpisodeDetails(episode_number ,season_number ,series_id) {
+export async function getEpisodeDetails(episode_number: number ,season_number: number ,series_id: number) {
   try {
     const res = await api.get(`tv/${series_id}/season/${season_number}/episode/${episode_number}`);
     return res.data;
