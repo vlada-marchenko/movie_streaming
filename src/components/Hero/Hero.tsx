@@ -72,9 +72,6 @@ export default function Hero() {
 
   const gridContent = shuffled.slice(0, gridSize);
 
-  if (!moviesData || !tvData) {
-    return <div className={css.loading}>Loading...</div>;
-  }
 
   return (
     <section className={css.page}>
@@ -88,6 +85,7 @@ export default function Hero() {
               width={143}
               height={143}
               unoptimized
+              loading='eager'
             />
           </div>
         ))}

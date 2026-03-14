@@ -50,6 +50,16 @@
   object-fit: cover;
   opacity: 0.4;
   flex-shrink: 0;
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.4;
+  }
 }
 
 .content {
