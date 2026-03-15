@@ -1,0 +1,83 @@
+.content {
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+width: 100%;
+max-width: 390px;
+  margin: 0 auto;
+}
+
+.container {
+  position: relative;
+  z-index: 10;
+  background-color: #0F0F0F;
+  width: 100%;
+  padding: 40px 0;
+}
+
+.top {
+  width: 100%;
+  padding: 0;
+}
+
+.title {
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 700;
+font-size: 24px;
+color: #FFFFFF;
+}
+
+.text {
+font-family: 'Manrope';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+color: #999999;
+margin-top: 8px;
+margin-bottom: 40px;
+}
+
+.pag {
+    display: none;
+}
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-between;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 20px;
+  scroll-snap-type: x mandatory; 
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #E50000 #1A1A1A; 
+    padding: 0 20px 15px;
+}
+
+.grid::-webkit-scrollbar {
+  height: 6px; 
+}
+
+.grid::-webkit-scrollbar-track {
+  background: #1A1A1A; 
+  border-radius: 10px;
+}
+
+.grid::-webkit-scrollbar-thumb {
+  background: #E50000; 
+  border-radius: 10px;
+}
+
+.grid::-webkit-scrollbar-thumb:hover {
+  background: #B20000; 
+}
+
+.grid > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}

@@ -1,0 +1,81 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
+  width: 178px;
+  height: 201px;
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  position: relative; 
+  overflow: hidden;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  width: 100%;
+  padding: 0;
+}
+
+.content::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%; 
+  background: linear-gradient(
+    to bottom,
+    rgba(26, 26, 26, 0) 0%,
+    rgba(26, 26, 26, 0.9) 50%,
+    rgba(26, 26, 26, 1) 100%
+  );
+  pointer-events: none;
+  border-radius: 6px;
+}
+
+.preview {
+  position: relative;
+  width: 67px;
+  height: 67px;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  border-radius: 5%;
+  width: 100%;
+  height: 100%;
+}
+
+.text {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.under {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

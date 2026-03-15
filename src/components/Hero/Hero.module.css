@@ -9,10 +9,6 @@
   flex-direction: column;
   margin: 0;
   padding: 0;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
   margin-top: -110px;
   z-index: 0;
   background-color: #000000;

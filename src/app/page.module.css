@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; 
+
 }
 
 .content {
@@ -12,7 +13,7 @@
   gap: 10px;
   padding: 20px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column; 
   align-items: center;
   justify-content: space-between;
   position: relative;
@@ -36,7 +37,7 @@
     padding: 20px 138px;
   }}
 
-    @media screen and (min-width: 192-px) {
+    @media screen and (min-width: 1920px) {
   .content {
     width: 1920px;
     padding: 30px 168px;
