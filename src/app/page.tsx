@@ -1,6 +1,7 @@
 import css from "./page.module.css";
 import Hero from "@/components/Hero/Hero";
 import GenreSectionHome from "@/components/GenreSectionHome/GenreSectionHome";
+import Devices from "@/components/Devices/Devices";
 
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
     <div className={css.page}>
         <Hero/>
         <GenreSectionHome/>
+        <Devices/>
       </div>
   );
 }
