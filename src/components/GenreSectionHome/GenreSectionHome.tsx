@@ -21,7 +21,7 @@ export default function GenreSectionHome() {
 
   useEffect(() => {
     const handleItemsPerPage = () => {
-      if (window.innerWidth < 768) {
+      if (window.innerWidth < 1440) {
         setItems(2);
         setMobile(true);
       } else if (window.innerWidth < 1920) {
@@ -60,11 +60,13 @@ export default function GenreSectionHome() {
     <section className={css.container}>
       <div className={css.content}>
         <div className={css.top}>
+          <div>
           <h2 className={css.title}>Expore our wide variety of categories</h2>
           <p className={css.text}>
             Whether you`re looking for a comedy to make you laugh, a drama to
             make you think, or a documentary to learn something new
           </p>
+          </div>
 
           {!mobile && (
           <div className={css.pag}>
@@ -73,7 +75,7 @@ export default function GenreSectionHome() {
               onClick={() => setPage(page - 1)}
               disabled={page === 1}
             >
-              <Icon name="left" width={20} height={20} />
+              <Icon name="left" width={22} height={22} />
             </button>
 
             <div className={css.num}>
@@ -92,7 +94,7 @@ export default function GenreSectionHome() {
               onClick={() => setPage(page + 1)}
               disabled={page === total}
             >
-              <Icon name="right" width={20} height={20} />
+              <Icon name="right" width={18} height={18} />
             </button>
           </div>)}
         </div>

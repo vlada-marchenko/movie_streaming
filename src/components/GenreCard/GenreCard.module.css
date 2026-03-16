@@ -79,3 +79,39 @@
   background-color: transparent;
   cursor: pointer;
 }
+
+
+@media (min-width: 1440px) {
+  .container {
+    width: 228px;
+    height: 252px;
+    padding: 24px;
+  }
+
+  .preview {
+    width: 83px;
+    height: 88px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+
+  }
+
+  @media (min-width: 1920px) {
+  .container {
+    width: 295px;
+    height: 330px;
+    padding: 24px;
+  }
+
+  .preview {
+    width: 115px;
+    height: 123px;
+  }
+
+    .text {
+    font-size: 18px;
+  }
+  }

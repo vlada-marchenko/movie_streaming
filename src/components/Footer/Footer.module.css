@@ -135,7 +135,7 @@ color: #262626;
 @media screen and (min-width: 1440px) {
   .content {
     width: 1440px;
-    padding: 40px 138px;
+    padding: 40px 108px;
   }
 
   .main {
@@ -168,6 +168,6 @@ color: #262626;
 @media screen and (min-width: 1920px) {
   .content {
     width: 1920px;
-    padding: 30px 168px;
+    padding: 30px 138px;
   }
 }
