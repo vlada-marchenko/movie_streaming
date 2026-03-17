@@ -2,7 +2,7 @@ import css from "./page.module.css";
 import Hero from "@/components/Hero/Hero";
 import GenreSectionHome from "@/components/GenreSectionHome/GenreSectionHome";
 import Devices from "@/components/Devices/Devices";
-
+import FAQ from "@/components/FAQ/FAQ";
 
 export default function Home() {
   return (
@@ -10,6 +10,7 @@ export default function Home() {
         <Hero/>
         <GenreSectionHome/>
         <Devices/>
+        <FAQ/>
       </div>
   );
 }

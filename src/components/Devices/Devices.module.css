@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 390px;
   margin: 0 auto;
-  margin-bottom: 50px;
+  margin-bottom: 70px;
 }
 
 .title {
@@ -24,8 +24,8 @@
   font-size: 14px;
   line-height: 21px;
   color: #999999;
-  margin-top: 8px;
-  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .name {
@@ -107,6 +107,7 @@
 
   .text {
     font-size: 16px;
+    margin-bottom: 40px;
   }
 
   .devices {
