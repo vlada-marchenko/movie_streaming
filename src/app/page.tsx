@@ -3,6 +3,8 @@ import Hero from "@/components/Hero/Hero";
 import GenreSectionHome from "@/components/GenreSectionHome/GenreSectionHome";
 import Devices from "@/components/Devices/Devices";
 import FAQ from "@/components/FAQ/FAQ";
+import Plans from "@/components/Plans/Plans";
+
 
 export default function Home() {
   return (
@@ -11,6 +13,7 @@ export default function Home() {
         <GenreSectionHome/>
         <Devices/>
         <FAQ/>
+        <Plans/>
       </div>
   );
 }

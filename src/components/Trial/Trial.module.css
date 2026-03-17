@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  margin-bottom: 70px;
+  background-color: black;
+}
+
+.title {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.text {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #999999;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 30px;
+    align-items: start;
+  }
+
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 108px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .text {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }}
+
+  @media (min-width: 1920px) {
+  .container {
+    max-width: 1920px;
+    padding: 0 138px;
+  }
+  .title {
+    font-size: 38px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+}

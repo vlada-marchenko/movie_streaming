@@ -1,0 +1,166 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 390px;
+  margin: 0 auto;
+  margin-bottom: 70px;
+  background-color: black;
+}
+
+.title {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+.text {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #999999;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.plans {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+width: 100%;
+gap: 20px;
+}
+
+.plan {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: space-between;
+padding: 24px;
+width: 100%;
+height: 275px;
+background: #1A1A1A;
+border: 1px solid #262626;
+border-radius: 10px;
+}
+
+.planName {
+font-weight: 700;
+font-size: 18px;
+color: #FFFFFF;
+margin-bottom: 10px;
+}
+
+.span {
+font-weight: 600;
+font-size: 24px;
+line-height: 73%;
+color: #FFFFFF;
+}
+
+.price {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #999999;
+
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.trial {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 14px 20px;
+background: #141414;
+border: 1px solid #262626;
+border-radius: 6px;
+font-weight: 600;
+font-size: 14px;
+color: #FFFFFF;
+cursor: pointer;
+}
+
+.trial:hover {
+  background: #1f1f1f;
+  border-color: #3a3a3a;
+}
+
+.choose {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 14px 20px;
+background: #E60000;
+border-radius: 6px;
+font-weight: 600;
+font-size: 14px;
+color: #FFFFFF;
+cursor: pointer;
+}
+
+.choose:hover {
+  background: #ff1a1a;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 30px;
+    align-items: start;
+  }
+
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 108px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .text {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .plans {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+width: 100%;
+gap: 20px;
+}
+}
+
+  @media (min-width: 1920px) {
+  .container {
+    max-width: 1920px;
+    padding: 0 138px;
+  }
+  .title {
+    font-size: 38px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+}
