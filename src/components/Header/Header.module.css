@@ -76,6 +76,19 @@
   border-bottom: 1px solid #262626;
 }
 
+.cont {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 5px;
+}
+
+.activeMob {
+  color: #ffffff; 
+  font-weight: 600; 
+  border-bottom: 2px solid #e50914; 
+}
+
 @media screen and (min-width: 390px) {
   .content {
     width: 390px;
@@ -137,7 +150,7 @@
     padding: 14px 24px;
   }
 
-  .cont:hover {
+  .cont:hover, .active {
     display: flex;
     flex-direction: row;
     align-items: center;

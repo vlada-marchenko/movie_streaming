@@ -1,14 +1,20 @@
-'use client'
+"use client";
 
 import css from "./Header.module.css";
 import Icon from "../../components/Icon/Icon";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const [openMenu, setOpenMenu] = useState(false);
   const toggleMenu = () => setOpenMenu(!openMenu);
+  const pathname = usePathname();
+
+  const activeClass = (path: string) => (pathname === path ? css.active : "");
+  const activeMobClass = (path: string) =>
+    pathname === path ? css.activeMob : "";
 
   return (
     <header className={css.page}>
@@ -23,59 +29,61 @@ export default function Header() {
           />
         </Link>
         <nav className={css.nav}>
-          <div className={css.cont}>
-            <Link href={"/"} className={css.navLink}>
+          <div className={`${css.cont} ${activeClass("/")}`}>
+            <Link href="/" className={css.navLink}>
               Home
             </Link>
           </div>
-          <div className={css.cont}>
-            <Link href={"/movies"} className={css.navLink}>
+          <div className={`${css.cont} ${activeClass("/movies")}`}>
+            <Link href="/movies" className={css.navLink}>
               Movies&Shows
             </Link>
           </div>
-          <div className={css.cont}>
-            <Link href={"/support"} className={css.navLink}>
+          <div className={`${css.cont} ${activeClass("/support")}`}>
+            <Link href="/support" className={css.navLink}>
               Support
             </Link>
           </div>
-          <div className={css.cont}>
-            <Link href={"/subscriptions"} className={css.navLink}>
+          <div className={`${css.cont} ${activeClass("/subscriptions")}`}>
+            <Link href="/subscriptions" className={css.navLink}>
               Subscriptions
             </Link>
           </div>
         </nav>
         <div className={css.empty}></div>
-            <button
-                className={css.burger}
-                onClick={() => setOpenMenu(!openMenu)}
-              >
-                  <Icon
-                    name="menu"
-                    width={32}
-                    height={32}
-                    className={css.menu}
-                  />
-            </button>
+        <button className={css.burger} onClick={() => setOpenMenu(!openMenu)}>
+          <Icon name="menu" width={32} height={32} className={css.menu} />
+        </button>
         {openMenu && (
           <div className={css.backdrop} onClick={toggleMenu}>
             <nav className={css.navMob}>
               <div className={css.cont}>
-                <Link href={"/"} className={css.navLinkMob} onClick={toggleMenu}>
+                <Link
+                  href="/"
+                  className={`${css.navLinkMob} ${activeMobClass("/")}`}
+                  onClick={toggleMenu}
+                >
                   Home
                 </Link>
-              </div>
-              <div className={css.cont}>
-                <Link href={"/movies"} className={css.navLinkMob} onClick={toggleMenu}>
+                <Link
+                  href="/movies"
+                  className={`${css.navLinkMob} ${activeMobClass("/movies")}`}
+                  onClick={toggleMenu}
+                >
                   Movies&Shows
                 </Link>
-              </div>
-              <div className={css.cont}>
-                <Link href={"/support"} className={css.navLinkMob} onClick={toggleMenu}>
+                <Link
+                  href="/support"
+                  className={`${css.navLinkMob} ${activeMobClass("/support")}`}
+                  onClick={toggleMenu}
+                >
                   Support
                 </Link>
-              </div>
-              <div className={css.cont}>
-                <Link href={"/subscriptions"} className={css.navLinkMob} onClick={toggleMenu}>
+                <Link
+                  href="/subscriptions"
+                  className={`${css.navLinkMob} ${activeMobClass("/subscriptions")}`}
+                  onClick={toggleMenu}
+                >
                   Subscriptions
                 </Link>
               </div>
