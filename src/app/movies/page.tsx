@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Icon from "../../components/Icon/Icon";
 import { useSwipeable } from "react-swipeable";
+import GenreSectionMovies from "@/components/GenreSectionMovies/GenreSectionMovies";
 
 export default function MoviesPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -77,6 +78,7 @@ export default function MoviesPage() {
   const currentItem = slides[currentSlide];
 
   return (
+    <>
     <div className={css.container}>
       <section className={css.hero} {...handlers}>
         <div className={css.bg}>
@@ -127,5 +129,7 @@ export default function MoviesPage() {
         </div>
       </section>
     </div>
+          <GenreSectionMovies />§
+    </>
   );
 }
