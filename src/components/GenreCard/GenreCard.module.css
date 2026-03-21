@@ -1,8 +1,8 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 15px;
+  align-items: center;
+  padding: 22px;
   width: 178px;
   height: 201px;
   background: #1a1a1a;
@@ -16,9 +16,11 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   padding: 0;
+  align-self: center;
+
 }
 
 .content::after {
@@ -40,7 +42,7 @@
 
 .preview {
   position: relative;
-  width: 67px;
+  width: 60px;
   height: 67px;
   aspect-ratio: 2/3;
   overflow: hidden;
@@ -62,6 +64,10 @@
   font-weight: 600;
   font-size: 14px;
   color: #ffffff;
+    overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100px;
 }
 
 .under {
@@ -72,6 +78,7 @@
   width: 100%;
   position: relative;
   z-index: 1;
+  bottom: 3px;
 }
 
 .button {
@@ -85,16 +92,26 @@
   .container {
     width: 228px;
     height: 252px;
-    padding: 24px;
+    padding: 30px;
+  }
+
+  .content {
+    gap: 12px;
   }
 
   .preview {
-    width: 83px;
+    width: 73px;
     height: 88px;
   }
 
   .text {
     font-size: 16px;
+           max-width: 140px;
+
+  }
+
+  .under {
+      bottom: 6px;
   }
 
   }
@@ -103,15 +120,16 @@
   .container {
     width: 295px;
     height: 330px;
-    padding: 24px;
+    padding: 32px;
   }
 
   .preview {
-    width: 115px;
+    width: 105px;
     height: 123px;
   }
 
     .text {
     font-size: 18px;
+          max-width: 180px;
   }
   }

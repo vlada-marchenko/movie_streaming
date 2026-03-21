@@ -1,12 +1,12 @@
 "use client";
 
-import { getGenres } from "@/lib/movies";
 import { useQuery } from "@tanstack/react-query";
 import GenreCard from "../GenreCard/GenreCard";
 import { useState } from "react";
 import { useEffect } from "react";
-import css from "./GenreSectionMovies.module.css";
+import css from "./GenreSectionShows.module.css";
 import Icon from "../Icon/Icon";
+import { getGenresTv } from "@/lib/series";
 
 interface Genre {
   id: number;
@@ -42,9 +42,19 @@ export default function GenreSectionMovies() {
   }, []);
 
   const { data: genresData, isLoading } = useQuery({
-    queryKey: ["movieGenres"],
-    queryFn: getGenres,
+    queryKey: ["tvGenres"],
+    queryFn: getGenresTv,
   });
+
+  useEffect(() => {
+    if (genresData?.genres) {
+      const totalPages = Math.ceil(genresData.genres.length / items);
+      if (page > totalPages) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setPage(totalPages);
+      }
+    }
+  }, [genresData, items, page])
 
   if (isLoading || !genresData) {
     return <div>Loading genres...</div>;
@@ -55,6 +65,8 @@ export default function GenreSectionMovies() {
   const visibleGenres = mobile 
     ? genresData.genres 
     : genresData.genres.slice(startInx, startInx + items);
+
+  // const showPag = !mobile && total > 1
 
   return (
     <section className={css.section}>
@@ -102,7 +114,7 @@ export default function GenreSectionMovies() {
               genreId={genre.id}
               genreName={genre.name}
               page={1}
-              mediaType={'movie'}
+              mediaType={'tv'}
             />
           ))}
         </div>

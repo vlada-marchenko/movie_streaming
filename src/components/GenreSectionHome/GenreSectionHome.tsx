@@ -106,6 +106,7 @@ export default function GenreSectionHome() {
               genreId={genre.id}
               genreName={genre.name}
               page={1}
+              mediaType={'movie'}
             />
           ))}
         </div>

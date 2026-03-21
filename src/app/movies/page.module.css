@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 390px;
   margin: 0 auto;
@@ -11,6 +12,13 @@
   overflow: hidden;
   margin-top: 20px;
   margin-bottom: 40px;
+}
+
+.page  {
+      display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero {
@@ -118,6 +126,46 @@
 .arrowLeft,
 .arrowRight {
   display: none;
+}
+
+.switch {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px;
+width: 388px;
+height: 61px;
+background: #0F0F0F;
+border: 1px solid #262626;
+border-radius: 8px;
+margin-top: 20px;
+}
+
+.btnn {
+    display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+font-weight: 500;
+font-size: 14px;
+color: #999999;
+background-color: transparent;
+border: none;
+cursor: pointer;
+width: 185px;
+height: 45px;
+}
+
+.btnActive {
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+gap: 10px;
+width: 185px;
+height: 45px;
+background: #1F1F1F;
+border-radius: 6px;
 }
 
 @media (min-width: 768px) {

@@ -11,9 +11,13 @@ import Link from "next/link";
 import Icon from "../../components/Icon/Icon";
 import { useSwipeable } from "react-swipeable";
 import GenreSectionMovies from "@/components/GenreSectionMovies/GenreSectionMovies";
+import GenreSectionShows from "@/components/GenreSectionShows/GenreSectionShows";
+
 
 export default function MoviesPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeTab, setActiveTab] = useState("movies");
+
 
   const { data: moviesData } = useQuery({
     queryKey: ["trendingMovies"],
@@ -75,10 +79,15 @@ export default function MoviesPage() {
     return <div className={css.loading}>Loading...</div>;
   }
 
+  const handleTabSwitch = (tab: string) => {
+    setActiveTab(tab);
+  };
+
+
   const currentItem = slides[currentSlide];
 
   return (
-    <>
+    <div className={css.page}>
     <div className={css.container}>
       <section className={css.hero} {...handlers}>
         <div className={css.bg}>
@@ -129,7 +138,21 @@ export default function MoviesPage() {
         </div>
       </section>
     </div>
-          <GenreSectionMovies />§
-    </>
+          <div className={css.switch}>
+      <button onClick={() => handleTabSwitch('movies')} className={` ${css.btnn} ${activeTab === 'movies' ? css.btnActive : ''}`}>Movies</button>
+      <button onClick={() => handleTabSwitch('shows')} className={` ${css.btnn} ${activeTab === 'shows' ? css.btnActive : ''}`}>Shows</button>
+    </div>
+
+    {activeTab === 'movies' ? (
+      <div className={css.movies}>
+        <GenreSectionMovies />
+      </div>
+    ) : (
+      <div className={css.shows}>
+        <GenreSectionShows />
+      </div>
+    )}
+
+    </div>
   );
 }

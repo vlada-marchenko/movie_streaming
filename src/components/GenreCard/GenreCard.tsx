@@ -5,11 +5,13 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import css from "./GenreCard.module.css";
 import Icon from "@/components/Icon/Icon";
+import { getSeriesByGenre } from "@/lib/series";
 
 interface GenreCardProps {
   genreId: number;
   genreName: string;
   page?: number;
+  mediaType: 'movie' | 'tv';
 }
 
 interface Movie {
@@ -21,12 +23,20 @@ interface Movie {
 export default function GenreCard({
   genreId,
   genreName,
-  page = 1,
+  page,
+  mediaType
 }: GenreCardProps) {
-  const { data, error } = useQuery({
-    queryKey: ["genre-movies", genreId, page],
-    queryFn: () => getMoviesByGenre(genreId, page),
+  const { data, error, isLoading } = useQuery({
+    queryKey: [mediaType === 'movie' ? 'moviesByGenre' : 'tvByGenre', genreId, page],
+    queryFn: () => 
+      mediaType === 'movie'
+        ? getMoviesByGenre(genreId, page)
+        : getSeriesByGenre(genreId, page),
   });
+
+  if (!isLoading && (!data.results || data.results.length === 0)) {
+    return null;
+  }
 
   if (error || !data) {
     return null;
@@ -41,7 +51,7 @@ export default function GenreCard({
           <div key={movie.id} className={css.preview}>
             <Image
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
+              alt={movie.title || 'Preview'}
               className={css.image}
               width={100}
               height={100}
