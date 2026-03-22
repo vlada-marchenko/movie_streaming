@@ -5,6 +5,7 @@ import { getPopularMovies } from "../../lib/movies";
 import { getPopularSeries } from "../../lib/series";
 import { useQuery } from "@tanstack/react-query";
 import css from "./Hero.module.css";
+import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Image from "next/image";
 import Icon from "../Icon/Icon";
 import Link from "next/link";
@@ -66,7 +67,7 @@ export default function Hero() {
   const movies = moviesData?.results || [];
   const tvShows = tvData?.results || [];
 
-  const allContent = [...movies, ...tvShows];
+  const allContent = [...movies, ...tvShows].filter((item) => item.poster_path);
 
   const shuffled = allContent.sort(() => Math.random() - 0.5);
 
@@ -78,7 +79,7 @@ export default function Hero() {
         {gridContent.map((item, index) => (
           <div key={`${item.id}-${index}`} className={css.poster}>
             <Image
-              src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+              src={tmdbPosterSrc(item.poster_path)}
               alt={item.title || item.name}
               className={css.image}
               width={143}

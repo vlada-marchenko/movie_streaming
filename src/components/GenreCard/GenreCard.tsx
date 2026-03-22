@@ -4,6 +4,7 @@ import { getMoviesByGenre } from "@/lib/movies";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import css from "./GenreCard.module.css";
+import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Icon from "@/components/Icon/Icon";
 import { getSeriesByGenre } from "@/lib/series";
 
@@ -42,7 +43,13 @@ export default function GenreCard({
     return null;
   }
 
-  const previewMovies: Movie[] = data.results.slice(0, 4);
+  const previewMovies: Movie[] = data.results
+    .filter((m: Movie) => m.poster_path)
+    .slice(0, 4);
+
+  if (previewMovies.length === 0) {
+    return null;
+  }
 
   return (
     <div className={css.container}>
@@ -50,8 +57,8 @@ export default function GenreCard({
         {previewMovies.map((movie: Movie) => (
           <div key={movie.id} className={css.preview}>
             <Image
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title || 'Preview'}
+              src={tmdbPosterSrc(movie.poster_path)}
+              alt={movie.title || "Preview"}
               className={css.image}
               width={100}
               height={100}

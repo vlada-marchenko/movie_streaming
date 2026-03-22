@@ -13,6 +13,7 @@ import { useSwipeable } from "react-swipeable";
 import GenreSectionMovies from "@/components/GenreSectionMovies/GenreSectionMovies";
 import GenreSectionShows from "@/components/GenreSectionShows/GenreSectionShows";
 import Trending from "@/components/Trending/Trending";
+import { tmdbBackdropSrc } from "@/lib/tmdbImage";
 
 export default function MoviesPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -91,7 +92,10 @@ export default function MoviesPage() {
       <section className={css.hero} {...handlers}>
         <div className={css.bg}>
           <Image
-            src={`https://image.tmdb.org/t/p/original${currentItem.backdrop_path}`}
+            src={tmdbBackdropSrc(
+              currentItem.backdrop_path,
+              currentItem.poster_path
+            )}
             alt={currentItem.title || currentItem.name}
             className={css.bgImage}
             fill

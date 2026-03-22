@@ -5,6 +5,7 @@ import { getTrendingMovies } from "@/lib/movies";
 import { getTrendingSeries } from "@/lib/series";
 import { useQuery } from "@tanstack/react-query";
 import css from "./Trending.module.css";
+import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Image from "next/image";
 import Icon from "../Icon/Icon";
 import { useState } from "react";
@@ -105,7 +106,7 @@ const formatPopularity = (num: number) => {
           <Link href={'/'} key={item.id} className={css.card}>
             <Image
               className={css.img}
-              src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+              src={tmdbPosterSrc(item.poster_path)}
               alt={item.title || item.name}
               width={158}
               height={180}

@@ -5,6 +5,7 @@ import { getPopularMovies } from "../../lib/movies";
 import { getPopularSeries } from "../../lib/series";
 import { useQuery } from "@tanstack/react-query";
 import css from "./Trial.module.css";
+import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Image from "next/image";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -62,7 +63,7 @@ export default function Trial() {
   const movies = moviesData?.results || [];
   const tvShows = tvData?.results || [];
 
-  const allContent = [...movies, ...tvShows];
+  const allContent = [...movies, ...tvShows].filter((item) => item.poster_path);
 
   const shuffled = allContent.sort(() => Math.random() - 0.5);
 
@@ -75,7 +76,7 @@ return (
         {gridContent.map((item, index) => (
           <div key={`${item.id}-${index}`} className={css.gridItem}>
             <Image
-              src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+              src={tmdbPosterSrc(item.poster_path)}
               alt={item.title || item.name || ""}
               fill
               sizes="(max-width: 768px) 50vw, (max-width: 1440px) 20vw, 15vw"
