@@ -9,6 +9,7 @@ import Image from "next/image";
 import Icon from "../Icon/Icon";
 import { useState } from "react";
 import { useEffect } from "react";
+import Link from "next/link";
 
 interface Props {
   type: "movies" | "series";
@@ -50,7 +51,7 @@ export default function Trending({ type }: Props) {
 const formatPopularity = (num: number) => {
   const scaled = Math.floor(num * 100); 
   if (scaled >= 1000000) return (scaled / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-  if (scaled >= 1000) return (scaled / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  if (scaled >= 1000) return (scaled / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
   return scaled.toString();
 };
 
@@ -101,7 +102,7 @@ const formatPopularity = (num: number) => {
       </div>
       <div className={css.grid}>
         {displayData.map((item: any) => (
-          <div key={item.id} className={css.card}>
+          <Link href={'/'} key={item.id} className={css.card}>
             <Image
               className={css.img}
               src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
@@ -116,7 +117,7 @@ const formatPopularity = (num: number) => {
                     <p className={css.text}>{formatPopularity(item.popularity)}</p>
                 </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </div>
