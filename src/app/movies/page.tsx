@@ -12,12 +12,11 @@ import Icon from "../../components/Icon/Icon";
 import { useSwipeable } from "react-swipeable";
 import GenreSectionMovies from "@/components/GenreSectionMovies/GenreSectionMovies";
 import GenreSectionShows from "@/components/GenreSectionShows/GenreSectionShows";
-
+import Trending from "@/components/Trending/Trending";
 
 export default function MoviesPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [activeTab, setActiveTab] = useState("movies");
-
 
   const { data: moviesData } = useQuery({
     queryKey: ["trendingMovies"],
@@ -146,10 +145,12 @@ export default function MoviesPage() {
     {activeTab === 'movies' ? (
       <div className={css.movies}>
         <GenreSectionMovies />
+        <Trending type="movies" />
       </div>
     ) : (
       <div className={css.shows}>
         <GenreSectionShows />
+        <Trending type="series" />
       </div>
     )}
 
