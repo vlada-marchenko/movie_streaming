@@ -4,12 +4,11 @@
   min-height: 90vh;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  margin: 0;
+  margin: -80px 0 0;
   padding: 0;
-  margin-top: -80px;
   z-index: 0;
   background-color: #000000;
 }
@@ -46,7 +45,7 @@
   object-fit: cover;
   opacity: 0.4;
   flex-shrink: 0;
-    animation: fadeIn 0.3s ease-in;
+  animation: fadeIn 0.3s ease-in;
 }
 
 @keyframes fadeIn {
@@ -96,7 +95,7 @@
 .icon {
   margin-bottom: 10px;
   animation: pulse 3s ease-in-out infinite;
-  filter: drop-shadow(0 0 30px rgba(260, 260, 260, 0.9)) blur(0.4px);
+  filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.9)) blur(0.4px);
 }
 
 @keyframes pulse {
@@ -113,7 +112,6 @@
 
 .title {
   font-family: "Manrope";
-  font-style: normal;
   font-weight: 700;
   font-size: 28px;
   text-align: center;
@@ -124,7 +122,6 @@
 
 .text {
   font-family: "Manrope";
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
@@ -135,17 +132,14 @@
 
 .button {
   display: flex;
-  flex-direction: row;
   align-items: center;
   padding: 14px 24px;
   gap: 8px;
-
   width: 209px;
   height: 52px;
   background: #e60000;
   border-radius: 8px;
   font-family: "Manrope";
-  font-style: normal;
   font-weight: 600;
   font-size: 14px;
   line-height: 150%;
@@ -174,12 +168,12 @@
     height: fit-content;
     padding-bottom: 40px;
   }
+
   .grid {
     height: 85%;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(5, 1fr);
     padding: 0 20px;
-    gap: 8px;
   }
 
   .image {
@@ -190,8 +184,6 @@
   .icon {
     margin-bottom: 160px;
     margin-top: 295px;
-    animation: pulse 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 30px rgba(260, 260, 260, 0.9)) blur(0.4px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -211,10 +203,10 @@
     width: 638px;
   }
 
-.iconImage {
-  width: 230px;
-  height: 230px;
-}
+  .iconImage {
+    width: 230px;
+    height: 230px;
+  }
 }
 
 @media (min-width: 1440px) and (max-width: 1919px) {
@@ -233,8 +225,6 @@
   .icon {
     margin-bottom: 160px;
     margin-top: 295px;
-    animation: pulse 3s ease-in-out infinite;
-    filter: drop-shadow(0 0 30px rgba(260, 260, 260, 0.9)) blur(0.4px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -260,15 +250,16 @@
   }
 
   .iconImage {
-  width: 260px;
-  height: 260px;
-}
+    width: 260px;
+    height: 260px;
+  }
 }
 
 @media (min-width: 1920px) {
   .page {
     margin-top: -160px;
   }
+
   .grid {
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(4, 1fr);

@@ -4,14 +4,12 @@
   justify-content: center;
   width: 100%;
   max-width: 375px;
-  margin: 0 auto;
-  margin-bottom: 70px;
+  margin: 0 auto 70px;
   background-color: black;
 }
 
 .title {
   font-family: "Manrope";
-  font-style: normal;
   font-weight: 700;
   font-size: 24px;
   color: #ffffff;
@@ -19,7 +17,6 @@
 
 .text {
   font-family: "Manrope";
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
@@ -73,14 +70,12 @@
 
 .buttons {
   display: flex;
-  flex-direction: row;
   gap: 10px;
   margin-top: 30px;
 }
 
 .trial {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 14px 20px;
@@ -100,7 +95,6 @@
 
 .choose {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 14px 20px;
@@ -130,10 +124,6 @@
     padding: 0 108px;
   }
 
-  .title {
-    font-size: 24px;
-  }
-
   .text {
     font-size: 16px;
     margin-bottom: 40px;
@@ -144,7 +134,6 @@
   }
 
   .plans {
-    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -158,11 +147,12 @@
     max-width: 1920px;
     padding: 0 138px;
   }
+
   .title {
     font-size: 38px;
   }
 
-    .plan {
+  .plan {
     padding: 27px;
   }
 

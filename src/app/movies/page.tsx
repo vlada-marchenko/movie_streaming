@@ -14,6 +14,7 @@ import GenreSectionMovies from "@/components/GenreSectionMovies/GenreSectionMovi
 import GenreSectionShows from "@/components/GenreSectionShows/GenreSectionShows";
 import Trending from "@/components/Trending/Trending";
 import { tmdbBackdropSrc } from "@/lib/tmdbImage";
+import Releases from "@/components/Releases/Releases";
 
 export default function MoviesPage() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -150,11 +151,13 @@ export default function MoviesPage() {
       <div className={css.movies}>
         <GenreSectionMovies />
         <Trending type="movies" />
+        <Releases type="movies" />
       </div>
     ) : (
       <div className={css.shows}>
         <GenreSectionShows />
         <Trending type="series" />
+        <Releases type="series" />
       </div>
     )}
 

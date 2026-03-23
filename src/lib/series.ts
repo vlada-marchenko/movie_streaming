@@ -87,7 +87,7 @@ export async function getTopRatedSeries(page = 1) {
 // Get a list of series that are currently in theatres.
 export async function getNewSeries(page = 1) {
   try {
-    const res = await api.get("/movie/on_the_air", {
+    const res = await api.get("/tv/on_the_air", {
       params: {
         page,
       },

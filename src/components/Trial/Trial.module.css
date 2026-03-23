@@ -14,7 +14,6 @@
 
 .title {
   font-family: "Manrope";
-  font-style: normal;
   font-weight: 700;
   font-size: 24px;
   color: #ffffff;
@@ -25,7 +24,6 @@
 
 .text {
   font-family: "Manrope";
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 21px;
@@ -38,7 +36,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .grid {
@@ -50,7 +48,6 @@
   overflow: hidden;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   z-index: 1;
 }
 
@@ -96,24 +93,17 @@
   padding: 50px 30px;
   gap: 40px;
   isolation: isolate;
-  position: absolute;
+  position: relative;
   max-width: 390px;
   height: 324px;
-  opacity: 1;
   border: 1px solid #262626;
   border-radius: 12px;
-  position: relative;
   z-index: 10;
   overflow: hidden;
 }
 
-.content {
-  align-items: start;
-}
-
 .button {
   display: flex;
-  flex-direction: row;
   justify-content: center;
   align-items: center;
   padding: 14px 20px;
@@ -123,7 +113,7 @@
   font-size: 14px;
   color: #ffffff;
   margin-top: 0;
-  text-wrap: none;
+  white-space: nowrap;
   cursor: pointer;
   border: none;
 }
@@ -138,10 +128,6 @@
     padding: 0;
     align-items: start;
     height: 204px;
-  }
-
-  .content {
-    align-items: flex-start;
   }
 
   .grid {
@@ -181,12 +167,6 @@
     max-width: 1224px;
     padding: 0;
     height: 236px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .title {
-    font-size: 24px;
   }
 
   .text {
@@ -235,6 +215,7 @@
     max-width: 1644px;
     padding: 0;
   }
+
   .title {
     font-size: 38px;
   }

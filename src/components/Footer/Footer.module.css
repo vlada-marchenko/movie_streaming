@@ -22,52 +22,47 @@
 .main {
   display: grid;
   grid-template-columns: 50% 50%;
-  gap: 10px;
-  row-gap: 30px;
+  gap: 30px 10px;
   width: 100%;
 }
 
 .box {
-display: flex;
-flex-direction: column;
-align-items: start;
-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
 }
 
 .title {
-font-family: 'Manrope';
-font-style: normal;
-font-weight: 600;
-font-size: 16px;
-color: #FFFFFF;
-margin-bottom: 7px;
+  font-family: "Manrope";
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+  margin-bottom: 7px;
 }
 
 .item {
-  font-family: 'Manrope';
-font-style: normal;
-font-weight: 500;
-font-size: 16px;
-color: #999999;
+  font-family: "Manrope";
+  font-weight: 500;
+  font-size: 16px;
+  color: #999999;
 }
 
 .icons {
   display: flex;
-  flex-direction: row;
   align-items: center;
   gap: 10px;
 }
 
 .icon {
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-width: 44px;
-height: 44px;
-background: #1A1A1A;
-border: 1px solid #262626;
-border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 6px;
 }
 
 .under {
@@ -75,51 +70,48 @@ border-radius: 6px;
 }
 
 .divider {
-height: 0px;
-border: 1px solid #262626;
-margin-top: 50px;
-width: 100%;
-margin-bottom: 20px;
+  height: 0;
+  border: 1px solid #262626;
+  margin-top: 50px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 .text {
-font-family: 'Manrope';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 150%;
-color: #999999;
+  font-family: "Manrope";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: #999999;
 }
 
 .neath {
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .it {
-  font-family: 'Manrope';
-font-style: normal;
-font-weight: 400;
-font-size: 14px;
-line-height: 150%;
-color: #999999;
+  font-family: "Manrope";
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  color: #999999;
 }
 
 .l {
-color: #262626;
+  color: #262626;
 }
 
-@media screen and (min-width: 375px) {
+@media (min-width: 375px) {
   .content {
     width: 375px;
   }
 }
 
-@media screen and (min-width: 768px) {
+@media (min-width: 768px) {
   .content {
     width: 768px;
     padding: 40px;
@@ -132,7 +124,7 @@ color: #262626;
   }
 }
 
-@media screen and (min-width: 1440px) {
+@media (min-width: 1440px) {
   .content {
     width: 1440px;
     padding: 40px 108px;
@@ -165,7 +157,7 @@ color: #262626;
   }
 }
 
-@media screen and (min-width: 1920px) {
+@media (min-width: 1920px) {
   .content {
     width: 1920px;
     padding: 30px 138px;

@@ -14,7 +14,7 @@
   z-index: 10;
   background-color: #000000;
   width: 100%;
-  padding: 40px 0;
+  padding: 5px;
 }
 
 .top {
@@ -43,18 +43,16 @@
 
 .grid {
   display: flex;
-  flex-direction: row;
   gap: 17px;
   justify-content: space-between;
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0 20px;
+  padding: 5px;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: #e50000 #1a1a1a;
-  padding: 0 20px 15px;
 }
 
 .grid::-webkit-scrollbar {
@@ -83,14 +81,14 @@
 @media (min-width: 768px) {
   .content {
     max-width: 768px;
-    padding: 0 30px;
+    padding: 5px;
   }
 }
 
 @media (min-width: 1440px) {
   .content {
     max-width: 1440px;
-    padding: 0 108px;
+    padding: 20px;
   }
 
   .grid {
@@ -99,7 +97,6 @@
     gap: 20px;
     width: 100%;
     overflow: visible;
-    overflow-x: visible;
     padding: 0;
     scroll-snap-type: none;
   }
@@ -178,27 +175,17 @@
 
   .top {
     display: flex;
-    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     margin-bottom: 40px;
   }
-
-  .title {
-  font-size: 24px;
 }
-
-.text {
-  font-size: 16px;
-}
-}
-
 
 @media (min-width: 1920px) {
   .content {
     max-width: 1920px;
-    padding: 0 138px;
+    padding: 20px;
   }
 
   .title {
