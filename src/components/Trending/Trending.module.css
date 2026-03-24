@@ -125,15 +125,15 @@
 
 @media (min-width: 768px) {
   .content {
-    max-width: 768px;
+    max-width: 708px;
     padding: 5px;
   }
 }
 
 @media (min-width: 1440px) {
   .content {
-    max-width: 1440px;
-    padding: 20px;
+    max-width: 1224px;
+    padding: 0;
   }
 
   .grid {
@@ -229,14 +229,14 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
   }
 }
 
 @media (min-width: 1920px) {
   .content {
-    max-width: 1920px;
-    padding: 20px;
+    max-width: 1664px;
+    padding: 0;
   }
 
   .title {

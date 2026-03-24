@@ -60,7 +60,7 @@ export default function GenreSectionHome() {
     : genresData.genres.slice(startInx, startInx + items);
 
   return (
-    <section className={css.container}>
+    <section className={css.section}>
       <div className={css.content}>
         <div className={css.top}>
           <div>

@@ -75,7 +75,7 @@
 
 @media (min-width: 768px) {
   .content {
-    max-width: 768px;
+    max-width: 708px;
     padding: 5px;
     margin-top: 30px;
   }
@@ -83,14 +83,18 @@
 
 @media (min-width: 1440px) {
   .content {
-    max-width: 1440px;
-    padding: 20px;
+    max-width: 1224px;
+    padding: 0;
+  }
+
+  .title {
+    margin-bottom: 0;
   }
 
   .grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    gap: 15px;
     width: 100%;
     overflow: visible;
     padding: 0;
@@ -174,8 +178,8 @@
 
 @media (min-width: 1920px) {
   .content {
-    max-width: 1920px;
-    padding: 20px;
+    max-width: 1664px;
+    padding: 0;
   }
 
   .grid {
