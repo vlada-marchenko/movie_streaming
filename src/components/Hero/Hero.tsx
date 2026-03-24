@@ -9,24 +9,25 @@ import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Image from "next/image";
 import Icon from "../Icon/Icon";
 import Link from "next/link";
-import { useState } from "react";
 import { useEffect } from "react";
+import { useUiStore } from "@/store/uiStore";
 
 export default function Hero() {
-  const [gridSize, setGridSize] = useState(36);
+  const gridSize = useUiStore((state) => state.heroGridSize);
+  const setHeroGridSize = useUiStore((state) => state.setHeroGridSize);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 375) {
-        setGridSize(9);
+        setHeroGridSize(9);
       } else if (window.innerWidth < 768) {
-        setGridSize(16);
+        setHeroGridSize(16);
       } else if (window.innerWidth < 1440) {
-        setGridSize(30);
+        setHeroGridSize(30);
       } else if (window.innerWidth < 1920) {
-        setGridSize(36);
+        setHeroGridSize(36);
       } else {
-        setGridSize(48);
+        setHeroGridSize(48);
       }
     };
 
@@ -36,7 +37,7 @@ export default function Hero() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [setHeroGridSize]);
 
   const { data: moviesData } = useQuery({
     queryKey: ["popularMovies"],

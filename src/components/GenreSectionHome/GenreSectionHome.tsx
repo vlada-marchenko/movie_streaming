@@ -3,10 +3,10 @@
 import { getGenres } from "@/lib/movies";
 import { useQuery } from "@tanstack/react-query";
 import GenreCard from "../GenreCard/GenreCard";
-import { useState } from "react";
 import { useEffect } from "react";
 import css from "./GenreSectionHome.module.css";
 import Icon from "../Icon/Icon";
+import { useUiStore } from "@/store/uiStore";
 
 interface Genre {
   id: number;
@@ -14,22 +14,25 @@ interface Genre {
 }
 
 export default function GenreSectionHome() {
-  const [page, setPage] = useState(1);
-  const [items, setItems] = useState(2);
-  const [mobile, setMobile] = useState(false);
+  const paginationKey = "genre-home";
+  const page = useUiStore((state) => state.paginations[paginationKey]?.page ?? 1);
+  const items = useUiStore(
+    (state) => state.paginations[paginationKey]?.items ?? 2
+  );
+  const mobile = useUiStore(
+    (state) => state.paginations[paginationKey]?.mobile ?? false
+  );
+  const setPaginationState = useUiStore((state) => state.setPaginationState);
 
 
   useEffect(() => {
     const handleItemsPerPage = () => {
       if (window.innerWidth < 1440) {
-        setItems(2);
-        setMobile(true);
+        setPaginationState(paginationKey, { items: 2, mobile: true, page: 1 });
       } else if (window.innerWidth < 1920) {
-        setItems(5);
-        setMobile(false);
+        setPaginationState(paginationKey, { items: 5, mobile: false });
       } else {
-        setItems(5);
-        setMobile(false);
+        setPaginationState(paginationKey, { items: 5, mobile: false });
       }
     };
 
@@ -39,7 +42,7 @@ export default function GenreSectionHome() {
     return () => {
       window.removeEventListener("resize", handleItemsPerPage);
     };
-  }, []);
+  }, [paginationKey, setPaginationState]);
 
   const { data: genresData, isLoading } = useQuery({
     queryKey: ["genres"],
@@ -72,7 +75,7 @@ export default function GenreSectionHome() {
           <div className={css.pag}>
             <button
               className={css.left}
-              onClick={() => setPage(page - 1)}
+              onClick={() => setPaginationState(paginationKey, { page: page - 1 })}
               disabled={page === 1}
             >
               <Icon name="left" width={22} height={22} />
@@ -82,7 +85,7 @@ export default function GenreSectionHome() {
               {[...Array(total)].map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setPage(i + 1)}
+                  onClick={() => setPaginationState(paginationKey, { page: i + 1 })}
                   className={`${css.dot} ${page === i + 1 ? css.activeDot : ""}`}
                   aria-label={`Go to page ${i + 1}`}
                 />
@@ -91,7 +94,7 @@ export default function GenreSectionHome() {
 
             <button
               className={css.right}
-              onClick={() => setPage(page + 1)}
+              onClick={() => setPaginationState(paginationKey, { page: page + 1 })}
               disabled={page === total}
             >
               <Icon name="right" width={18} height={18} />

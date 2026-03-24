@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTrendingMovies } from "../../lib/movies";
 import { getTrendingSeries } from "../../lib/series";
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useEffect } from "react";
 import css from "./page.module.css";
 import Image from "next/image";
@@ -15,10 +15,13 @@ import GenreSectionShows from "@/components/GenreSectionShows/GenreSectionShows"
 import Trending from "@/components/Trending/Trending";
 import { tmdbBackdropSrc } from "@/lib/tmdbImage";
 import Releases from "@/components/Releases/Releases";
+import { useUiStore } from "@/store/uiStore";
 
 export default function MoviesPage() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [activeTab, setActiveTab] = useState("movies");
+  const currentSlide = useUiStore((state) => state.movieCurrentSlide);
+  const setCurrentSlide = useUiStore((state) => state.setMovieCurrentSlide);
+  const activeTab = useUiStore((state) => state.movieActiveTab);
+  const setActiveTab = useUiStore((state) => state.setMovieActiveTab);
 
   const { data: moviesData } = useQuery({
     queryKey: ["trendingMovies"],
@@ -55,7 +58,14 @@ export default function MoviesPage() {
     }, 10000);
 
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [setCurrentSlide, slides.length]);
+
+  useEffect(() => {
+    if (slides.length === 0) return;
+    if (currentSlide >= slides.length) {
+      setCurrentSlide(0);
+    }
+  }, [currentSlide, setCurrentSlide, slides.length]);
 
   const goToSlide = (index: number) => {
     setCurrentSlide(index);
@@ -80,7 +90,7 @@ export default function MoviesPage() {
     return <div className={css.loading}>Loading...</div>;
   }
 
-  const handleTabSwitch = (tab: string) => {
+  const handleTabSwitch = (tab: "movies" | "shows") => {
     setActiveTab(tab);
   };
 

@@ -4,12 +4,13 @@ import css from "./Header.module.css";
 import Icon from "../../components/Icon/Icon";
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
 import { usePathname } from "next/navigation";
+import { useUiStore } from "@/store/uiStore";
 
 export default function Header() {
-  const [openMenu, setOpenMenu] = useState(false);
-  const toggleMenu = () => setOpenMenu(!openMenu);
+  const openMenu = useUiStore((state) => state.headerMenuOpen);
+  const toggleHeaderMenu = useUiStore((state) => state.toggleHeaderMenu);
+  const toggleMenu = () => toggleHeaderMenu();
   const pathname = usePathname();
 
   const activeClass = (path: string) => (pathname === path ? css.active : "");
@@ -51,7 +52,7 @@ export default function Header() {
           </div>
         </nav>
         <div className={css.empty}></div>
-        <button className={css.burger} onClick={() => setOpenMenu(!openMenu)}>
+        <button className={css.burger} onClick={toggleMenu}>
           <Icon name="menu" width={32} height={32} className={css.menu} />
         </button>
         {openMenu && (

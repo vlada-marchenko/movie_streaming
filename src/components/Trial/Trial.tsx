@@ -7,22 +7,23 @@ import { useQuery } from "@tanstack/react-query";
 import css from "./Trial.module.css";
 import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Image from "next/image";
-import { useState } from "react";
 import { useEffect } from "react";
+import { useUiStore } from "@/store/uiStore";
 
 export default function Trial() {
-  const [gridSize, setGridSize] = useState(36);
+  const gridSize = useUiStore((state) => state.trialGridSize);
+  const setTrialGridSize = useUiStore((state) => state.setTrialGridSize);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        setGridSize(6);
+        setTrialGridSize(6);
       } else if (window.innerWidth < 1440) {
-        setGridSize(12);
+        setTrialGridSize(12);
       } else if (window.innerWidth < 1920) {
-        setGridSize(27);
+        setTrialGridSize(27);
       } else {
-        setGridSize(48);
+        setTrialGridSize(48);
       }
     };
 
@@ -32,7 +33,7 @@ export default function Trial() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [setTrialGridSize]);
 
   const { data: moviesData } = useQuery({
     queryKey: ["popularMovies"],

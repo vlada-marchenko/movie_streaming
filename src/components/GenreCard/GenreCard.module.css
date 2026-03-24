@@ -112,18 +112,18 @@
 
 @media (min-width: 1920px) {
   .container {
-    width: 295px;
-    height: 330px;
-    padding: 32px;
+    width: 228px;
+    height: 252px;
+    padding: 30px;
   }
 
   .preview {
-    width: 105px;
-    height: 123px;
+    width: 73px;
+    height: 88px;
   }
 
   .text {
-    font-size: 18px;
-    max-width: 180px;
+    font-size: 16px;
+    max-width: 140px;
   }
 }

@@ -8,30 +8,33 @@ import css from "./Trending.module.css";
 import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Image from "next/image";
 import Icon from "../Icon/Icon";
-import { useState } from "react";
 import { useEffect } from "react";
 import Link from "next/link";
+import { useUiStore } from "@/store/uiStore";
 
 interface Props {
   type: "movies" | "series";
 }
 
 export default function Trending({ type }: Props) {
-  const [mobile, setMobile] = useState(false);
-  const [page, setPage] = useState(1);
-  const [items, setItems] = useState(2);
+  const paginationKey = `trending-${type}`;
+  const mobile = useUiStore(
+    (state) => state.paginations[paginationKey]?.mobile ?? false
+  );
+  const page = useUiStore((state) => state.paginations[paginationKey]?.page ?? 1);
+  const items = useUiStore(
+    (state) => state.paginations[paginationKey]?.items ?? 2
+  );
+  const setPaginationState = useUiStore((state) => state.setPaginationState);
 
   useEffect(() => {
     const handleItemsPerPage = () => {
       if (window.innerWidth < 1440) {
-        setItems(2);
-        setMobile(true);
+        setPaginationState(paginationKey, { items: 2, mobile: true, page: 1 });
       } else if (window.innerWidth < 1920) {
-        setItems(5);
-        setMobile(false);
+        setPaginationState(paginationKey, { items: 5, mobile: false });
       } else {
-        setItems(5);
-        setMobile(false);
+        setPaginationState(paginationKey, { items: 5, mobile: false });
       }
     };
 
@@ -41,7 +44,7 @@ export default function Trending({ type }: Props) {
     return () => {
       window.removeEventListener("resize", handleItemsPerPage);
     };
-  }, []);
+  }, [paginationKey, setPaginationState]);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["trending", type],
@@ -74,7 +77,7 @@ const formatPopularity = (num: number) => {
           <div className={css.pag}>
             <button
               className={css.left}
-              onClick={() => setPage(page - 1)}
+              onClick={() => setPaginationState(paginationKey, { page: page - 1 })}
               disabled={page === 1}
             >
               <Icon name="left" width={22} height={22} />
@@ -84,7 +87,7 @@ const formatPopularity = (num: number) => {
               {[...Array(total)].map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setPage(i + 1)}
+                  onClick={() => setPaginationState(paginationKey, { page: i + 1 })}
                   className={`${css.dot} ${page === i + 1 ? css.activeDot : ""}`}
                   aria-label={`Go to page ${i + 1}`}
                 />
@@ -93,7 +96,7 @@ const formatPopularity = (num: number) => {
 
             <button
               className={css.right}
-              onClick={() => setPage(page + 1)}
+              onClick={() => setPaginationState(paginationKey, { page: page + 1 })}
               disabled={page === total}
             >
               <Icon name="right" width={18} height={18} />
