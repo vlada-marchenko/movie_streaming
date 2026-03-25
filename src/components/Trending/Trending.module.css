@@ -126,12 +126,12 @@
 @media (min-width: 768px) {
   .content {
     max-width: 708px;
-    padding: 5px;
   }
 }
 
 @media (min-width: 1440px) {
   .content {
+    width: 100%;
     max-width: 1224px;
     padding: 0;
   }
@@ -139,7 +139,7 @@
   .grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    gap: 25px;
     width: 100%;
     overflow: visible;
     padding: 0;
@@ -234,27 +234,31 @@
 }
 
 @media (min-width: 1920px) {
-  .content {
-    max-width: 1664px;
-    padding: 0;
-  }
+    .content {
+        max-width: 1644px;
+        padding: 0;
+    }
 
-  .title {
-    font-size: 38px;
-  }
+   .grid {
+    gap: 28px;
+   }
 
-  .name {
-    font-size: 18px;
-  }
+    .title {
+        font-size: 38px;
+    }
 
-  .card {
-    padding: 20px;
-    width: 293px;
-    height: 387px;
-  }
+    .name {
+        font-size: 18px;
+    }
 
-  .img {
-    width: 252px;
-    height: 290px;
-  }
+    .card {
+        padding: 25px;
+        width: 306px;
+        height: 398px;
+    }
+
+    .img {
+        width: 252px;
+        height: 290px;
+    }
 }

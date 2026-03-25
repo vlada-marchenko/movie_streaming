@@ -13,6 +13,10 @@ export default function Header() {
   const toggleMenu = () => toggleHeaderMenu();
   const pathname = usePathname();
 
+  const closeMenu = () => {
+  if (openMenu) toggleHeaderMenu();
+};
+
   const activeClass = (path: string) => (pathname === path ? css.active : "");
   const activeMobClass = (path: string) =>
     pathname === path ? css.activeMob : "";
@@ -57,33 +61,33 @@ export default function Header() {
         </button>
         {openMenu && (
           <div className={css.backdrop} onClick={toggleMenu}>
-            <nav className={css.navMob}>
+            <nav className={css.navMob} onClick={(e) => e.stopPropagation()}>
               <div className={css.cont}>
                 <Link
                   href="/"
                   className={`${css.navLinkMob} ${activeMobClass("/")}`}
-                  onClick={toggleMenu}
+                  onClick={closeMenu}
                 >
                   Home
                 </Link>
                 <Link
                   href="/movies"
                   className={`${css.navLinkMob} ${activeMobClass("/movies")}`}
-                  onClick={toggleMenu}
+                  onClick={closeMenu}
                 >
                   Movies&Shows
                 </Link>
                 <Link
                   href="/support"
                   className={`${css.navLinkMob} ${activeMobClass("/support")}`}
-                  onClick={toggleMenu}
+                  onClick={closeMenu}
                 >
                   Support
                 </Link>
                 <Link
                   href="/subscriptions"
                   className={`${css.navLinkMob} ${activeMobClass("/subscriptions")}`}
-                  onClick={toggleMenu}
+                  onClick={closeMenu}
                 >
                   Subscriptions
                 </Link>

@@ -112,19 +112,19 @@
 
 @media (min-width: 1920px) {
   .container {
-    width: 276px;
-    height: 342px;
-    padding: 25px;
+    width: 312px;
+    height: 362px;
+    padding: 32px;
   }
 
   .preview {
-    width: 105px;
-    height: 123px;
+    width: 115px;
+    height: 133px;
   }
 
   .text {
-    font-size: 20px;
+    font-size: 22px;
     max-width: 180px;
-    margin-top: 15px;
+    margin-top: 8px;
   }
 }
