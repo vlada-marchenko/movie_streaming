@@ -16,6 +16,7 @@ import Trending from "@/components/Trending/Trending";
 import { tmdbBackdropSrc } from "@/lib/tmdbImage";
 import Releases from "@/components/Releases/Releases";
 import { useUiStore } from "@/store/uiStore";
+import MustWatch from "@/components/MustWatch/MustWatch";
 
 export default function MoviesPage() {
   const currentSlide = useUiStore((state) => state.movieCurrentSlide);
@@ -162,12 +163,14 @@ export default function MoviesPage() {
         <GenreSectionMovies />
         <Trending type="movies" />
         <Releases type="movies" />
+        <MustWatch type="movies" />
       </div>
     ) : (
       <div className={css.shows}>
         <GenreSectionShows />
         <Trending type="series" />
         <Releases type="series" />
+        <MustWatch type="series" />
       </div>
     )}
 
