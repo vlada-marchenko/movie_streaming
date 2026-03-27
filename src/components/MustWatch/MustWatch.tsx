@@ -11,7 +11,6 @@ import Icon from "../Icon/Icon";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useUiStore } from "@/store/uiStore";
-import { start } from "repl";
 
 interface Props {
   type: "movies" | "series";
@@ -56,20 +55,33 @@ export default function MustWatch({ type }: Props) {
   });
 
   const formatVoteCount = (num: number) => {
-  const scaled = Math.floor(num * 100); 
-  if (scaled >= 1000000) return (scaled / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-  if (scaled >= 1000) return (scaled / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
-  return scaled.toString();
+    const scaled = Math.floor(num * 100);
+    if (scaled >= 1000000)
+      return (scaled / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    if (scaled >= 1000)
+      return (scaled / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+    return scaled.toString();
   };
 
-  const total = data ? Math.ceil(data.results.length / items) : 0;
+  const getStarFill = (index: number, rating: number) => {
+    const stars = rating / 2;
+    if (index < Math.floor(stars)) return "full";
+    if (index < stars) return "half";
+    return "empty";
+  };
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading trending {type}</div>;
 
+  const filteredResults = data.results.filter(
+    (item: any) => item.vote_count > 0,
+  );
+
   const displayData = mobile
-    ? data.results
-    : data.results.slice((page - 1) * items, page * items);
+    ? filteredResults
+    : filteredResults.slice((page - 1) * items, page * items);
+
+  const total = data ? Math.ceil(filteredResults.length / items) : 0;
 
   return (
     <section className={css.container}>
@@ -127,19 +139,31 @@ export default function MustWatch({ type }: Props) {
                 <p className={css.name}>{item.title || item.name}</p>
                 <div className={css.rating}>
                   <div className={css.stars}>
-                    {[...Array(5)].map((_, i) => (
-                      <Icon
-                        key={i}
-                        name="star"
-                        width={14}
-                        height={14}
-                        className={
-                          i < Math.round(item.vote_average / 2)
-                            ? css.starFilled
-                            : css.starEmpty
-                        }
-                      />
-                    ))}
+                    {[...Array(5)].map((_, i) => {
+                      const fillType = getStarFill(i, item.vote_average);
+                      return (
+                        <span key={i} className={css.starWrapper}>
+                          <Icon
+                            name="star"
+                            width={14}
+                            height={14}
+                            className={css.starEmpty}
+                          />
+                          {fillType !== "empty" && (
+                            <Icon
+                              name="star"
+                              width={14}
+                              height={14}
+                              className={
+                                fillType === "half"
+                                  ? css.starHalf
+                                  : css.starFull
+                              }
+                            />
+                          )}
+                        </span>
+                      );
+                    })}
                   </div>
                   <span className={css.text}>
                     {formatVoteCount(item.vote_count)}

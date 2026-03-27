@@ -151,7 +151,23 @@ stroke: #999999;
 color: #999999;
 }
 
+.starWrapper {
+  position: relative;
+  display: inline-block;
+  line-height: 0;
+}
 
+.starFull, .starHalf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  stroke: #E60000;
+  color: #E60000;
+}
+
+.starHalf {
+  clip-path: inset(0 50% 0 0); /* Show only left half */
+}
 
 @media (min-width: 768px) {
   .content {
