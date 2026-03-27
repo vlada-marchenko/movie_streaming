@@ -123,6 +123,36 @@
   color: #999999;
 }
 
+.rating {
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 6px 8px;
+gap: 4px;
+height: 30px;
+background: #141414;
+border: 1px solid #262626;
+border-radius: 51px;
+}
+
+.stars {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+
+.starFilled {
+stroke: #E60000;
+color: #E60000;
+}
+
+.starEmpty {
+stroke: #999999;
+color: #999999;
+}
+
+
+
 @media (min-width: 768px) {
   .content {
     max-width: 708px;
