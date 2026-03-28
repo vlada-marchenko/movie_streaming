@@ -106,7 +106,7 @@ const formatPopularity = (num: number) => {
       </div>
       <div className={css.grid}>
         {displayData.map((item: any) => (
-          <Link href={'/'} key={item.id} className={css.card}>
+          <Link href={`/movies/${item.id}?type=${type === 'movies' ? 'movies' : 'series'}`} key={item.id} className={css.card}>
             <Image
               className={css.img}
               src={tmdbPosterSrc(item.poster_path)}

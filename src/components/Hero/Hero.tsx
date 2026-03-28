@@ -105,7 +105,7 @@ export default function Hero() {
           movies and shows on demand, anytime, anywhere.
         </p>
 
-        <Link href="/" className={css.button}>
+        <Link href={`/movies`} className={css.button}>
           <Icon name="now" width={20} height={20} />
           Start Watching Now
         </Link>

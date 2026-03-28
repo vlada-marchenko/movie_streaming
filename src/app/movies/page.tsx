@@ -119,7 +119,7 @@ export default function MoviesPage() {
           <h1 className={css.title}>{currentItem.title || currentItem.name}</h1>
           <p className={css.text}>{currentItem.overview}</p>
 
-          <Link href="" className={css.btn}>
+          <Link href={`/movies/${currentItem.id}`} className={css.btn}>
             <Icon name="now" width={24} height={24} />
             Play Now
           </Link>
