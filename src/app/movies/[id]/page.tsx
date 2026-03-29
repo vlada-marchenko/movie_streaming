@@ -4,6 +4,7 @@ import { getMovieDetails } from "@/lib/movies";
 import { useParams, useSearchParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getSeriesDetails } from "@/lib/series";
+import MoviePage from "@/components/MoviePage/MoviePage";
 
 export default function MovieDetailPage() {
   const params = useParams();
@@ -28,7 +29,7 @@ export default function MovieDetailPage() {
 
   return (
     <div>
-      <h1>{type === 'movies' ? 'Movie' : 'Show'}</h1>
+      <h1>{type === 'movies' ? <MoviePage /> : 'Show'}</h1>
       <h2>{data.title || data.name}</h2>
       <p>{data.overview}</p>
     </div>

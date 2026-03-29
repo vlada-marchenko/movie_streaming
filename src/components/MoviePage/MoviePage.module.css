@@ -1,0 +1,162 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 375px;
+  margin: 20px auto 40px;
+  background-color: black;
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero {
+  position: relative;
+  touch-action: pan-y;
+  user-select: none;
+  width: 375px;
+  height: 468px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: end;
+}
+
+.title {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  color: #ffffff;
+  width: 250px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.text {
+  display: none;
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  max-width: 1200px;
+  padding: 0 80px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.bgImage {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  width: 375px;
+  height: 468px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 20px;
+  width: 310px;
+  height: 52px;
+  gap: 4px;
+  background: #e60000;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #ffffff;
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 708px;
+    padding: 0;
+    height: 420px;
+  }
+
+  .hero {
+    width: 708px;
+    height: 420px;
+    padding: 20px;
+  }
+
+  .overlay {
+    height: 420px;
+  }
+
+  .content {
+    padding: 0 40px;
+    margin-top: -180px;
+    gap: 10px;
+  }
+
+  .title {
+    width: auto;
+    text-align: left;
+    margin: 0;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1224px;
+    padding: 0;
+    height: 759px;
+  }
+
+  .content {
+    width: 100%;
+    padding: 0;
+  }
+
+  .hero {
+    width: 1224px;
+    height: 759px;
+    padding: 60px;
+  }
+
+  .pag {
+    margin-top: 30px;
+  }
+
+  .overlay {
+    height: 759px;
+  }
+}
+
+
+@media (min-width: 1920px) {
+  .container {
+    max-width: 1644px;
+    height: 835px;
+    padding: 0;
+  }
+
+  .hero {
+    width: 1644px;
+    height: 835px;
+    padding: 60px;
+  }
+
+  .overlay {
+    height: 835px;
+  }
+
+  .title {
+    font-size: 38px;
+  }}
