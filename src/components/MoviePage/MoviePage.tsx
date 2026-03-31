@@ -5,6 +5,7 @@ import { getMovieDetails } from "@/lib/movies";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { tmdbBackdropSrc } from "@/lib/tmdbImage";
+import ItemContent from "@/components/ItemContent/ItemContent";
 
 export default function MoviePage() {
   const params = useParams();
@@ -39,7 +40,7 @@ export default function MoviePage() {
               currentItem.backdrop_path,
               currentItem.poster_path,
             )}
-            alt={currentItem.title || currentItem.name}
+            alt={currentItem.title}
             className={css.bgImage}
             fill
           />
@@ -47,8 +48,7 @@ export default function MoviePage() {
         </div>
 
         <div className={css.content}>
-          <h1 className={css.title}>{currentItem.title || currentItem.name}</h1>
-          <p className={css.text}>{currentItem.overview}</p>
+          <h1 className={css.title}>{currentItem.title}</h1>
 
           <button className={css.btn}>
             <Icon name="now" width={24} height={24} />
@@ -56,6 +56,7 @@ export default function MoviePage() {
           </button>
         </div>
       </section>
+     <ItemContent />
     </div>
   );
 }

@@ -30,8 +30,6 @@ export default function MovieDetailPage() {
   return (
     <div>
       <h1>{type === 'movies' ? <MoviePage /> : 'Show'}</h1>
-      <h2>{data.title || data.name}</h2>
-      <p>{data.overview}</p>
     </div>
   );
 }
