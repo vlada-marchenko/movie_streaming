@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import css from "./ItemContent.module.css";
 import Icon from "@/components/Icon/Icon";
 import { getMovieDetails } from "@/lib/movies";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
 
 export default function ItemContent() {
   const params = useParams();
@@ -103,6 +105,9 @@ export default function ItemContent() {
                 <span className={css.title}>
                     <Icon name="time" width={24} height={24} />
                     Genres
+                </span>
+                <span className={css.value}>
+                    {currentItem.genres.map((genre: any) => genre.name).join(", ")}
                 </span>
             </div>
           </div>
