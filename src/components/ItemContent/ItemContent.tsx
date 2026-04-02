@@ -4,7 +4,6 @@ import Icon from "@/components/Icon/Icon";
 import { getMovieDetails } from "@/lib/movies";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import Image from "next/image";
 
 export default function ItemContent() {
   const params = useParams();
@@ -44,14 +43,14 @@ export default function ItemContent() {
   return (
     <div className={css.container}>
       <section className={css.contentSection}>
-        <div className={css.description}>
+        <div className={css.details}>
           <span className={css.title}>Description</span>
-          <p>{currentItem.overview}</p>
+          <p className={css.value}>{currentItem.overview}</p>
         </div>
         <div className={css.details}>
           <div className={css.detail}>
             <span className={css.title}>
-              <Icon name="date" width={24} height={24} />
+              <Icon name="date" width={20} height={20} />
               Realeased Year
             </span>
             <span className={css.value}>
@@ -60,7 +59,7 @@ export default function ItemContent() {
           </div>
           <div className={css.detail}>
             <span className={css.title}>
-              <Icon name="lang" width={24} height={24} />
+              <Icon name="lang" width={20} height={20} />
               Language
             </span>
             <div className={css.cont}>
@@ -69,7 +68,7 @@ export default function ItemContent() {
           </div>
           <div className={css.detail}>
             <span className={css.title}>
-              <Icon name="star" width={24} height={24} />
+              <Icon name="star" width={20} height={20} />
               Rating
             </span>
             <div className={css.cont}>
@@ -101,14 +100,18 @@ export default function ItemContent() {
                 </div>
               </span>
             </div>
-            <div className={css.cont}>
-                <span className={css.title}>
-                    <Icon name="time" width={24} height={24} />
-                    Genres
-                </span>
-                <span className={css.value}>
-                    {currentItem.genres.map((genre: any) => genre.name).join(", ")}
-                </span>
+          </div>
+          <div className={css.detail}>
+            <span className={css.title}>
+              <Icon name="genres" width={20} height={20} />
+              Genres
+            </span>
+            <div className={css.genres}>
+              {currentItem.genres.map((genre: any) => (
+                <div key={genre.id} className={css.cont}>
+                  <span className={css.value}>{genre.name}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

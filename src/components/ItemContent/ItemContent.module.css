@@ -5,13 +5,13 @@
 }
 
 .starFilled {
-stroke: #E60000;
-color: #E60000;
+  stroke: #e60000;
+  color: #e60000;
 }
 
 .starEmpty {
-stroke: #999999;
-color: #999999;
+  stroke: #999999;
+  color: #999999;
 }
 
 .starWrapper {
@@ -20,15 +20,74 @@ color: #999999;
   line-height: 0;
 }
 
-.starFull, .starHalf {
+.starFull,
+.starHalf {
   position: absolute;
   top: 0;
   left: 0;
-  stroke: #E60000;
-  color: #E60000;
+  stroke: #e60000;
+  color: #e60000;
 }
 
 .starHalf {
-  clip-path: inset(0 50% 0 0); 
+  clip-path: inset(0 50% 0 0);
 }
 
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 4px;
+
+  font-weight: 500;
+  font-size: 14px;
+  color: #999999;
+}
+
+.value {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 15px;
+  width: 100%;
+  height: fit-content;
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  margin-top: 40px;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.cont {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 6px 12px;
+  gap: 10px;
+  background: #141414;
+  border: 1px solid #262626;
+  border-radius: 6px;
+}
+
+.genres {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  flex-wrap: wrap; /* ✅ Allow wrapping to next line */
+  gap: 8px;
+}
