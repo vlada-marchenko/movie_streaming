@@ -150,6 +150,16 @@
   height: 45px;
 }
 
+.btn:hover {
+  background-color: #b20710;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
 .btnActive {
   gap: 10px;
   background: #1f1f1f;

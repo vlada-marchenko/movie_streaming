@@ -43,7 +43,7 @@ export default function ItemContent() {
   return (
     <div className={css.container}>
       <section className={css.contentSection}>
-        <div className={css.details}>
+        <div className={css.details + " " + css.overview}>
           <span className={css.title}>Description</span>
           <p className={css.value}>{currentItem.overview}</p>
         </div>

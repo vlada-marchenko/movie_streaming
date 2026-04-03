@@ -4,6 +4,10 @@
   gap: 2px;
 }
 
+.contentSection {
+  margin-top: 60px;
+}
+
 .starFilled {
   stroke: #e60000;
   color: #e60000;
@@ -90,4 +94,21 @@
   align-items: flex-start;
   flex-wrap: wrap; /* ✅ Allow wrapping to next line */
   gap: 8px;
+}
+
+@media (min-width: 1440px) {
+.contentSection {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.details {
+  width: 415px;
+}
+
+.overview {
+  width: 100%;
+}
 }
