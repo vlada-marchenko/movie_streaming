@@ -4,8 +4,15 @@ import Icon from "@/components/Icon/Icon";
 import { getMovieDetails } from "@/lib/movies";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
+import { getMovieCredits } from "@/lib/movies";
+import { getSeriesCredits } from "@/lib/series";
 
-export default function ItemContent() {
+interface Props {
+  type: "movie" | "series";
+  data: any
+}
+
+export default function ItemContent({ type, data }: Props) {
   const params = useParams();
   const id = params.id ? Number(params.id) : undefined;
 
@@ -40,6 +47,10 @@ export default function ItemContent() {
 
   const currentItem = moviesData;
 
+    const releaseYear = type === "movie" 
+    ? currentItem.release_date?.slice(0, 4) 
+    : currentItem.first_air_date?.slice(0, 4);
+
   return (
     <div className={css.container}>
       <section className={css.contentSection}>
@@ -54,7 +65,7 @@ export default function ItemContent() {
               Realeased Year
             </span>
             <span className={css.value}>
-              {currentItem.release_date.slice(0, 4)}
+              {releaseYear || "N/A"}
             </span>
           </div>
           <div className={css.detail}>
@@ -63,7 +74,7 @@ export default function ItemContent() {
               Language
             </span>
             <div className={css.cont}>
-              <span className={css.value}>{currentItem.original_language}</span>
+              <span className={css.value}>{currentItem.original_language?.toUpperCase()}</span>
             </div>
           </div>
           <div className={css.detail}>
@@ -107,7 +118,7 @@ export default function ItemContent() {
               Genres
             </span>
             <div className={css.genres}>
-              {currentItem.genres.map((genre: any) => (
+              {currentItem.genres?.map((genre: any) => (
                 <div key={genre.id} className={css.cont}>
                   <span className={css.value}>{genre.name}</span>
                 </div>
