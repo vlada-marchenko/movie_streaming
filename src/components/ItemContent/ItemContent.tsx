@@ -6,6 +6,9 @@ import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getMovieCredits } from "@/lib/movies";
 import { getSeriesCredits } from "@/lib/series";
+import Image from "next/image";
+import { tmdbPosterSrc } from "@/lib/tmdbImage";
+
 
 interface Props {
   type: "movie" | "series";
@@ -13,29 +16,16 @@ interface Props {
 }
 
 export default function ItemContent({ type, data }: Props) {
-  const params = useParams();
-  const id = params.id ? Number(params.id) : undefined;
+  const id = data?.id;
 
-  const {
-    data: moviesData,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["movieDetails", id],
-    queryFn: () => id && getMovieDetails(id),
+  const { data: creditsData } = useQuery({
+    queryKey: [type === "movie" ? "movieCredits" : "seriesCredits", id],
+    queryFn: () => type === "movie" ? getMovieCredits(id) : getSeriesCredits(id),
     enabled: !!id,
   });
 
-  if (isLoading) {
+  if (!data) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error loading movie details</div>;
-  }
-
-  if (!moviesData) {
-    return <div>No movie found</div>;
   }
 
   const getStarFill = (index: number, rating: number) => {
@@ -45,7 +35,7 @@ export default function ItemContent({ type, data }: Props) {
     return "empty";
   };
 
-  const currentItem = moviesData;
+  const currentItem = data;
 
     const releaseYear = type === "movie" 
     ? currentItem.release_date?.slice(0, 4) 
@@ -125,6 +115,34 @@ export default function ItemContent({ type, data }: Props) {
               ))}
             </div>
           </div>
+        </div>
+        <div className={css.cast}>
+          <span className={css.title}>
+            Cast
+          </span>
+          <div className={css.castGrid}>
+            {creditsData?.cast.filter((person: any) => person.known_for_department === "Acting").slice(0, 4).map((person: any) => (
+              <div key={person.id} className={css.castCard}>
+                {person.profile_path && (
+                  <Image
+                    src={tmdbPosterSrc(person.profile_path)}
+                    alt={person.name}
+                    width={100}
+                    height={150}
+                    className={css.castImage}
+                  />
+                )}
+                <p className={css.castName}>{person.name}</p>
+                <p className={css.castCharacter}>{person.character}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={css.reviews}>
+          <span className={css.title}>
+            Reviews
+            </span>
+            <div className={css.review}></div>
         </div>
       </section>
     </div>

@@ -38,7 +38,7 @@ export default function MoviePage({ data }: Props) {
           </button>
         </div>
       </section>
-     <ItemContent />
+     <ItemContent type="movie" data={currentItem} />
     </div>
   );
 }
