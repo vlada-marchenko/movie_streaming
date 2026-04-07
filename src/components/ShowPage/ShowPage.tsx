@@ -37,7 +37,7 @@ export default function ShowPage({ data }: Props) {
           </button>
         </div>
       </section>
-     <ItemContent />
+     <ItemContent type="series" data={currentItem} />
     </div>
   );
 }

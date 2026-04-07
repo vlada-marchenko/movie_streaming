@@ -56,6 +56,20 @@
   color: #ffffff;
 }
 
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 15px;
+  width: 100%;
+  height: fit-content;
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  margin-top: 40px;
+}
+
 .details {
   display: flex;
   flex-direction: column;
@@ -92,23 +106,271 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  flex-wrap: wrap; /* ✅ Allow wrapping to next line */
+  flex-wrap: wrap;
   gap: 8px;
 }
 
-@media (min-width: 1440px) {
-.contentSection {
+.cast {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: flex-start;
-  gap: 40px;
+  padding: 24px;
+  gap: 15px;
+  width: 100%;
+  height: fit-content;
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  margin-top: 40px;
 }
 
-.details {
-  width: 415px;
+.castImage {
+  border-radius: 10px;
+  object-fit: cover;
 }
 
-.overview {
+.castGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
   width: 100%;
 }
+
+.castCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+  gap: 15px;
+  width: 100%;
+  height: fit-content;
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  margin-top: 40px;
+}
+
+.castHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.pagination {
+  display: flex;
+  gap: 10px;
+}
+
+.paginationBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.paginationBtn:hover:not(:disabled) {
+  background: #262626;
+  border-color: #e60000;
+}
+
+.paginationBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.description {
+  order: 1;
+}
+.details {
+  order: 2;
+}
+.cast {
+  order: 3;
+}
+.reviews {
+  order: 4;
+}
+
+.reviewCard {
+display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 30px; 
+  gap: 16px;
+  background: #0f0f0f;
+  border: 1px solid #262626;
+  border-radius: 12px;
+  width: 100%; 
+  box-sizing: border-box;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.name {
+font-weight: 500;
+font-size: 16px;
+line-height: 30px;
+color: #FFFFFF;
+}
+
+.reviewDate {
+font-weight: 500;
+font-size: 14px;
+color: #999999;
+}
+
+.reviewContent {
+  font-weight: 400;
+  font-size: 16px; 
+  line-height: 1.5;
+  color: #999999;
+  word-break: break-word;
+}
+
+.reviewBody {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.readMoreWrapper {
+  display: flex;
+  justify-content: flex-start; 
+  width: 100%;
+  margin-top: 10px;
+}
+
+.readMoreBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  color: #FFFFFF; 
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.readMoreBtn:hover {
+  text-decoration: underline;
+}
+
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .castGrid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    width: 100%;
+  }
+
+  .castImage {
+    width: 100px;
+    height: 110px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .contentSection {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    grid-template-areas:
+      "description sidebar"
+      "cast        sidebar"
+      "reviews     sidebar";
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .description {
+    grid-area: description;
+  }
+  .cast {
+    grid-area: cast;
+  }
+  .reviews {
+    grid-area: reviews;
+  }
+  .details {
+    grid-area: sidebar;
+    position: sticky;
+    top: 20px;
+  }
+
+  .castImage {
+    width: 130px;
+    height: 140px;
+  }
+
+  .cast {
+    margin-top: 0;
+  }
+
+  .details {
+    width: 280px;
+  }
+
+  .reviews {
+    margin-top: 0;
+  }
+
+  .overview {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1920px) {
+  .contentSection {
+    max-width: 1664px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .castGrid {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 10px;
+    width: 100%;
+  }
+
+  .contentSection {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    grid-template-areas:
+      "description sidebar"
+      "cast        sidebar"
+      "reviews     sidebar";
+    gap: 40px;
+    align-items: flex-start;
+  }
+
+  .details {
+    width: 350px;
+  }
 }

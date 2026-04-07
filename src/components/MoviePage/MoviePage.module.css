@@ -129,14 +129,14 @@
     width: 708px;
     height: 420px;
     padding: 20px;
-    justify-content: flex-end; 
-    align-items: center; 
+    justify-content: flex-end;
+    align-items: center;
   }
 
   .bgImage {
-  width: 708px;
-  height: 420px;
-}
+    width: 708px;
+    height: 420px;
+  }
 
   .content {
     align-items: center;
@@ -149,7 +149,6 @@
     text-align: left;
     margin: 0;
   }
-
 }
 
 @media (min-width: 1440px) {
@@ -165,10 +164,10 @@
     padding: 0;
   }
 
-    .bgImage {
-  width: 1224px;
-  height: 759px;
-}
+  .bgImage {
+    width: 1224px;
+    height: 759px;
+  }
 
   .hero {
     width: 1224px;
@@ -185,12 +184,12 @@
   }
 }
 
-
 @media (min-width: 1920px) {
-  .container {
+.container {
     max-width: 1644px;
-    height: 835px;
-    padding: 0;
+    height: auto;     
+    display: flex;
+    flex-direction: column;
   }
 
   .hero {
@@ -199,10 +198,10 @@
     padding: 60px;
   }
 
-      .bgImage {
-  width: 1644px;
-  height: 835px;
-}
+  .bgImage {
+    width: 1644px;
+    height: 835px;
+  }
 
   .overlay {
     height: 835px;
@@ -210,4 +209,5 @@
 
   .title {
     font-size: 38px;
-  }}
+  }
+}
