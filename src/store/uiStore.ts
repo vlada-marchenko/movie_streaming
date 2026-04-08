@@ -15,6 +15,8 @@ interface UiState {
   heroGridSize: number;
   trialGridSize: number;
   paginations: Record<string, PaginationState>;
+  expandedReviews: Record<string, boolean>; 
+  setExpandedReview: (id: string, expanded: boolean) => void;
   setHeaderMenuOpen: (open: boolean) => void;
   toggleHeaderMenu: () => void;
   setMovieCurrentSlide: (
@@ -39,6 +41,11 @@ export const useUiStore = create<UiState>((set) => ({
   heroGridSize: 36,
   trialGridSize: 36,
   paginations: {},
+  expandedReviews: {}, 
+  setExpandedReview: (id, expanded) => 
+    set((state) => ({
+      expandedReviews: { ...state.expandedReviews, [id]: expanded }
+    })),
   setHeaderMenuOpen: (open) => set({ headerMenuOpen: open }),
   toggleHeaderMenu: () =>
     set((state) => ({ headerMenuOpen: !state.headerMenuOpen })),

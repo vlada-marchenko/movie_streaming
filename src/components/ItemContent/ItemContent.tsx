@@ -6,9 +6,10 @@ import { getMovieCredits } from "@/lib/movies";
 import { getSeriesCredits } from "@/lib/series";
 import Image from "next/image";
 import { tmdbPosterSrc } from "@/lib/tmdbImage";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getMovieReviews } from "@/lib/movies";
 import { getSeriesReviews } from "@/lib/series";
+import { useUiStore } from "@/store/uiStore";
 
 interface Props {
   type: "movie" | "series";
@@ -17,13 +18,18 @@ interface Props {
 
 export default function ItemContent({ type, data }: Props) {
   const id = data?.id;
-  const [castPage, setCastPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
-  const [reviewPage, setReviewPage] = useState(1);
+
+  const {
+    paginations,
+    setPaginationState,
+    expandedReviews,
+    setExpandedReview,
+  } = useUiStore();
+
+  const castPage = paginations[`cast-${id}`]?.page || 1;
+  const reviewPage = paginations[`reviews-${id}`]?.page || 1;
+  const itemsPerPage = paginations[`cast-${id}`]?.items || 4;
   const reviewsPerPage = 4;
-  const [expandedReviews, setExpandedReviews] = useState<
-    Record<string, boolean>
-  >({});
 
   const { data: reviewsData } = useQuery({
     queryKey: [type === "movie" ? "movieReviews" : "seriesReviews", id],
@@ -39,42 +45,24 @@ export default function ItemContent({ type, data }: Props) {
     enabled: !!id,
   });
 
-  const toggleReview = (id: string) => {
-    setExpandedReviews((prev) => ({ ...prev, [id]: !prev[id] }));
+  const toggleReview = (reviewId: string) => {
+    setExpandedReview(reviewId, !expandedReviews[reviewId]);
   };
-
-  const reviews = reviewsData?.results || [];
-  const totalReviewPages = Math.ceil(reviews.length / reviewsPerPage);
-  const displayedReviews = reviews.slice(
-    (reviewPage - 1) * reviewsPerPage,
-    reviewPage * reviewsPerPage,
-  );
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setItemsPerPage(4);
-      } else if (window.innerWidth < 1440) {
-        setItemsPerPage(6);
-      } else if (window.innerWidth < 1920) {
-        setItemsPerPage(6);
-      } else {
-        setItemsPerPage(8);
-      }
-      setCastPage(1);
+      let items = 4;
+      if (window.innerWidth >= 1920) items = 8;
+      else if (window.innerWidth >= 1440) items = 6;
+
+      // Оновлюємо глобально
+      setPaginationState(`cast-${id}`, { items });
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  if (!data) {
-    return <div>Loading...</div>;
-  }
+    return () => window.removeEventListener("resize", handleResize);
+  }, [id, setPaginationState]);
 
   const getStarFill = (index: number, rating: number) => {
     const stars = rating / 2;
@@ -83,24 +71,48 @@ export default function ItemContent({ type, data }: Props) {
     return "empty";
   };
 
+  const director = creditsData?.crew?.find(
+    (person: any) => person.job === "Director",
+  );
+
+  const actors =
+    creditsData?.cast.filter(
+      (p: any) =>
+        p.known_for_department === "Acting" && p.profile_path !== null,
+    ) || [];
+  const totalCastPages = Math.ceil(actors.length / itemsPerPage);
+  const displayedActors = actors.slice(
+    (castPage - 1) * itemsPerPage,
+    castPage * itemsPerPage,
+  );
+
+  const reviews = reviewsData?.results || [];
+  const totalReviewPages = Math.ceil(reviews.length / reviewsPerPage);
+  const displayedReviews = reviews.slice(
+    (reviewPage - 1) * reviewsPerPage,
+    reviewPage * reviewsPerPage,
+  );
+
+  const handleCastPageChange = (direction: "next" | "prev") => {
+    const newPage = direction === "next" ? castPage + 1 : castPage - 1;
+    setPaginationState(`cast-${id}`, { page: newPage });
+  };
+
+  const handleReviewPageChange = (direction: "next" | "prev") => {
+    const newPage = direction === "next" ? reviewPage + 1 : reviewPage - 1;
+    setPaginationState(`reviews-${id}`, { page: newPage });
+  };
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   const currentItem = data;
 
   const releaseYear =
     type === "movie"
       ? currentItem.release_date?.slice(0, 4)
       : currentItem.first_air_date?.slice(0, 4);
-
-  const actors =
-    creditsData?.cast.filter(
-      (person: any) =>
-        person.known_for_department === "Acting" &&
-        person.profile_path !== null,
-    ) || [];
-  const totalPages = Math.ceil(actors.length / itemsPerPage);
-  const displayedActors = actors.slice(
-    (castPage - 1) * itemsPerPage,
-    castPage * itemsPerPage,
-  );
 
   return (
     <section className={css.contentSection}>
@@ -175,6 +187,25 @@ export default function ItemContent({ type, data }: Props) {
             ))}
           </div>
         </div>
+        {director && (
+          <div className={css.detail}>
+            <span className={css.title}>Director</span>
+            <div className={css.directorCard}>
+              {director.profile_path && (
+                <Image
+                  src={tmdbPosterSrc(director.profile_path)}
+                  alt={director.name}
+                  width={55}
+                  height={60}
+                  className={css.directorImage}
+                />
+              )}
+              <div className={css.directorInfo}>
+                <p className={css.value}>{director.name}</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       <div className={css.cast}>
         <div className={css.castHeader}>
@@ -182,17 +213,15 @@ export default function ItemContent({ type, data }: Props) {
           <div className={css.pagination}>
             <button
               className={css.paginationBtn}
-              onClick={() => setCastPage((prev) => prev - 1)}
+              onClick={() => handleCastPageChange("prev")}
               disabled={castPage === 1}
-              aria-label="Previous cast page"
             >
               <Icon name="left" width={22} height={22} />
             </button>
             <button
               className={css.paginationBtn}
-              onClick={() => setCastPage((prev) => prev + 1)}
-              disabled={castPage === totalPages}
-              aria-label="Next cast page"
+              onClick={() => handleCastPageChange("next")}
+              disabled={castPage === totalCastPages}
             >
               <Icon name="right" width={18} height={18} />
             </button>
@@ -223,14 +252,14 @@ export default function ItemContent({ type, data }: Props) {
           <div className={css.pagination}>
             <button
               className={css.paginationBtn}
-              onClick={() => setReviewPage((prev) => prev - 1)}
+              onClick={() => handleReviewPageChange("prev")}
               disabled={reviewPage === 1}
             >
               <Icon name="left" width={22} height={22} />
             </button>
             <button
               className={css.paginationBtn}
-              onClick={() => setReviewPage((prev) => prev + 1)}
+              onClick={() => handleReviewPageChange("next")}
               disabled={reviewPage === totalReviewPages}
             >
               <Icon name="right" width={18} height={18} />
