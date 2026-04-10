@@ -16,6 +16,7 @@ interface UiState {
   trialGridSize: number;
   paginations: Record<string, PaginationState>;
   expandedReviews: Record<string, boolean>; 
+  selectedSeasons: Record<string, number>;
   setExpandedReview: (id: string, expanded: boolean) => void;
   setHeaderMenuOpen: (open: boolean) => void;
   toggleHeaderMenu: () => void;
@@ -26,6 +27,7 @@ interface UiState {
   setHeroGridSize: (size: number) => void;
   setTrialGridSize: (size: number) => void;
   setPaginationState: (key: string, payload: Partial<PaginationState>) => void;
+  setSelectedSeasons: (id: string, season: number) => void;
 }
 
 const defaultPaginationState: PaginationState = {
@@ -42,6 +44,11 @@ export const useUiStore = create<UiState>((set) => ({
   trialGridSize: 36,
   paginations: {},
   expandedReviews: {}, 
+  selectedSeasons: {},
+  setSelectedSeasons: (id, season) =>
+    set((state) => ({
+      selectedSeasons: { ...state.selectedSeasons, [id]: season }
+    })),
   setExpandedReview: (id, expanded) => 
     set((state) => ({
       expandedReviews: { ...state.expandedReviews, [id]: expanded }

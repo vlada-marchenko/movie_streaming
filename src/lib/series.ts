@@ -133,8 +133,6 @@ export async function getSeriesReviews(series_id: number) {
 }
 
 
-
-
 // Get the details of season of a TV show.
 export async function getSeasonDetails(season_number: number ,series_id: number) {
   try {

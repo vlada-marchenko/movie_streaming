@@ -10,11 +10,14 @@ import { useEffect } from "react";
 import { getMovieReviews } from "@/lib/movies";
 import { getSeriesReviews } from "@/lib/series";
 import { useUiStore } from "@/store/uiStore";
+import { getSeasonDetails } from "@/lib/series";
+
 
 interface Props {
   type: "movie" | "series";
   data: any;
 }
+
 
 export default function ItemContent({ type, data }: Props) {
   const id = data?.id;
@@ -24,12 +27,16 @@ export default function ItemContent({ type, data }: Props) {
     setPaginationState,
     expandedReviews,
     setExpandedReview,
+    selectedSeasons,
+    setSelectedSeasons,
   } = useUiStore();
 
   const castPage = paginations[`cast-${id}`]?.page || 1;
   const reviewPage = paginations[`reviews-${id}`]?.page || 1;
   const itemsPerPage = paginations[`cast-${id}`]?.items || 4;
   const reviewsPerPage = 4;
+
+  const selectedSeason = selectedSeasons[`series-${id}`] || 1
 
   const { data: reviewsData } = useQuery({
     queryKey: [type === "movie" ? "movieReviews" : "seriesReviews", id],
@@ -45,6 +52,18 @@ export default function ItemContent({ type, data }: Props) {
     enabled: !!id,
   });
 
+  const { data: seasonsData } = useQuery({
+    queryKey: ['seasonsData', selectedSeason, id],
+    queryFn: () => getSeasonDetails(selectedSeason, id),
+    enabled: type === "series" && !!id,
+  });
+
+  // const { data: episodeData } = useQuery({
+  //   queryKey: ['episodeData', season_number, episode_number, id],
+  //   queryFn: () => getEpisodeDetails(season_number, episode_number, id),
+  //   enabled: type === "series" && !!id,
+  // });
+
   const toggleReview = (reviewId: string) => {
     setExpandedReview(reviewId, !expandedReviews[reviewId]);
   };
@@ -55,7 +74,6 @@ export default function ItemContent({ type, data }: Props) {
       if (window.innerWidth >= 1920) items = 8;
       else if (window.innerWidth >= 1440) items = 6;
 
-      // Оновлюємо глобально
       setPaginationState(`cast-${id}`, { items });
     };
 
@@ -113,6 +131,8 @@ export default function ItemContent({ type, data }: Props) {
     type === "movie"
       ? currentItem.release_date?.slice(0, 4)
       : currentItem.first_air_date?.slice(0, 4);
+
+  const seasons = type === "series" ? currentItem.seasons || [] : [];
 
   return (
     <section className={css.contentSection}>
@@ -207,6 +227,40 @@ export default function ItemContent({ type, data }: Props) {
           </div>
         )}
       </div>
+      {type === 'series' && seasons.length > 0 && (
+        <div className={css.seriesDetails}>
+          <h3 className={css.seriesDetailTitle}>Seasons and Episodes</h3>
+          <div className={css.seasonsSelector}>
+            {seasons.map((season: any) => (
+              <button key={season.id} className={`${css.seasonBtn} ${selectedSeason === season.season ? css.active : ''}`} onClick={() => setSelectedSeasons(`series-${id}`, season.season)}>
+                Season {season.season}
+              </button>
+            ))}
+          </div>
+          {seasonsData && (
+            <div className={css.episodesList}>
+              {seasonsData.episodes?.map((episode: any) => (
+                <div key={episode.id} className={css.episodeCard}>
+                  {episode.still_path && (
+                    <Image
+                      src={tmdbPosterSrc(episode.still_path)}
+                      alt={episode.name}
+                      width={120}
+                      height={70}
+                      className={css.episodeImage}
+                    />
+                  )}
+                  <div className={css.episodeInfo}>
+                    <span className={css.episodeNumber}>{episode.episode_number}</span>
+                    <p className={css.episodeName}>{episode.name}</p>
+                    <p className={css.episodeDescr}>{episode.overview}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
       <div className={css.cast}>
         <div className={css.castHeader}>
           <span className={css.title}>Cast</span>
@@ -247,7 +301,6 @@ export default function ItemContent({ type, data }: Props) {
       <div className={css.reviews}>
         <div className={css.castHeader}>
           {" "}
-          {/* Використовуємо той самий клас для стилю */}
           <span className={css.title}>Reviews</span>
           <div className={css.pagination}>
             <button
