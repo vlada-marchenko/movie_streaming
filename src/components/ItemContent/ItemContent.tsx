@@ -12,12 +12,10 @@ import { getSeriesReviews } from "@/lib/series";
 import { useUiStore } from "@/store/uiStore";
 import { getSeasonDetails } from "@/lib/series";
 
-
 interface Props {
   type: "movie" | "series";
   data: any;
 }
-
 
 export default function ItemContent({ type, data }: Props) {
   const id = data?.id;
@@ -36,7 +34,7 @@ export default function ItemContent({ type, data }: Props) {
   const itemsPerPage = paginations[`cast-${id}`]?.items || 4;
   const reviewsPerPage = 4;
 
-  const selectedSeason = selectedSeasons[`series-${id}`] || 1
+  const selectedSeason = selectedSeasons[`series-${id}`] || 1;
 
   const { data: reviewsData } = useQuery({
     queryKey: [type === "movie" ? "movieReviews" : "seriesReviews", id],
@@ -53,7 +51,7 @@ export default function ItemContent({ type, data }: Props) {
   });
 
   const { data: seasonsData } = useQuery({
-    queryKey: ['seasonsData', selectedSeason, id],
+    queryKey: ["seasonsData", selectedSeason, id],
     queryFn: () => getSeasonDetails(selectedSeason, id),
     enabled: type === "series" && !!id,
   });
@@ -73,6 +71,7 @@ export default function ItemContent({ type, data }: Props) {
       let items = 4;
       if (window.innerWidth >= 1920) items = 8;
       else if (window.innerWidth >= 1440) items = 6;
+      else if (window.innerWidth >= 768) items = 6;
 
       setPaginationState(`cast-${id}`, { items });
     };
@@ -132,7 +131,7 @@ export default function ItemContent({ type, data }: Props) {
       ? currentItem.release_date?.slice(0, 4)
       : currentItem.first_air_date?.slice(0, 4);
 
-  const seasons = type === "series" ? currentItem.seasons || [] : [];
+  const seasons = type === "series" ? currentItem.seasons.slice(1) || [] : [];
 
   return (
     <section className={css.contentSection}>
@@ -227,13 +226,25 @@ export default function ItemContent({ type, data }: Props) {
           </div>
         )}
       </div>
-      {type === 'series' && seasons.length > 0 && (
+      {type === "series" && seasons.length > 0 && (
         <div className={css.seriesDetails}>
           <h3 className={css.seriesDetailTitle}>Seasons and Episodes</h3>
           <div className={css.seasonsSelector}>
             {seasons.map((season: any) => (
-              <button key={season.id} className={`${css.seasonBtn} ${selectedSeason === season.season ? css.active : ''}`} onClick={() => setSelectedSeasons(`series-${id}`, season.season)}>
-                Season {season.season}
+              <button
+                key={season.id}
+                className={`${css.seasonBtn} ${selectedSeason === season.season_number ? css.active : ""}`}
+                onClick={() =>
+                  setSelectedSeasons(`series-${id}`, season.season_number)
+                }
+              >
+                <div className={css.seasonInfo}>
+                <span className={css.season}>Season {season.season_number}</span>
+                <span className={css.quantity}>{season.episode_count} episodes</span>
+                </div>
+                <div className={css.seasonBtnContent}>
+                  <Icon name=""/>
+                </div>
               </button>
             ))}
           </div>
@@ -241,6 +252,9 @@ export default function ItemContent({ type, data }: Props) {
             <div className={css.episodesList}>
               {seasonsData.episodes?.map((episode: any) => (
                 <div key={episode.id} className={css.episodeCard}>
+                  <span className={css.episodeNumber}>
+                    {episode.episode_number}
+                  </span>
                   {episode.still_path && (
                     <Image
                       src={tmdbPosterSrc(episode.still_path)}
@@ -251,7 +265,6 @@ export default function ItemContent({ type, data }: Props) {
                     />
                   )}
                   <div className={css.episodeInfo}>
-                    <span className={css.episodeNumber}>{episode.episode_number}</span>
                     <p className={css.episodeName}>{episode.name}</p>
                     <p className={css.episodeDescr}>{episode.overview}</p>
                   </div>
