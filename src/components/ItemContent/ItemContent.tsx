@@ -230,48 +230,63 @@ export default function ItemContent({ type, data }: Props) {
         <div className={css.seriesDetails}>
           <h3 className={css.seriesDetailTitle}>Seasons and Episodes</h3>
           <div className={css.seasonsSelector}>
-            {seasons.map((season: any) => (
-              <button
-                key={season.id}
-                className={`${css.seasonBtn} ${selectedSeason === season.season_number ? css.active : ""}`}
-                onClick={() =>
-                  setSelectedSeasons(`series-${id}`, season.season_number)
-                }
-              >
-                <div className={css.seasonInfo}>
-                <span className={css.season}>Season {season.season_number}</span>
-                <span className={css.quantity}>{season.episode_count} episodes</span>
-                </div>
-                <div className={css.seasonBtnContent}>
-                  <Icon name=""/>
-                </div>
-              </button>
-            ))}
-          </div>
-          {seasonsData && (
-            <div className={css.episodesList}>
-              {seasonsData.episodes?.map((episode: any) => (
-                <div key={episode.id} className={css.episodeCard}>
-                  <span className={css.episodeNumber}>
-                    {episode.episode_number}
-                  </span>
-                  {episode.still_path && (
-                    <Image
-                      src={tmdbPosterSrc(episode.still_path)}
-                      alt={episode.name}
-                      width={120}
-                      height={70}
-                      className={css.episodeImage}
-                    />
+            {seasons.map((season: any) => {
+              const isActive = selectedSeason === season.season_number;
+              return (
+                <div key={season.id} className={css.seasonWrapper}>
+                  <button
+                    className={`${css.seasonBtn} ${isActive ? css.active : ""}`}
+                    onClick={() =>
+                      setSelectedSeasons(`series-${id}`, isActive ? 0 : season.season_number)
+                    }
+                  >
+                    <div className={css.seasonInfo}>
+                      <span className={css.season}>
+                        Season {season.season_number}
+                      </span>
+                      <span className={css.quantity}>
+                        {season.episode_count} episodes
+                      </span>
+                    </div>
+                    <div
+                      className={`${css.seasonIcon} ${isActive ? css.activeIcon : ""}`}
+                    >
+                      <Icon name="down" />
+                    </div>
+                  </button>
+
+                  {isActive && seasonsData && (
+                    <div className={css.episodesList}>
+                      {seasonsData.episodes?.map((episode: any) => (
+                        <div key={episode.id} className={css.episodeCard}>
+                          <div className={css.episodeNumberWrapper}>
+                          <span className={css.episodeNumber}>
+                            0{episode.episode_number}
+                          </span>
+                          {episode.still_path && (
+                            <Image
+                              src={tmdbPosterSrc(episode.still_path)}
+                              alt={episode.name}
+                              width={207}
+                              height={117}
+                              className={css.episodeImage}
+                            />
+                          )}
+                          </div>
+                          <div className={css.episodeInfo}>
+                            <p className={css.episodeName}>{episode.name}</p>
+                            <p className={css.episodeDescr}>
+                              {episode.overview}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   )}
-                  <div className={css.episodeInfo}>
-                    <p className={css.episodeName}>{episode.name}</p>
-                    <p className={css.episodeDescr}>{episode.overview}</p>
-                  </div>
                 </div>
-              ))}
-            </div>
-          )}
+              );
+            })}
+          </div>
         </div>
       )}
       <div className={css.cast}>
