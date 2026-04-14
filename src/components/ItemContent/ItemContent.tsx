@@ -81,6 +81,12 @@ export default function ItemContent({ type, data }: Props) {
     return () => window.removeEventListener("resize", handleResize);
   }, [id, setPaginationState]);
 
+  useEffect(() => {
+    if (type === 'series' && id) {
+      setSelectedSeasons(`series-${id}`, 1);
+    }
+  }, [type, id, setSelectedSeasons]);
+
   const getStarFill = (index: number, rating: number) => {
     const stars = rating / 2;
     if (index < Math.floor(stars)) return "full";

@@ -486,10 +486,7 @@
 
 @media (min-width: 768px) {
   .castGrid {
-    display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    width: 100%;
   }
 
   .castImage {
@@ -498,12 +495,106 @@
   }
 
   .episodeDescr {
+    display: block;
     font-weight: 400;
     font-size: 14px;
     line-height: 1.5;
     color: #999999;
     margin: 0;
   }
+
+  .contentSection {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .description {
+    order: 1;
+  }
+
+  .details {
+    order: 2;
+  }
+
+  .seriesDetails {
+    order: 3;
+  }
+
+  .cast {
+    order: 4;
+  }
+
+  .reviews {
+    order: 5;
+  }
+
+  .episodesList {
+  width: 100%;
+}
+
+.episodeCard {
+  width: 90%;
+  padding: 25px;
+  flex-direction: row;
+  align-items: center
+}
+
+.episodeNumberWrapper {
+  align-items: center;
+}
+
+.episodeImage {
+  width: 150px;
+  height: 100px;
+}
+
+.episodeInfo {
+  height: 100%;
+}
+
+.seasonBtn {
+  width: 100%;
+}
+
+
+.episodeName {
+  margin-left: 0;
+}
+
+
+.seasonWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #0f0f0f;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.seasonIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: #141414;
+  border: 1px solid #262626;
+  border-radius: 100px;
+  transition: transform 0.3s ease;
+}
+
+.seasonIcon.activeIcon {
+  transform: rotate(180deg);
+}
+
+.seasonBtn:hover {
+  border-bottom: none;
+}
+
+.seasonBtn.active {
+  border: none;
+}
 }
 
 @media (min-width: 1440px) {
