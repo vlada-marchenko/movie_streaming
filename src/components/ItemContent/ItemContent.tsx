@@ -95,7 +95,7 @@ export default function ItemContent({ type, data }: Props) {
   };
 
   const director = creditsData?.crew?.find(
-    (person: any) => person.job === "Director",
+    (person: any) => person.job === "Director" || person.job === "Executive Producer",
   );
 
   const actors =
@@ -109,6 +109,7 @@ export default function ItemContent({ type, data }: Props) {
     castPage * itemsPerPage,
   );
 
+  
   const reviews = reviewsData?.results || [];
   const totalReviewPages = Math.ceil(reviews.length / reviewsPerPage);
   const displayedReviews = reviews.slice(
@@ -138,6 +139,7 @@ export default function ItemContent({ type, data }: Props) {
       : currentItem.first_air_date?.slice(0, 4);
 
   const seasons = type === "series" ? currentItem.seasons.slice(1) || [] : [];
+
 
   return (
     <section className={css.contentSection}>
@@ -267,7 +269,7 @@ export default function ItemContent({ type, data }: Props) {
                         <div key={episode.id} className={css.episodeCard}>
                           <div className={css.episodeNumberWrapper}>
                           <span className={css.episodeNumber}>
-                            0{episode.episode_number}
+                            {String(episode.episode_number).padStart(2, "0")}
                           </span>
                           {episode.still_path && (
                             <Image

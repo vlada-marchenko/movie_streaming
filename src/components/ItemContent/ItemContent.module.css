@@ -599,37 +599,40 @@
 
 @media (min-width: 1440px) {
   .contentSection {
-    .contentSection {
       display: grid;
-      grid-template-columns: 1fr 280px;
-      grid-template-areas:
-        "description sidebar"
-        "series      sidebar"
-        "cast        sidebar"
-        "reviews     sidebar";
-      gap: 40px;
-      align-items: flex-start;
+grid-template-columns: 1fr 280px; 
+    grid-template-areas:
+      "description sidebar"
+      "series      sidebar"
+      "cast        sidebar"
+      "reviews     sidebar";
+    gap: 40px;
+    align-items: flex-start;
     }
 
     .seriesDetails {
       grid-area: series;
       margin-top: 0;
     }
-  }
+
 
   .description {
     grid-area: description;
   }
   .cast {
     grid-area: cast;
+        margin-top: 0;
   }
   .reviews {
     grid-area: reviews;
+        margin-top: 0;
+
   }
   .details {
     grid-area: sidebar;
     position: sticky;
     top: 20px;
+        width: 280px;
   }
 
   .castImage {
@@ -637,17 +640,6 @@
     height: 140px;
   }
 
-  .cast {
-    margin-top: 0;
-  }
-
-  .details {
-    width: 280px;
-  }
-
-  .reviews {
-    margin-top: 0;
-  }
 
   .overview {
     width: 100%;

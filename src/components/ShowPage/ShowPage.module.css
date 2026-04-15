@@ -149,7 +149,7 @@
   .container {
     max-width: 1224px;
     padding: 0;
-    height: 759px;
+    /* height: 759px; */
   }
 
   .content {
