@@ -620,6 +620,13 @@
     align-items: flex-start;
   }
 
+  .movieLayout {
+    grid-template-areas:
+      "description sidebar"
+      "cast        sidebar"
+      "reviews     sidebar";
+  }
+
   .seasonBtn {
     padding: 25px 20px;
     width: 100%;

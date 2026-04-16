@@ -1,0 +1,173 @@
+.containerr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 375px;
+  margin: 20px auto 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 375px;
+  height: 344px;
+  margin: 20px auto 70px;
+  border-radius: 12px;
+  border: 4px solid #262626;
+  border-radius: 8px;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 36px;
+  color: #ffffff;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #999999;
+  margin-top: 10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 100%;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.gridItem {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  border-radius: 8px;
+  width: 87px;
+  height: 108px;
+}
+
+.poster {
+  object-fit: cover;
+  opacity: 0.25;
+  filter: grayscale(20%) brightness(0.8);
+}
+
+@media (min-width: 768px) {
+  .containerr {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 768px;
+    margin: 20px auto 0;
+  }
+
+  .intro {
+    padding: 0 30px;
+  }
+
+  .container {
+    max-width: 708px;
+    height: 380px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .gridItem {
+    width: 100px;
+    height: 120px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .containerr {
+    max-width: 1440px;
+  }
+
+.content {
+    padding: 0 108px;
+}
+
+.intro {
+    padding: unset;
+}
+
+  .intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    width: 430px;
+  }
+
+  .container {
+    width: 430px;
+    height: 380px;
+  }
+
+  .text {
+    font-size: 16px;
+    width: unset;
+  }
+
+  .grid {
+    width: 100%;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 10px;
+    overflow: hidden;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .gridItem {
+    width: 84px;
+    height: 119px;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+  }
+}
+
+@media (min-width: 1920px) {
+  .containerr {
+    max-width: 1944px;
+  }
+
+  .content {
+      padding: 0 138px;
+}
+
+
+  .container {
+    width: 533px;
+    height: 380px;
+  }
+
+  .title {
+    font-size: 38px;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+
+  .gridItem {
+    width: 105px;
+    height: 118px;
+  }
+}

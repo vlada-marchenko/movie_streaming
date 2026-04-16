@@ -142,7 +142,7 @@ export default function ItemContent({ type, data }: Props) {
 
 
   return (
-    <section className={css.contentSection}>
+<section className={`${css.contentSection} ${type === 'movie' ? css.movieLayout : ''}`}>
       <div className={css.description + " " + css.overview}>
         <span className={css.title}>Description</span>
         <p className={css.value}>{currentItem.overview}</p>
