@@ -16,10 +16,12 @@ export default function Header() {
   const closeMenu = () => {
   if (openMenu) toggleHeaderMenu();
 };
-
-  const activeClass = (path: string) => (pathname === path ? css.active : "");
+  
+  const activeClass = (path: string, subPath?: string) => 
+    (pathname === path || (subPath && pathname.startsWith(subPath))) ? css.active : "";
   const activeMobClass = (path: string) =>
-    pathname === path ? css.activeMob : "";
+    (pathname === path || (path === "/movies" && pathname.startsWith("/movies/"))) ? css.activeMob : "";
+  const id = pathname.split("/")[2];
 
   return (
     <header className={css.page}>
@@ -39,7 +41,7 @@ export default function Header() {
               Home
             </Link>
           </div>
-          <div className={`${css.cont} ${activeClass("/movies")}`}>
+          <div className={`${css.cont} ${activeClass("/movies", `/movies/${id}`)}`}>
             <Link href="/movies" className={css.navLink}>
               Movies&Shows
             </Link>

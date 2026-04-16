@@ -357,6 +357,7 @@ export default function ItemContent({ type, data }: Props) {
         </div>
 
         <div className={css.reviewsList}>
+          {reviews.length === 0 && <p className={css.noReviews}>No reviews available yet.</p>}
           {displayedReviews.map((review: any) => {
             const isExpanded = expandedReviews[review.id];
             const shouldTruncate = review.content.length > 250;

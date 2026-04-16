@@ -332,6 +332,7 @@
   font-size: 18px;
   color: #ffffff;
   margin: 0;
+  margin-left: 7px;
 }
 
 .seasonsSelector {
@@ -346,8 +347,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 20px;
   width: 327px;
+  padding: 16px 20px;
   height: 76px;
   background: #0f0f0f;
   border: 1px solid #262626;
@@ -484,6 +485,13 @@
   border: none;
 }
 
+.noReviews {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+}
+
 @media (min-width: 768px) {
   .castGrid {
     grid-template-columns: repeat(6, 1fr);
@@ -529,78 +537,80 @@
   }
 
   .episodesList {
-  width: 100%;
-}
+    width: 100%;
+  }
 
-.episodeCard {
-  width: 90%;
-  padding: 25px;
-  flex-direction: row;
-  align-items: center
-}
+  .episodeCard {
+    width: 97%;
+    padding: 25px;
+    flex-direction: row;
+    align-items: center;
+    background: transparent;
+    border-top: 1px solid #262626;
+    border-radius: 0;
+  }
 
-.episodeNumberWrapper {
-  align-items: center;
-}
+  .episodeNumberWrapper {
+    align-items: center;
+  }
 
-.episodeImage {
-  width: 150px;
-  height: 100px;
-}
+  .episodeImage {
+    width: 150px;
+    height: 100px;
+  }
 
-.episodeInfo {
-  height: 100%;
-}
+  .episodeInfo {
+    height: 100%;
+  }
 
-.seasonBtn {
-  width: 100%;
-}
+  .seasonBtn {
+    width: 100%;
+    margin: 0 auto;
+  }
 
+  .episodeName {
+    margin-left: 0;
+  }
 
-.episodeName {
-  margin-left: 0;
-}
+  .seasonWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: #0f0f0f;
+    border: 1px solid #262626;
+    border-radius: 10px;
+    width: 100%;
+  }
 
+  .seasonIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: #141414;
+    border: 1px solid #262626;
+    border-radius: 100px;
+    transition: transform 0.3s ease;
+  }
 
-.seasonWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background: #0f0f0f;
-  border: 1px solid #262626;
-  border-radius: 10px;
-  width: 100%;
-}
+  .seasonIcon.activeIcon {
+    transform: rotate(180deg);
+  }
 
-.seasonIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: #141414;
-  border: 1px solid #262626;
-  border-radius: 100px;
-  transition: transform 0.3s ease;
-}
+  .seasonBtn:hover {
+    border-bottom: none;
+  }
 
-.seasonIcon.activeIcon {
-  transform: rotate(180deg);
-}
-
-.seasonBtn:hover {
-  border-bottom: none;
-}
-
-.seasonBtn.active {
-  border: none;
-}
+  .seasonBtn.active {
+    border: none;
+  }
 }
 
 @media (min-width: 1440px) {
   .contentSection {
-      display: grid;
-grid-template-columns: 1fr 280px; 
+    display: grid;
+    grid-template-columns: 1fr 280px;
     grid-template-areas:
       "description sidebar"
       "series      sidebar"
@@ -608,38 +618,44 @@ grid-template-columns: 1fr 280px;
       "reviews     sidebar";
     gap: 40px;
     align-items: flex-start;
-    }
+  }
 
-    .seriesDetails {
-      grid-area: series;
-      margin-top: 0;
-    }
+  .seasonBtn {
+    padding: 25px 20px;
+    width: 100%;
+  }
 
+  .seriesDetailTitle {
+    font-size: 20px;
+  }
+
+  .seriesDetails {
+    grid-area: series;
+    margin-top: 0;
+  }
 
   .description {
     grid-area: description;
   }
   .cast {
     grid-area: cast;
-        margin-top: 0;
+    margin-top: 0;
   }
   .reviews {
     grid-area: reviews;
-        margin-top: 0;
-
+    margin-top: 0;
   }
   .details {
     grid-area: sidebar;
     position: sticky;
     top: 20px;
-        width: 280px;
+    width: 280px;
   }
 
   .castImage {
     width: 130px;
     height: 140px;
   }
-
 
   .overview {
     width: 100%;
@@ -653,6 +669,11 @@ grid-template-columns: 1fr 280px;
     margin-right: auto;
   }
 
+  .seasonBtn {
+    padding: 30px 25px;
+    width: 100%;
+  }
+
   .castGrid {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
@@ -660,13 +681,13 @@ grid-template-columns: 1fr 280px;
     width: 100%;
   }
 
+  .season {
+    font-size: 18px;
+  }
+
   .contentSection {
     display: grid;
     grid-template-columns: 1fr 350px;
-    grid-template-areas:
-      "description sidebar"
-      "cast        sidebar"
-      "reviews     sidebar";
     gap: 40px;
     align-items: flex-start;
   }
