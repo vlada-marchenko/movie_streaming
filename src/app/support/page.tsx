@@ -136,6 +136,7 @@ export default function SupportPage() {
           </div>
         </div>
         <div className={css.form}>
+          <div className={css.formik}>
           <Formik
             initialValues={{
               name: "",
@@ -148,7 +149,7 @@ export default function SupportPage() {
             onSubmit={handleSubmit}
             validationSchema={schema}
           >
-            <Form>
+            <Form className={css.formContainer}>
               <div className={css.formGroup}>
                 <label className={css.label} htmlFor="name">
                   First Name
@@ -258,6 +259,7 @@ export default function SupportPage() {
               </button>
             </Form>
           </Formik>
+          </div>
         </div>
       </div>
 
