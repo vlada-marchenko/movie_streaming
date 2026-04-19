@@ -11,12 +11,14 @@ import Icon from "../Icon/Icon";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useUiStore } from "@/store/uiStore";
+import { memo } from "react";
+import { useMemo } from "react";
 
 interface Props {
   type: "movies" | "series";
 }
 
-export default function MustWatch({ type }: Props) {
+ function MustWatch({ type }: Props) {
   const paginationKey = `must watch ${type}`;
   const mobile = useUiStore(
     (state) => state.paginations[paginationKey]?.mobile ?? false,
@@ -70,12 +72,25 @@ export default function MustWatch({ type }: Props) {
     return "empty";
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading trending {type}</div>;
+  const filteredResults = useMemo(() => {
+    return data?.results.filter((item: any) => item.vote_count > 0) ?? [];
+  }, [data]);
 
-  const filteredResults = data.results.filter(
-    (item: any) => item.vote_count > 0,
-  );
+  if (isLoading) {
+    return (
+      <section className={css.container}>
+        <div
+          className={css.skeletonLoader}
+          style={{
+            height: "280px",
+            background: "#1a1a1a",
+            borderRadius: "12px",
+          }}
+        />
+      </section>
+    );
+  }
+  if (error) return <div>Error loading trending {type}</div>;
 
   const displayData = mobile
     ? filteredResults
@@ -127,7 +142,11 @@ export default function MustWatch({ type }: Props) {
         </div>
         <div className={css.grid}>
           {displayData.map((item: any) => (
-          <Link href={`/movies/${item.id}?type=${type === 'movies' ? 'movies' : 'series'}`} key={item.id} className={css.card}>
+            <Link
+              href={`/movies/${item.id}?type=${type === "movies" ? "movies" : "series"}`}
+              key={item.id}
+              className={css.card}
+            >
               <Image
                 className={css.img}
                 src={tmdbPosterSrc(item.poster_path)}
@@ -177,3 +196,5 @@ export default function MustWatch({ type }: Props) {
     </section>
   );
 }
+
+export default memo(MustWatch);

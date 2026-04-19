@@ -11,19 +11,22 @@ import Icon from "../Icon/Icon";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useUiStore } from "@/store/uiStore";
+import { memo } from "react";
 
 interface Props {
   type: "movies" | "series";
 }
 
-export default function Trending({ type }: Props) {
+ function Trending({ type }: Props) {
   const paginationKey = `trending-${type}`;
   const mobile = useUiStore(
-    (state) => state.paginations[paginationKey]?.mobile ?? false
+    (state) => state.paginations[paginationKey]?.mobile ?? false,
   );
-  const page = useUiStore((state) => state.paginations[paginationKey]?.page ?? 1);
+  const page = useUiStore(
+    (state) => state.paginations[paginationKey]?.page ?? 1,
+  );
   const items = useUiStore(
-    (state) => state.paginations[paginationKey]?.items ?? 2
+    (state) => state.paginations[paginationKey]?.items ?? 2,
   );
   const setPaginationState = useUiStore((state) => state.setPaginationState);
 
@@ -52,79 +55,108 @@ export default function Trending({ type }: Props) {
       type === "movies" ? getTrendingMovies("week") : getTrendingSeries("week"),
   });
 
-const formatPopularity = (num: number) => {
-  const scaled = Math.floor(num * 100); 
-  if (scaled >= 1000000) return (scaled / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-  if (scaled >= 1000) return (scaled / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
-  return scaled.toString();
-};
+  const formatPopularity = (num: number) => {
+    const scaled = Math.floor(num * 100);
+    if (scaled >= 1000000)
+      return (scaled / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    if (scaled >= 1000)
+      return (scaled / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+    return scaled.toString();
+  };
 
   const total = data ? Math.ceil(data.results.length / items) : 0;
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) {
+    return (
+      <section className={css.container}>
+        <div
+          className={css.skeletonLoader}
+          style={{
+            height: "280px",
+            background: "#1a1a1a",
+            borderRadius: "12px",
+          }}
+        />
+      </section>
+    );
+  }
   if (error) return <div>Error loading trending {type}</div>;
 
-  const displayData = mobile 
-    ? data.results 
+  const displayData = mobile
+    ? data.results
     : data.results.slice((page - 1) * items, page * items);
 
   return (
     <section className={css.container}>
-    <div className={css.content}>
-      <div className={css.up}>
-        <h3 className={css.title}>Trending Now</h3>
-        {!mobile && (
-          <div className={css.pag}>
-            <button
-              className={css.left}
-              onClick={() => setPaginationState(paginationKey, { page: page - 1 })}
-              disabled={page === 1}
-            >
-              <Icon name="left" width={22} height={22} />
-            </button>
+      <div className={css.content}>
+        <div className={css.up}>
+          <h3 className={css.title}>Trending Now</h3>
+          {!mobile && (
+            <div className={css.pag}>
+              <button
+                className={css.left}
+                onClick={() =>
+                  setPaginationState(paginationKey, { page: page - 1 })
+                }
+                disabled={page === 1}
+              >
+                <Icon name="left" width={22} height={22} />
+              </button>
 
-            <div className={css.num}>
-              {[...Array(total)].map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setPaginationState(paginationKey, { page: i + 1 })}
-                  className={`${css.dot} ${page === i + 1 ? css.activeDot : ""}`}
-                  aria-label={`Go to page ${i + 1}`}
-                />
-              ))}
+              <div className={css.num}>
+                {[...Array(total)].map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() =>
+                      setPaginationState(paginationKey, { page: i + 1 })
+                    }
+                    className={`${css.dot} ${page === i + 1 ? css.activeDot : ""}`}
+                    aria-label={`Go to page ${i + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                className={css.right}
+                onClick={() =>
+                  setPaginationState(paginationKey, { page: page + 1 })
+                }
+                disabled={page === total}
+              >
+                <Icon name="right" width={18} height={18} />
+              </button>
             </div>
-
-            <button
-              className={css.right}
-              onClick={() => setPaginationState(paginationKey, { page: page + 1 })}
-              disabled={page === total}
+          )}
+        </div>
+        <div className={css.grid}>
+          {displayData.map((item: any) => (
+            <Link
+              href={`/movies/${item.id}?type=${type === "movies" ? "movies" : "series"}`}
+              key={item.id}
+              className={css.card}
             >
-              <Icon name="right" width={18} height={18} />
-            </button>
-          </div>
-        )}
-      </div>
-      <div className={css.grid}>
-        {displayData.map((item: any) => (
-          <Link href={`/movies/${item.id}?type=${type === 'movies' ? 'movies' : 'series'}`} key={item.id} className={css.card}>
-            <Image
-              className={css.img}
-              src={tmdbPosterSrc(item.poster_path)}
-              alt={item.title || item.name}
-              width={158}
-              height={180}
-            />
-            <div className={css.down}>
+              <Image
+                className={css.img}
+                src={tmdbPosterSrc(item.poster_path)}
+                alt={item.title || item.name}
+                width={158}
+                height={180}
+              />
+              <div className={css.down}>
                 <p className={css.name}>{item.title || item.name}</p>
                 <div className={css.popularity}>
-                    <Icon name="eye" width={24} height={24} />
-                    <p className={css.text}>{formatPopularity(item.popularity)}</p>
+                  <Icon name="eye" width={24} height={24} />
+                  <p className={css.text}>
+                    {formatPopularity(item.popularity)}
+                  </p>
                 </div>
-            </div>
-          </Link>
-        ))}
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
-    </div>
     </section>
   );
 }
+
+export default memo(Trending);

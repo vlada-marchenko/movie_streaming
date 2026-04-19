@@ -22,7 +22,7 @@
 
 .title {
   font-weight: 700;
-  font-size: 28px;
+  font-size: 24px;
   line-height: 36px;
   color: #ffffff;
 }
@@ -148,11 +148,11 @@
 }
 
 .input:-webkit-autofill,
-.input:-webkit-autofill:hover, 
+.input:-webkit-autofill:hover,
 .input:-webkit-autofill:focus,
 .inputMessage:-webkit-autofill {
-  -webkit-text-fill-color: #999999!important;
-  -webkit-box-shadow: 0 0 0px 1000px #141414 inset !important; 
+  -webkit-text-fill-color: #999999 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #141414 inset !important;
   transition: background-color 5000s ease-in-out 0s;
 }
 
@@ -161,10 +161,9 @@
   background: #1a1a1a;
 }
 
-
 .input:focus {
-  outline: none; 
-  border-color: #4d4d4d; 
+  outline: none;
+  border-color: #4d4d4d;
   background: #0f0f0f;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
 }
@@ -277,36 +276,35 @@
     margin: 20px auto 0;
   }
 
- .formContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  gap: 24px; 
-  padding: 20px;
-  width: 100%;
-  align-items: center;
-}
-.formContainer > div:nth-child(5) {
+  .formContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    padding: 20px;
+    width: 100%;
+    align-items: center;
+  }
+  .formContainer > div:nth-child(5) {
     grid-column: span 2;
   }
 
-
   .checkboxGroup {
-    grid-column: 1; 
+    grid-column: 1;
     margin-bottom: 0;
   }
 
   .submit {
     grid-column: 2;
-    width: 160px; 
-    justify-self: flex-end; }
+    width: 160px;
+    justify-self: flex-end;
+  }
 
   .formik {
     width: 100%;
-  } 
-
+  }
 
   .formGroup {
-margin-bottom: 0;
+    margin-bottom: 0;
   }
 
   .content {
@@ -334,24 +332,24 @@ margin-bottom: 0;
     margin-top: 60px;
   }
 
-   .formContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr; 
-  gap: 14px; 
-  padding: 20px;
-  width: 100%;
-  min-width: 650px;
-  align-items: center;
-}
+  .formContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 20px;
+    width: 100%;
+    min-width: 650px;
+    align-items: center;
+  }
 
   .formik {
     width: unset;
   }
 
   .form {
-  width: 100%;
-  margin-bottom: 0;
-  padding: 0;
+    width: 100%;
+    margin-bottom: 0;
+    padding: 0;
   }
 
   .content {
@@ -389,36 +387,36 @@ margin-bottom: 0;
   }
 
   .formGroup {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 12px;
-  margin-bottom: 25px; 
-  width: 100%;
-  position: relative;
-}
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 12px;
+    margin-bottom: 25px;
+    width: 100%;
+    position: relative;
+  }
 
-.errorCheckbox {
-  color: #ff4d4d;
-  font-size: 12px;
-  position: absolute;
-  bottom: -18px;
-  left: 0;
-}
+  .errorCheckbox {
+    color: #ff4d4d;
+    font-size: 12px;
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+  }
 
-.checkboxGroup {
-  margin-bottom: 25px; 
-  position: relative;
-}
+  .checkboxGroup {
+    margin-bottom: 25px;
+    position: relative;
+  }
 
-.error {
-  color: #ff4d4d;
-  font-size: 12px;
-  position: absolute;
-  bottom: -18px;
-  left: 0;
-}
+  .error {
+    color: #ff4d4d;
+    font-size: 12px;
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+  }
 
   .grid {
     width: 100%;
@@ -454,13 +452,14 @@ margin-bottom: 0;
     width: 100%;
   }
 
-.formik {
+  .formik {
     width: 100%;
-}
+  }
 
   .content {
     padding: 0 138px;
-    height: 531px;  }
+    height: 531px;
+  }
 
   .container {
     width: 640px;

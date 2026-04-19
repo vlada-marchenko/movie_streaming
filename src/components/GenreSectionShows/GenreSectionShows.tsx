@@ -7,23 +7,25 @@ import css from "./GenreSectionShows.module.css";
 import Icon from "../Icon/Icon";
 import { getGenresTv } from "@/lib/series";
 import { useUiStore } from "@/store/uiStore";
+import { memo } from "react";
 
 interface Genre {
   id: number;
   name: string;
 }
 
-export default function GenreSectionMovies() {
+ function GenreSectionShows() {
   const paginationKey = "genre-shows";
-  const page = useUiStore((state) => state.paginations[paginationKey]?.page ?? 1);
+  const page = useUiStore(
+    (state) => state.paginations[paginationKey]?.page ?? 1,
+  );
   const items = useUiStore(
-    (state) => state.paginations[paginationKey]?.items ?? 2
+    (state) => state.paginations[paginationKey]?.items ?? 2,
   );
   const mobile = useUiStore(
-    (state) => state.paginations[paginationKey]?.mobile ?? false
+    (state) => state.paginations[paginationKey]?.mobile ?? false,
   );
   const setPaginationState = useUiStore((state) => state.setPaginationState);
-
 
   useEffect(() => {
     const handleItemsPerPage = () => {
@@ -56,16 +58,27 @@ export default function GenreSectionMovies() {
         setPaginationState(paginationKey, { page: totalPages });
       }
     }
-  }, [genresData, items, page, paginationKey, setPaginationState])
+  }, [genresData, items, page, paginationKey, setPaginationState]);
 
   if (isLoading || !genresData) {
-    return <div>Loading genres...</div>;
+    return (
+      <section className={css.container}>
+        <div
+          className={css.skeletonLoader}
+          style={{
+            height: "280px",
+            background: "#1a1a1a",
+            borderRadius: "12px",
+          }}
+        />
+      </section>
+    );
   }
 
   const total = Math.ceil(genresData.genres.length / items);
   const startInx = (page - 1) * items;
-  const visibleGenres = mobile 
-    ? genresData.genres 
+  const visibleGenres = mobile
+    ? genresData.genres
     : genresData.genres.slice(startInx, startInx + items);
 
   // const showPag = !mobile && total > 1
@@ -75,38 +88,45 @@ export default function GenreSectionMovies() {
       <div className={css.content}>
         <div className={css.top}>
           <div>
-          <h2 className={css.title}>Our Genres</h2>
+            <h2 className={css.title}>Our Genres</h2>
           </div>
 
           {!mobile && (
-          <div className={css.pag}>
-            <button
-              className={css.left}
-              onClick={() => setPaginationState(paginationKey, { page: page - 1 })}
-              disabled={page === 1}
-            >
-              <Icon name="left" width={22} height={22} />
-            </button>
+            <div className={css.pag}>
+              <button
+                className={css.left}
+                onClick={() =>
+                  setPaginationState(paginationKey, { page: page - 1 })
+                }
+                disabled={page === 1}
+              >
+                <Icon name="left" width={22} height={22} />
+              </button>
 
-            <div className={css.num}>
-              {[...Array(total)].map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setPaginationState(paginationKey, { page: i + 1 })}
-                  className={`${css.dot} ${page === i + 1 ? css.activeDot : ""}`}
-                  aria-label={`Go to page ${i + 1}`}
-                />
-              ))}
+              <div className={css.num}>
+                {[...Array(total)].map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() =>
+                      setPaginationState(paginationKey, { page: i + 1 })
+                    }
+                    className={`${css.dot} ${page === i + 1 ? css.activeDot : ""}`}
+                    aria-label={`Go to page ${i + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                className={css.right}
+                onClick={() =>
+                  setPaginationState(paginationKey, { page: page + 1 })
+                }
+                disabled={page === total}
+              >
+                <Icon name="right" width={18} height={18} />
+              </button>
             </div>
-
-            <button
-              className={css.right}
-              onClick={() => setPaginationState(paginationKey, { page: page + 1 })}
-              disabled={page === total}
-            >
-              <Icon name="right" width={18} height={18} />
-            </button>
-          </div>)}
+          )}
         </div>
 
         <div className={css.grid}>
@@ -116,7 +136,7 @@ export default function GenreSectionMovies() {
               genreId={genre.id}
               genreName={genre.name}
               page={1}
-              mediaType={'tv'}
+              mediaType={"tv"}
             />
           ))}
         </div>
@@ -124,3 +144,5 @@ export default function GenreSectionMovies() {
     </section>
   );
 }
+
+export default memo(GenreSectionShows);

@@ -39,11 +39,11 @@ export default function SupportPage() {
       if (window.innerWidth < 768) {
         setTrialGridSize(12);
       } else if (window.innerWidth < 1440) {
-        setTrialGridSize(21);
+        setTrialGridSize(28);
       } else if (window.innerWidth < 1920) {
-        setTrialGridSize(34);
+        setTrialGridSize(15);
       } else {
-        setTrialGridSize(48);
+        setTrialGridSize(28);
       }
     };
 

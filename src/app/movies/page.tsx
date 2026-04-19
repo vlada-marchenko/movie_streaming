@@ -27,26 +27,18 @@ export default function MoviesPage() {
   const { data: moviesData } = useQuery({
     queryKey: ["trendingMovies"],
     queryFn: () => getTrendingMovies("week"),
+    staleTime: 1000 * 60 * 60,
   });
 
   const { data: tvData } = useQuery({
     queryKey: ["trendingTVShows"],
     queryFn: () => getTrendingSeries("week"),
+    staleTime: 1000 * 60 * 60,
   });
 
   const slides = useMemo(() => {
     if (moviesData?.results && tvData?.results) {
-      const movies = moviesData.results || [];
-      const tvShows = tvData.results || [];
-
-      const allItems = [...movies, ...tvShows];
-
-      // eslint-disable-next-line react-hooks/purity
-      const shuffled = allItems.sort(() => Math.random() - 0.5);
-
-      const random = shuffled.slice(0, 4);
-
-      return random;
+      return [...moviesData.results.slice(0, 2), ...tvData.results.slice(0, 2)];
     }
     return [];
   }, [moviesData, tvData]);
@@ -87,94 +79,116 @@ export default function MoviesPage() {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
-  if (slides.length === 0) {
-    return <div className={css.loading}>Loading...</div>;
+if (slides.length === 0) {
+    return (
+      <div className={css.page}>
+         <div className={css.heroPlaceholder} style={{ height: '70vh', background: '#111' }} />
+         <div className={css.loadingText}>Loading your entertainment...</div>
+      </div>
+    );
   }
 
   const handleTabSwitch = (tab: "movies" | "shows") => {
     setActiveTab(tab);
   };
 
-
   const currentItem = slides[currentSlide];
+  if (!currentItem) return null;
   const itemType = currentItem.title ? "movies" : "series";
 
   return (
     <div className={css.page}>
-    <div className={css.container}>
-      <section className={css.hero} {...handlers}>
-        <div className={css.bg}>
-          <Image
-            src={tmdbBackdropSrc(
-              currentItem.backdrop_path,
-              currentItem.poster_path
-            )}
-            alt={currentItem.title || currentItem.name}
-            className={css.bgImage}
-            fill
-          />
-          <div className={css.overlay}></div>
-        </div>
-
-        <div className={css.content}>
-          <h1 className={css.title}>{currentItem.title || currentItem.name}</h1>
-          <p className={css.text}>{currentItem.overview}</p>
-
-          <Link href={`/movies/${currentItem.id}?type=${itemType}`} className={css.btn}>
-            <Icon name="now" width={24} height={24} />
-            Play Now
-          </Link>
-
-          <button
-            className={css.arrowLeft}
-            onClick={goToPrev}
-            aria-label="Previous slide"
-          >
-            <Icon name="left" width={30} height={30} />
-          </button>
-          <button
-            className={css.arrowRight}
-            onClick={goToNext}
-            aria-label="Next slide"
-          >
-            <Icon name="right" width={22} height={22} />
-          </button>
-
-          <div className={css.pag}>
-            {slides.map((_, i) => (
-              <button
-                className={`${css.dot} ${i === currentSlide ? css.dotActive : ""}`}
-                key={i}
-                onClick={() => goToSlide(i)}
-                aria-label={`Go to slide ${i + 1}`}
-              >
-              </button>
-            ))}
+      <div className={css.container}>
+        <section className={css.hero} {...handlers}>
+          <div className={css.bg}>
+            <Image
+              src={tmdbBackdropSrc(
+                currentItem.backdrop_path,
+                currentItem.poster_path,
+              )}
+              alt={currentItem.title || currentItem.name}
+              className={css.bgImage}
+              fill
+              priority
+              fetchPriority="high"
+              loading="eager"
+              sizes="100vw"
+            />
+            <div className={css.overlay}></div>
           </div>
+
+          <div className={css.content}>
+            <h1 className={css.title}>
+              {currentItem.title || currentItem.name}
+            </h1>
+            <p className={css.text}>{currentItem.overview}</p>
+
+            <Link
+              href={`/movies/${currentItem.id}?type=${itemType}`}
+              className={css.btn}
+            >
+              <Icon name="now" width={24} height={24} />
+              Play Now
+            </Link>
+
+            <button
+              className={css.arrowLeft}
+              onClick={goToPrev}
+              aria-label="Previous slide"
+            >
+              <Icon name="left" width={30} height={30} />
+            </button>
+            <button
+              className={css.arrowRight}
+              onClick={goToNext}
+              aria-label="Next slide"
+            >
+              <Icon name="right" width={22} height={22} />
+            </button>
+
+            <div className={css.pag}>
+              {slides.map((_, i) => (
+                <button
+                  className={`${css.dot} ${i === currentSlide ? css.dotActive : ""}`}
+                  key={i}
+                  onClick={() => goToSlide(i)}
+                  aria-label={`Go to slide ${i + 1}`}
+                ></button>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+      <div className={css.switch}>
+        <button
+          onClick={() => handleTabSwitch("movies")}
+          className={` ${css.btnn} ${activeTab === "movies" ? css.btnActive : ""}`}
+        >
+          Movies
+        </button>
+        <button
+          onClick={() => handleTabSwitch("shows")}
+          className={` ${css.btnn} ${activeTab === "shows" ? css.btnActive : ""}`}
+        >
+          Shows
+        </button>
+      </div>
+
+      {activeTab === "movies" ? (
+        <div className={css.movies}>
+          <GenreSectionMovies />
+          <Trending type="movies" />
+          <Releases type="movies" />
+          <MustWatch type="movies" />
         </div>
-      </section>
-    </div>
-          <div className={css.switch}>
-      <button onClick={() => handleTabSwitch('movies')} className={` ${css.btnn} ${activeTab === 'movies' ? css.btnActive : ''}`}>Movies</button>
-      <button onClick={() => handleTabSwitch('shows')} className={` ${css.btnn} ${activeTab === 'shows' ? css.btnActive : ''}`}>Shows</button>
-    </div>
-
-    {activeTab === 'movies' ? (
-      <div className={css.movies}>
-        <GenreSectionMovies />
-        <Trending type="movies" />
-        <Releases type="movies" />
-        <MustWatch type="movies" />
-      </div>
-    ) : (
-      <div className={css.shows}>
-        <GenreSectionShows />
-        <Trending type="series" />
-        <Releases type="series" />
-        <MustWatch type="series" />
-      </div>
-    )}
-
+      ) : (
+        <div className={css.shows}>
+          <GenreSectionShows />
+          <Trending type="series" />
+          <Releases type="series" />
+          <MustWatch type="series" />
+        </div>
+      )}
     </div>
   );
 }
