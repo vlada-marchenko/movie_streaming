@@ -17,18 +17,21 @@ interface Props {
   type: "movies" | "series";
 }
 
- function Trending({ type }: Props) {
+const formatPopularity = (num: number) => {
+  const scaled = Math.floor(num * 100);
+  if (scaled >= 1000000)
+    return (scaled / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+  if (scaled >= 1000)
+    return (scaled / 1000).toFixed(1).replace(/\.0$/, "") + "k";
+  return scaled.toString();
+};
+
+function Trending({ type }: Props) {
   const paginationKey = `trending-${type}`;
-  const mobile = useUiStore(
-    (state) => state.paginations[paginationKey]?.mobile ?? false,
-  );
-  const page = useUiStore(
-    (state) => state.paginations[paginationKey]?.page ?? 1,
-  );
-  const items = useUiStore(
-    (state) => state.paginations[paginationKey]?.items ?? 2,
-  );
-  const setPaginationState = useUiStore((state) => state.setPaginationState);
+const pagination = useUiStore((state) => state.paginations[paginationKey]);
+const setPaginationState = useUiStore((state) => state.setPaginationState);
+
+const { mobile = false, page = 1, items = 2 } = pagination || {};
 
   useEffect(() => {
     const handleItemsPerPage = () => {
@@ -54,15 +57,6 @@ interface Props {
     queryFn: () =>
       type === "movies" ? getTrendingMovies("week") : getTrendingSeries("week"),
   });
-
-  const formatPopularity = (num: number) => {
-    const scaled = Math.floor(num * 100);
-    if (scaled >= 1000000)
-      return (scaled / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
-    if (scaled >= 1000)
-      return (scaled / 1000).toFixed(1).replace(/\.0$/, "") + "k";
-    return scaled.toString();
-  };
 
   const total = data ? Math.ceil(data.results.length / items) : 0;
 
@@ -99,8 +93,9 @@ interface Props {
                   setPaginationState(paginationKey, { page: page - 1 })
                 }
                 disabled={page === 1}
+                aria-label="View previous trending items"
               >
-                <Icon name="left" width={22} height={22} />
+                <Icon name="left" width={22} height={22} aria-hidden="true" />
               </button>
 
               <div className={css.num}>
@@ -122,8 +117,9 @@ interface Props {
                   setPaginationState(paginationKey, { page: page + 1 })
                 }
                 disabled={page === total}
+                aria-label="View more trending items"
               >
-                <Icon name="right" width={18} height={18} />
+                <Icon name="right" width={18} height={18} aria-hidden="true" />
               </button>
             </div>
           )}
@@ -141,6 +137,10 @@ interface Props {
                 alt={item.title || item.name}
                 width={158}
                 height={180}
+                loading="lazy"
+                sizes="(max-width: 767px) 158px, 
+                  (max-width: 1439px) 192px, 
+                   252px"
               />
               <div className={css.down}>
                 <p className={css.name}>{item.title || item.name}</p>
