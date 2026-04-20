@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 type TabType = "movies" | "shows";
+type PlanTabType = "basic" | "standard" | "premium";
 
 interface PaginationState {
   page: number;
@@ -12,6 +13,7 @@ interface UiState {
   headerMenuOpen: boolean;
   movieCurrentSlide: number;
   movieActiveTab: TabType;
+  planActiveTab: PlanTabType;
   heroGridSize: number;
   trialGridSize: number;
   paginations: Record<string, PaginationState>;
@@ -28,6 +30,7 @@ interface UiState {
   setTrialGridSize: (size: number) => void;
   setPaginationState: (key: string, payload: Partial<PaginationState>) => void;
   setSelectedSeasons: (id: string, season: number) => void;
+  setPlanActiveTab: (tab: PlanTabType) => void;
 }
 
 const defaultPaginationState: PaginationState = {
@@ -40,6 +43,7 @@ export const useUiStore = create<UiState>((set) => ({
   headerMenuOpen: false,
   movieCurrentSlide: 0,
   movieActiveTab: "movies",
+  planActiveTab: "basic",
   heroGridSize: 36,
   trialGridSize: 36,
   paginations: {},
@@ -74,4 +78,5 @@ export const useUiStore = create<UiState>((set) => ({
         },
       },
     })),
+  setPlanActiveTab: (tab) => set({ planActiveTab: tab }),
 }));
