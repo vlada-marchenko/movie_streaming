@@ -1,3 +1,5 @@
+'use client'
+
 import Plans from "@/components/Plans/Plans";
 import css from "./page.module.css";
 import { useUiStore } from "@/store/uiStore";
@@ -66,7 +68,7 @@ export default function SubscriptionsPage() {
         <h2 className={css.title}>
           Compare our plans and find the right one for you
         </h2>
-        <p className={css.text}>
+        <p className={css.textt}>
           StreamVibe offers three different plans to fit your needs: Basic,
           Standard, and Premium. Compare the features of each plan and choose
           the one that`s right for you.
@@ -96,7 +98,7 @@ export default function SubscriptionsPage() {
             <div className={css.above}>
               <div className={css.planContent}>
                 <h4 className={css.name}>Price</h4>
-                <p className={css.price}>${plans[0].price}</p>
+                <p className={css.text}>${plans[0].price}/Month</p>
               </div>
               <div className={css.planContent}>
                 <h4 className={css.name}>Free Trial</h4>
@@ -143,7 +145,7 @@ export default function SubscriptionsPage() {
             <div className={css.above}>
               <div className={css.planContent}>
                 <h4 className={css.name}>Price</h4>
-                <p className={css.price}>${plans[1].price}</p>
+                <p className={css.text}>${plans[1].price}/Month</p>
               </div>
               <div className={css.planContent}>
                 <h4 className={css.name}>Free Trial</h4>
@@ -190,7 +192,7 @@ export default function SubscriptionsPage() {
             <div className={css.above}>
               <div className={css.planContent}>
                 <h4 className={css.name}>Price</h4>
-                <p className={css.price}>${plans[2].price}</p>
+                <p className={css.text}>${plans[2].price}/Month</p>
               </div>
               <div className={css.planContent}>
                 <h4 className={css.name}>Free Trial</h4>
