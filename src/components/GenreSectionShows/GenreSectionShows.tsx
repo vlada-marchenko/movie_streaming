@@ -14,7 +14,7 @@ interface Genre {
   name: string;
 }
 
- function GenreSectionShows() {
+function GenreSectionShows() {
   const paginationKey = "genre-shows";
   const page = useUiStore(
     (state) => state.paginations[paginationKey]?.page ?? 1,
@@ -52,11 +52,11 @@ interface Genre {
   });
 
   useEffect(() => {
-    if (genresData?.genres) {
-      const totalPages = Math.ceil(genresData.genres.length / items);
-      if (page > totalPages) {
-        setPaginationState(paginationKey, { page: totalPages });
-      }
+    if (!genresData?.genres) return;
+
+    const totalPages = Math.ceil(genresData.genres.length / items);
+    if (page > totalPages && totalPages > 0) {
+      setPaginationState(paginationKey, { page: totalPages });
     }
   }, [genresData, items, page, paginationKey, setPaginationState]);
 

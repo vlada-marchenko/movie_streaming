@@ -40,7 +40,7 @@
   background: #0f0f0f;
   border: 1px solid #262626;
   border-radius: 8px;
-  margin-top: 20px;
+  margin: 20px auto 0;
 }
 
 .btnn {
@@ -116,6 +116,7 @@
     margin: -20px auto 70px;
     max-width: 708px;
   }
+
 }
 
 @media (min-width: 1440px) {
@@ -124,16 +125,107 @@
     margin-top: 60px;
   }
 
+    .content {
+    max-width: 1224px;
+  }
+
   .textt {
     font-size: 16px;
     width: unset;
   }
+
+  .mobPlan {
+    display: none;
+  }
+
+   .table {
+  width: 100%;
+  border-collapse: collapse;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #262626; 
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 40px;
+}
+
+.tableHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #0f0f0f; 
+  border-bottom: 1px solid #262626;
+}
+
+.tableTitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  padding: 24px;
+  gap: 10px;
+  height: 75px;
+  flex: 1; 
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  border-right: 1px solid #262626;
+}
+
+.tableTitle:last-child {
+  border-right: none;
+}
+
+.tableRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #262626;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableText {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 24px;
+  gap: 10px;
+  flex: 1;
+  align-self: stretch;
+  color: #999999; 
+  font-size: 16px;
+  border-right: 1px solid #262626;
+}
+
+.tableText:last-child {
+  border-right: none;
+}
+
+.tableRow td:first-child {
+  color: #fff;
+}
 }
 
 @media (min-width: 1920px) {
   .containerr {
     max-width: 1944px;
   }
+
+    .content {
+      max-width: 1644px;
+    }
+
+    .tableHeader {
+      font-size: 18px;
+    }
+
+    .tableText {
+      font-size: 18px;
+    }
 
   .title {
     font-size: 38px;

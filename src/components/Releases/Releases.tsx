@@ -11,6 +11,7 @@ import Icon from "../Icon/Icon";
 import { useEffect } from "react";
 import Link from "next/link";
 import { useUiStore } from "@/store/uiStore";
+import { memo } from "react";
 
 interface Props {
   type: "movies" | "series";
@@ -26,7 +27,6 @@ function formatReleaseDate(value?: string): string {
   let month = "";
   let year = "";
 
-  // Supports both yyyy-mm-dd and dd-mm-yyyy.
   if (parts[0].length === 4) {
     [year, month, day] = parts;
   } else {
@@ -40,7 +40,7 @@ function formatReleaseDate(value?: string): string {
 }
 
 
-export default function Releases({ type }: Props) {
+ function Releases({ type }: Props) {
   const paginationKey = `releases-${type}`;
   const mobile = useUiStore(
     (state) => state.paginations[paginationKey]?.mobile ?? false
@@ -146,3 +146,5 @@ export default function Releases({ type }: Props) {
     </section>
   );
 }
+
+export default memo(Releases);

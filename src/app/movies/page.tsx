@@ -41,7 +41,7 @@ export default function MoviesPage() {
       return [...moviesData.results.slice(0, 2), ...tvData.results.slice(0, 2)];
     }
     return [];
-  }, [moviesData, tvData]);
+  }, [moviesData.results, tvData.results]);
 
   useEffect(() => {
     if (slides.length === 0) return;

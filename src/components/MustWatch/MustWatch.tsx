@@ -18,17 +18,10 @@ interface Props {
   type: "movies" | "series";
 }
 
- function MustWatch({ type }: Props) {
+function MustWatch({ type }: Props) {
   const paginationKey = `must watch ${type}`;
-  const mobile = useUiStore(
-    (state) => state.paginations[paginationKey]?.mobile ?? false,
-  );
-  const page = useUiStore(
-    (state) => state.paginations[paginationKey]?.page ?? 1,
-  );
-  const items = useUiStore(
-    (state) => state.paginations[paginationKey]?.items ?? 2,
-  );
+  const pagination = useUiStore((state) => state.paginations[paginationKey]);
+  const { page = 1, items = 2, mobile = false } = pagination || {};
   const setPaginationState = useUiStore((state) => state.setPaginationState);
 
   useEffect(() => {
@@ -74,7 +67,7 @@ interface Props {
 
   const filteredResults = useMemo(() => {
     return data?.results.filter((item: any) => item.vote_count > 0) ?? [];
-  }, [data]);
+  }, [data?.results]);
 
   if (isLoading) {
     return (

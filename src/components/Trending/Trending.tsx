@@ -27,7 +27,7 @@ const formatPopularity = (num: number) => {
 };
 
 function Trending({ type }: Props) {
-  const paginationKey = `trending-${type}`;
+const paginationKey = `trending-${type}`;
 const pagination = useUiStore((state) => state.paginations[paginationKey]);
 const setPaginationState = useUiStore((state) => state.setPaginationState);
 
