@@ -36,12 +36,13 @@ export default function MoviesPage() {
     staleTime: 1000 * 60 * 60,
   });
 
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const slides = useMemo(() => {
     if (moviesData?.results && tvData?.results) {
       return [...moviesData.results.slice(0, 2), ...tvData.results.slice(0, 2)];
     }
     return [];
-  }, [moviesData.results, tvData.results]);
+  }, [moviesData?.results, tvData?.results]);
 
   useEffect(() => {
     if (slides.length === 0) return;
