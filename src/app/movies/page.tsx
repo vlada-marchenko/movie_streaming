@@ -10,19 +10,42 @@ import Image from "next/image";
 import Link from "next/link";
 import Icon from "../../components/Icon/Icon";
 import { useSwipeable } from "react-swipeable";
-import GenreSectionMovies from "@/components/GenreSectionMovies/GenreSectionMovies";
-import GenreSectionShows from "@/components/GenreSectionShows/GenreSectionShows";
-import Trending from "@/components/Trending/Trending";
+// import GenreSectionMovies from "@/components/GenreSectionMovies/GenreSectionMovies";
+// import GenreSectionShows from "@/components/GenreSectionShows/GenreSectionShows";
+// import Trending from "@/components/Trending/Trending";
 import { tmdbBackdropSrc } from "@/lib/tmdbImage";
-import Releases from "@/components/Releases/Releases";
+// import Releases from "@/components/Releases/Releases";
 import { useUiStore } from "@/store/uiStore";
-import MustWatch from "@/components/MustWatch/MustWatch";
+// import MustWatch from "@/components/MustWatch/MustWatch";
+import dynamic from 'next/dynamic';
+
+  const GenreSectionMovies = dynamic(() => import('@/components/GenreSectionMovies/GenreSectionMovies'), {
+  loading: () => <div style={{ minHeight: '400px' }} />,
+});
+
+const GenreSectionShows = dynamic(() => import('@/components/GenreSectionShows/GenreSectionShows'), {
+  loading: () => <div style={{ minHeight: '400px' }} />,
+});
+
+const Trending = dynamic(() => import('@/components/Trending/Trending'), {
+  loading: () => <div style={{ minHeight: '300px' }} />,
+});
+
+const Releases = dynamic(() => import('@/components/Releases/Releases'), {
+  loading: () => <div style={{ minHeight: '300px' }} />,
+});
+
+const MustWatch = dynamic(() => import('@/components/MustWatch/MustWatch'), {
+  loading: () => <div style={{ minHeight: '300px' }} />,
+});
+
 
 export default function MoviesPage() {
   const currentSlide = useUiStore((state) => state.movieCurrentSlide);
   const setCurrentSlide = useUiStore((state) => state.setMovieCurrentSlide);
   const activeTab = useUiStore((state) => state.movieActiveTab);
   const setActiveTab = useUiStore((state) => state.setMovieActiveTab);
+
 
   const { data: moviesData } = useQuery({
     queryKey: ["trendingMovies"],
@@ -80,11 +103,14 @@ export default function MoviesPage() {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
-if (slides.length === 0) {
+  if (slides.length === 0) {
     return (
       <div className={css.page}>
-         <div className={css.heroPlaceholder} style={{ height: '70vh', background: '#111' }} />
-         <div className={css.loadingText}>Loading your entertainment...</div>
+        <div className={css.container}>
+          <section className={css.hero} style={{ minHeight: "600px" }}>
+            <div className={css.heroSkeleton} />
+          </section>
+        </div>
       </div>
     );
   }
@@ -111,8 +137,7 @@ if (slides.length === 0) {
               className={css.bgImage}
               fill
               priority
-              fetchPriority="high"
-              loading="eager"
+              quality={85}
               sizes="100vw"
             />
             <div className={css.overlay}></div>

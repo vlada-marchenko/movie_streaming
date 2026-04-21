@@ -9,11 +9,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Trial from "../components/Trial/Trial";
 
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
 };
+
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -43,6 +45,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={manrope.variable}>
+      <head>
+        <link rel="preconnect" href="https://image.tmdb.org" />
+        <link rel="dns-prefetch" href="https://image.tmdb.org" />
+      </head>
       <body className={manrope.className}>
         <TanStackProvider>
           <div className="layout-wrapper">

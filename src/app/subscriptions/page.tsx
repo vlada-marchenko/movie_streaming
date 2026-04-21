@@ -238,12 +238,15 @@ export default function SubscriptionsPage() {
           )}
         </div>
         <table className={css.table}>
+          <thead>
             <tr className={css.tableHeader}>
               <th className={css.tableTitle}>Features</th>
               <th className={css.tableTitle}>Basic</th>
               <th className={css.tableTitle}>Standard</th>
               <th className={css.tableTitle}>Premium</th>
             </tr>
+          </thead>
+          <tbody>
             <tr className={css.tableRow}>
               <td className={css.tableText}>Price</td>
               <td className={css.tableText}>${plans[0].price}/Month</td>
@@ -304,6 +307,7 @@ export default function SubscriptionsPage() {
               <td className={css.tableText}>{plans[1].family}</td>
               <td className={css.tableText}>{plans[2].family}</td>
             </tr>
+          </tbody>
         </table>
       </div>
     </div>
