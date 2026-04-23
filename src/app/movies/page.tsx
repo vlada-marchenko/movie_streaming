@@ -137,6 +137,7 @@ export default function MoviesPage() {
               className={css.bgImage}
               fill
               priority
+              fetchPriority="high" 
               quality={85}
               sizes="100vw"
             />

@@ -69,7 +69,7 @@ export default function GenreCard({
 
       <div className={css.under}>
         <h3 className={css.text}>{genreName}</h3>
-        <button className={css.button}>
+        <button className={css.button}   aria-label={`View ${genreName} ${mediaType === 'movie' ? 'movies' : 'shows'}`}>
         <Icon name='right' width={20} height={20}/>
         </button>
       </div>

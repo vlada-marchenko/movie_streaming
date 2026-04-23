@@ -58,7 +58,7 @@ export default function Header() {
           </div>
         </nav>
         <div className={css.empty}></div>
-        <button className={css.burger} onClick={toggleMenu}>
+        <button className={css.burger} onClick={toggleMenu} aria-label="Open navigation menu" >
           <Icon name="menu" width={32} height={32} className={css.menu} />
         </button>
         {openMenu && (
