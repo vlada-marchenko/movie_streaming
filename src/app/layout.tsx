@@ -45,6 +45,7 @@ export default function RootLayout({
     <html lang="en" className={manrope.variable}>
       <head>
         <link rel="preconnect" href="https://image.tmdb.org" />
+        <link rel="preconnect" href="https://api.themoviedb.org" />
         <link
           rel="preload"
           href="/_next/static/css/app/movies/page.css"
