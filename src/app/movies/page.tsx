@@ -174,17 +174,56 @@ export default function MoviesPage() {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
-  if (slides.length === 0) {
-    return (
-      <div className={css.page}>
-        <div className={css.container}>
-          <section className={css.hero} style={{ minHeight: "600px" }}>
+if (slides.length === 0) {
+  return (
+    <div className={css.page}>
+      <div className={css.container}>
+        <section className={css.hero}>
+
+          <div className={css.bg}>
             <div className={css.heroSkeleton} />
-          </section>
-        </div>
+            <div className={css.overlay}></div>
+          </div>
+          
+          <div className={css.content}>
+
+            <div style={{ 
+              width: '250px', 
+              height: '32px', 
+              background: '#333', 
+              borderRadius: '8px',
+              marginBottom: '20px'
+            }} />
+ 
+            <div style={{ 
+              width: '310px', 
+              height: '52px', 
+              background: '#E50000', 
+              borderRadius: '8px',
+              opacity: 0.3
+            }} />
+            
+
+            <div className={css.pag}>
+              {[...Array(4)].map((_, i) => (
+                <div
+                  key={i}
+                  className={css.dot}
+                  style={{ pointerEvents: 'none' }}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
       </div>
-    );
-  }
+
+      <div className={css.switch} style={{ opacity: 0.5 }}>
+        <div className={css.btnn}>Movies</div>
+        <div className={css.btnn}>Shows</div>
+      </div>
+    </div>
+  );
+}
 
   const handleTabSwitch = (tab: "movies" | "shows") => {
     setActiveTab(tab);
