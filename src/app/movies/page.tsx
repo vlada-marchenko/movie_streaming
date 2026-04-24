@@ -10,42 +10,113 @@ import Image from "next/image";
 import Link from "next/link";
 import Icon from "../../components/Icon/Icon";
 import { useSwipeable } from "react-swipeable";
-// import GenreSectionMovies from "@/components/GenreSectionMovies/GenreSectionMovies";
-// import GenreSectionShows from "@/components/GenreSectionShows/GenreSectionShows";
-// import Trending from "@/components/Trending/Trending";
 import { tmdbBackdropSrc } from "@/lib/tmdbImage";
-// import Releases from "@/components/Releases/Releases";
 import { useUiStore } from "@/store/uiStore";
-// import MustWatch from "@/components/MustWatch/MustWatch";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-  const GenreSectionMovies = dynamic(() => import('@/components/GenreSectionMovies/GenreSectionMovies'), {
-  loading: () => <div style={{ minHeight: '400px' }} />,
-});
+const GenreSectionMovies = dynamic(
+  () => import("@/components/GenreSectionMovies/GenreSectionMovies"),
+  {
+    loading: () => (
+      <div
+        style={{
+          minHeight: "500px",
+          padding: "80px 0",
+          display: "grid",
+          gap: "30px",
+        }}
+      >
+        <div
+          style={{
+            width: "200px",
+            height: "32px",
+            background: "#262626",
+            borderRadius: "8px",
+          }}
+        />
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+            gap: "20px",
+          }}
+        >
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              style={{
+                height: "300px",
+                background: "#1a1a1a",
+                borderRadius: "12px",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    ),
+  },
+);
 
-const GenreSectionShows = dynamic(() => import('@/components/GenreSectionShows/GenreSectionShows'), {
-  loading: () => <div style={{ minHeight: '400px' }} />,
-});
+const GenreSectionShows = dynamic(
+  () => import("@/components/GenreSectionShows/GenreSectionShows"),
+  {
+    loading: () => (
+      <div
+        style={{
+          minHeight: "500px",
+          padding: "80px 0",
+          display: "grid",
+          gap: "30px",
+        }}
+      >
+        <div
+          style={{
+            width: "200px",
+            height: "32px",
+            background: "#262626",
+            borderRadius: "8px",
+          }}
+        />
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+            gap: "20px",
+          }}
+        >
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              style={{
+                height: "300px",
+                background: "#1a1a1a",
+                borderRadius: "12px",
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    ),
+  },
+);
 
 const Trending = dynamic(() => import('@/components/Trending/Trending'), {
-  loading: () => <div style={{ minHeight: '300px' }} />,
+  loading: () => <div style={{ minHeight: '400px', padding: '60px 0' }} />,
 });
 
 const Releases = dynamic(() => import('@/components/Releases/Releases'), {
-  loading: () => <div style={{ minHeight: '300px' }} />,
+  loading: () => <div style={{ minHeight: '400px', padding: '60px 0' }} />,
 });
 
 const MustWatch = dynamic(() => import('@/components/MustWatch/MustWatch'), {
-  loading: () => <div style={{ minHeight: '300px' }} />,
+  loading: () => <div style={{ minHeight: '400px', padding: '60px 0' }} />,
 });
-
 
 export default function MoviesPage() {
   const currentSlide = useUiStore((state) => state.movieCurrentSlide);
   const setCurrentSlide = useUiStore((state) => state.setMovieCurrentSlide);
   const activeTab = useUiStore((state) => state.movieActiveTab);
   const setActiveTab = useUiStore((state) => state.setMovieActiveTab);
-
 
   const { data: moviesData } = useQuery({
     queryKey: ["trendingMovies"],
@@ -137,7 +208,7 @@ export default function MoviesPage() {
               className={css.bgImage}
               fill
               priority
-              fetchPriority="high" 
+              fetchPriority="high"
               quality={85}
               sizes="100vw"
             />
