@@ -24,13 +24,26 @@
   position: relative;
   touch-action: pan-y;
   user-select: none;
-  width: 375px;
-  height: 468px;
+  width: 100%; /* ✅ Changed from 375px */
+  height: 468px; /* ✅ Fixed height */
   padding: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: end;
+  overflow: hidden; /* ✅ Added */
+}
+
+/* ✅ ADD THIS - Critical for fixing CLS */
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
 .title {
@@ -53,7 +66,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 468px;
+  height: 100%; /* ✅ Changed from 468px */
   background: linear-gradient(
     to bottom,
     rgba(0, 0, 0, 0.2) 0%,
@@ -78,9 +91,8 @@
 .bgImage {
   object-fit: cover;
   object-position: center;
-  border-radius: 12px;
-  width: 375px;
-  height: 468px;
+  width: 100%; /* ✅ Changed from 375px */
+  height: 100%; /* ✅ Changed from 468px */
 }
 
 .btn {
@@ -102,7 +114,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 8px;
   align-self: center;
 }
 
@@ -129,7 +141,8 @@
   display: flex;
   align-items: center;
   padding: 8px;
-  width: 375px;
+  width: 100%;
+  max-width: 375px;
   height: 61px;
   background: #0f0f0f;
   border: 1px solid #262626;
@@ -165,11 +178,13 @@
   gap: 10px;
   background: #1f1f1f;
   border-radius: 6px;
+  color: #ffffff;
 }
+
 
 .heroSkeleton {
   width: 100%;
-  height: 600px; 
+  height: 468px;
   background: linear-gradient(90deg, #1a1a1a 25%, #262626 50%, #1a1a1a 75%);
   background-size: 200% 100%;
   animation: loading 1.5s infinite;
@@ -184,27 +199,24 @@
   }
 }
 
-@media (max-width: 768px) {
-  .heroSkeleton {
-    height: 400px; /* Match mobile hero height */
-  }
-}
-
 @media (min-width: 768px) {
   .container {
     max-width: 708px;
     padding: 0;
-    height: 420px;
   }
 
   .hero {
-    width: 708px;
+    width: 100%;
     height: 420px;
     padding: 20px;
   }
 
-  .overlay {
-    height: 420px;
+  .heroSkeleton {
+    height: 420px; 
+  }
+
+  .switch {
+    width: 375px;
   }
 
   .content {
@@ -218,13 +230,16 @@
     text-align: left;
     margin: 0;
   }
+
+  .switch {
+    max-width: 708px; 
+  }
 }
 
 @media (min-width: 1440px) {
   .container {
     max-width: 1224px;
     padding: 0;
-    height: 759px;
   }
 
   .content {
@@ -233,17 +248,17 @@
   }
 
   .hero {
-    width: 1224px;
+    width: 100%; 
     height: 759px;
     padding: 60px;
   }
 
-  .pag {
-    margin-top: 30px;
+  .heroSkeleton {
+    height: 759px; 
   }
 
-  .overlay {
-    height: 759px;
+  .pag {
+    margin-top: 30px;
   }
 
   .text {
@@ -261,7 +276,7 @@
   .arrowRight {
     display: flex;
     position: absolute;
-    top: 100%;
+    top: 100%; 
     transform: translateY(-50%);
     z-index: 4;
     width: 48px;
@@ -289,23 +304,26 @@
     background: rgba(0, 0, 0, 0.9);
     transform: translateY(-50%) scale(1.1);
   }
+
+  .switch {
+    max-width: 1224px; /* ✅ Added */
+  }
 }
 
 @media (min-width: 1920px) {
   .container {
     max-width: 1644px;
-    height: 835px;
     padding: 0;
   }
 
   .hero {
-    width: 1644px;
+    width: 100%; /* ✅ Changed from 1644px */
     height: 835px;
     padding: 60px;
   }
 
-  .overlay {
-    height: 835px;
+  .heroSkeleton {
+    height: 835px; /* ✅ Match large desktop hero height */
   }
 
   .title {
@@ -323,4 +341,12 @@
   .arrowRight {
     right: -120px;
   }
+
+  .switch {
+    max-width: 1644px; /* ✅ Added */
+  }
 }
+
+
+
+
