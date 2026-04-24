@@ -27,11 +27,11 @@ const formatPopularity = (num: number) => {
 };
 
 function Trending({ type }: Props) {
-const paginationKey = `trending-${type}`;
-const pagination = useUiStore((state) => state.paginations[paginationKey]);
-const setPaginationState = useUiStore((state) => state.setPaginationState);
+  const paginationKey = `trending-${type}`;
+  const pagination = useUiStore((state) => state.paginations[paginationKey]);
+  const setPaginationState = useUiStore((state) => state.setPaginationState);
 
-const { mobile = false, page = 1, items = 2 } = pagination || {};
+  const { mobile = false, page = 1, items = 2 } = pagination || {};
 
   useEffect(() => {
     const handleItemsPerPage = () => {
@@ -131,17 +131,38 @@ const { mobile = false, page = 1, items = 2 } = pagination || {};
               key={item.id}
               className={css.card}
             >
-              <Image
-                className={css.img}
-                src={tmdbPosterSrc(item.poster_path)}
-                alt={item.title || item.name}
-                width={158}
-                height={180}
-                loading="lazy"
-                sizes="(max-width: 767px) 158px, 
-                  (max-width: 1439px) 192px, 
-                   252px"
-              />
+              {displayData.map(
+                (
+                  item: any,
+                  index: number, 
+                ) => (
+                  <Link
+                    href={`/movies/${item.id}?type=${type === "movies" ? "movies" : "series"}`}
+                    key={item.id}
+                    className={css.card}
+                  >
+                    <Image
+                      className={css.img}
+                      src={tmdbPosterSrc(item.poster_path)}
+                      alt={item.title || item.name}
+                      width={158}
+                      height={237}
+                      priority={index < 3} 
+                      loading={index < 3 ? undefined : "lazy"} 
+                      sizes="(max-width: 767px) 158px, (max-width: 1439px) 192px, 252px"
+                    />
+                    <div className={css.down}>
+                      <p className={css.name}>{item.title || item.name}</p>
+                      <div className={css.popularity}>
+                        <Icon name="eye" width={24} height={24} />
+                        <p className={css.text}>
+                          {formatPopularity(item.popularity)}
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                ),
+              )}
               <div className={css.down}>
                 <p className={css.name}>{item.title || item.name}</p>
                 <div className={css.popularity}>

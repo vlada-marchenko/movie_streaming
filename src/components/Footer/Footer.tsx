@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import css from "./Footer.module.css";
 import Icon from "../Icon/Icon";
@@ -41,21 +41,21 @@ export default function Footer() {
           <div className={css.box}>
             <span className={css.title}>Connect With Us</span>
             <div className={css.icons}>
-              <Link href="/" className={css.icon}>
+              <Link href="/" className={css.icon} aria-label="Facebook">
                 <Icon name="f" width={22} height={22} />
               </Link>
-              <Link href="/" className={css.icon}>
+              <Link href="/" className={css.icon} aria-label="Twitter">
                 <Icon name="t" width={22} height={22} />
               </Link>
-              <Link href="/" className={css.icon}>
+              <Link href="/" className={css.icon} aria-label="LinkedIn">
                 <Icon name="in" width={22} height={22} />
               </Link>
             </div>
-                    </div>
           </div>
-          <div className={css.under}>
-            <div className={css.divider}></div>
-            <div className={css.copy}>
+        </div>
+        <div className={css.under}>
+          <div className={css.divider}></div>
+          <div className={css.copy}>
             <span className={css.text}>
               @2023 streamvib, All Rights Reserved
             </span>
@@ -66,8 +66,8 @@ export default function Footer() {
               <span className={css.l}>|</span>
               <span className={css.it}>Cookie Policy</span>
             </div>
-            </div>
           </div>
+        </div>
       </div>
     </footer>
   );

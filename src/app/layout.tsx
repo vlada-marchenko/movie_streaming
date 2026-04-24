@@ -7,7 +7,18 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Trial from "../components/Trial/Trial";
+import dynamic from 'next/dynamic';
+
+const Trial = dynamic(() => import('../components/Trial/Trial'), {
+  loading: () => (
+    <div style={{ 
+      minHeight: '400px',
+      padding: '60px 20px',
+      background: 'transparent'
+    }} />
+  ),
+  ssr: false, 
+});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -45,6 +56,7 @@ export default function RootLayout({
     <html lang="en" className={manrope.variable}>
       <head>
         <link rel="preconnect" href="https://image.tmdb.org" />
+        <link rel="preconnect" href="https://api.themoviedb.org" />
         <link
           rel="preload"
           href="/_next/static/css/app/movies/page.css"
