@@ -3,11 +3,12 @@
 import { getGenres } from "@/lib/movies";
 import { useQuery } from "@tanstack/react-query";
 import GenreCard from "../GenreCard/GenreCard";
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import css from "./GenreSectionMovies.module.css";
 import Icon from "../Icon/Icon";
 import { useUiStore } from "@/store/uiStore";
 import { memo } from "react";
+import { useCallback } from "react";
 
 interface Genre {
   id: number;
