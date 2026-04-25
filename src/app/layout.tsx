@@ -17,7 +17,6 @@ const Trial = dynamic(() => import('../components/Trial/Trial'), {
       background: 'transparent'
     }} />
   ),
-  ssr: false, 
 });
 
 export const viewport: Viewport = {
