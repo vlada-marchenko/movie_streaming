@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ['@tanstack/react-query', 'zustand', 'react-toastify'],
+    optimizeCss: true,  
   },
   ...(process.env.NODE_ENV === 'production' && {
     compiler: {

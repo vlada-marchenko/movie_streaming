@@ -7,15 +7,17 @@ import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const Trial = dynamic(() => import('../components/Trial/Trial'), {
+const Trial = dynamic(() => import("../components/Trial/Trial"), {
   loading: () => (
-    <div style={{ 
-      minHeight: '400px',
-      padding: '60px 20px',
-      background: 'transparent'
-    }} />
+    <div
+      style={{
+        minHeight: "400px",
+        padding: "60px 20px",
+        background: "transparent",
+      }}
+    />
   ),
 });
 
@@ -54,8 +56,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={manrope.variable}>
       <head>
-        <link rel="preconnect" href="https://image.tmdb.org" />
-        <link rel="preconnect" href="https://api.themoviedb.org" />
+        <link
+          rel="preconnect"
+          href="https://image.tmdb.org"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://api.themoviedb.org" />
       </head>
       <body className={manrope.className}>
         <TanStackProvider>

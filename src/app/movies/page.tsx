@@ -17,11 +17,12 @@ import dynamic from "next/dynamic";
 const GenreSectionMovies = dynamic(
   () => import("@/components/GenreSectionMovies/GenreSectionMovies"),
   {
+    ssr: false,
     loading: () => (
       <div
         style={{
-          minHeight: "600px", 
-          padding: "80px 20px", 
+          minHeight: "600px",
+          padding: "80px 20px",
           display: "grid",
           gap: "30px",
         }}
@@ -60,11 +61,12 @@ const GenreSectionMovies = dynamic(
 const GenreSectionShows = dynamic(
   () => import("@/components/GenreSectionShows/GenreSectionShows"),
   {
+    ssr: false,
     loading: () => (
       <div
         style={{
-          minHeight: "600px", 
-          padding: "80px 20px", 
+          minHeight: "600px",
+          padding: "80px 20px",
           display: "grid",
           gap: "30px",
         }}
@@ -88,7 +90,7 @@ const GenreSectionShows = dynamic(
             <div
               key={i}
               style={{
-                height: "350px", 
+                height: "350px",
                 background: "#1a1a1a",
                 borderRadius: "12px",
               }}
@@ -100,16 +102,19 @@ const GenreSectionShows = dynamic(
   },
 );
 
-const Trending = dynamic(() => import('@/components/Trending/Trending'), {
-  loading: () => <div style={{ minHeight: '400px', padding: '60px 0' }} />,
+const Trending = dynamic(() => import("@/components/Trending/Trending"), {
+  ssr: false,
+  loading: () => <div style={{ minHeight: "400px", padding: "60px 0" }} />,
 });
 
-const Releases = dynamic(() => import('@/components/Releases/Releases'), {
-  loading: () => <div style={{ minHeight: '400px', padding: '60px 0' }} />,
+const Releases = dynamic(() => import("@/components/Releases/Releases"), {
+  ssr: false,
+  loading: () => <div style={{ minHeight: "400px", padding: "60px 0" }} />,
 });
 
-const MustWatch = dynamic(() => import('@/components/MustWatch/MustWatch'), {
-  loading: () => <div style={{ minHeight: '400px', padding: '60px 0' }} />,
+const MustWatch = dynamic(() => import("@/components/MustWatch/MustWatch"), {
+  ssr: false,
+  loading: () => <div style={{ minHeight: "400px", padding: "60px 0" }} />,
 });
 
 export default function MoviesPage() {
@@ -155,10 +160,6 @@ export default function MoviesPage() {
     }
   }, [currentSlide, setCurrentSlide, slides.length]);
 
-  const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-  };
-
   const goToPrev = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
@@ -174,54 +175,58 @@ export default function MoviesPage() {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
 
-if (slides.length === 0) {
-  return (
-    <div className={css.page}>
-      <div className={css.container}>
-        <section className={css.hero}>
-          <div className={css.bg}>
-            <div className={css.heroSkeleton} />
-            <div className={css.overlay}></div>
-          </div>
-          
-          <div className={css.content}>
-            <div style={{ 
-              width: '250px', 
-              height: '29px', 
-              background: '#333', 
-              borderRadius: '8px',
-              marginBottom: '20px' 
-            }} />
- 
-            <div style={{ 
-              width: '310px', 
-              height: '52px', 
-              background: '#E50000', 
-              borderRadius: '8px',
-              opacity: 0.3,
-              marginBottom: '20px'
-            }} />
-            
-            <div className={css.pag}>
-              {[...Array(4)].map((_, i) => (
-                <div
-                  key={i}
-                  className={css.dot}
-                  style={{ pointerEvents: 'none', opacity: 0.3 }} 
-                />
-              ))}
+  if (slides.length === 0) {
+    return (
+      <div className={css.page}>
+        <div className={css.container}>
+          <section className={css.hero}>
+            <div className={css.bg}>
+              <div className={css.heroSkeleton} />
+              <div className={css.overlay}></div>
             </div>
-          </div>
-        </section>
-      </div>
 
-      <div className={css.switch} style={{ opacity: 0.5 }}>
-        <div className={css.btnn}>Movies</div>
-        <div className={css.btnn}>Shows</div>
+            <div className={css.content}>
+              <div
+                style={{
+                  width: "250px",
+                  height: "29px",
+                  background: "#333",
+                  borderRadius: "8px",
+                  marginBottom: "20px",
+                }}
+              />
+
+              <div
+                style={{
+                  width: "310px",
+                  height: "52px",
+                  background: "#E50000",
+                  borderRadius: "8px",
+                  opacity: 0.3,
+                  marginBottom: "20px",
+                }}
+              />
+
+              <div className={css.pag}>
+                {[...Array(4)].map((_, i) => (
+                  <div
+                    key={i}
+                    className={css.dot}
+                    style={{ pointerEvents: "none", opacity: 0.3 }}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div className={css.switch} style={{ opacity: 0.5 }}>
+          <div className={css.btnn}>Movies</div>
+          <div className={css.btnn}>Shows</div>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   const handleTabSwitch = (tab: "movies" | "shows") => {
     setActiveTab(tab);
@@ -246,8 +251,10 @@ if (slides.length === 0) {
               fill
               priority
               fetchPriority="high"
-              quality={85}
+              quality={75}
               sizes="100vw"
+              placeholder="blur"
+              blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Crect fill='%231a1a1a' width='1920' height='1080'/%3E%3C/svg%3E"
             />
             <div className={css.overlay}></div>
           </div>
@@ -283,12 +290,10 @@ if (slides.length === 0) {
 
             <div className={css.pag}>
               {slides.map((_, i) => (
-                <button
+                <span
                   className={`${css.dot} ${i === currentSlide ? css.dotActive : ""}`}
                   key={i}
-                  onClick={() => goToSlide(i)}
-                  aria-label={`Go to slide ${i + 1}`}
-                ></button>
+                ></span>
               ))}
             </div>
           </div>
