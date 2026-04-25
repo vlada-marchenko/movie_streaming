@@ -18,41 +18,36 @@ const GenreSectionMovies = dynamic(
   () => import("@/components/GenreSectionMovies/GenreSectionMovies"),
   {
     loading: () => (
-      <div
-        style={{
-          minHeight: "600px", 
-          padding: "80px 20px", 
+      <section style={{ 
+        minHeight: "800px", 
+        padding: "80px 20px",
+        display: "grid",
+        gap: "40px", 
+      }}>
+        <div style={{
+          width: "200px",
+          height: "40px", 
+          background: "#262626",
+          borderRadius: "8px",
+        }} />
+        
+        <div style={{
           display: "grid",
-          gap: "30px",
-        }}
-      >
-        <div
-          style={{
-            width: "200px",
-            height: "32px",
-            background: "#262626",
-            borderRadius: "8px",
-          }}
-        />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          {[...Array(6)].map((_, i) => (
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", 
+          gap: "24px", // ✅ Increased from 20px
+        }}>
+          {[...Array(8)].map((_, i) => ( 
             <div
               key={i}
               style={{
-                height: "350px",
+                height: "400px", 
                 background: "#1a1a1a",
                 borderRadius: "12px",
               }}
             />
           ))}
         </div>
-      </div>
+      </section>
     ),
   },
 );
@@ -61,41 +56,35 @@ const GenreSectionShows = dynamic(
   () => import("@/components/GenreSectionShows/GenreSectionShows"),
   {
     loading: () => (
-      <div
-        style={{
-          minHeight: "600px", 
-          padding: "80px 20px", 
+      <section style={{ 
+        minHeight: "800px", 
+        padding: "80px 20px",
+        display: "grid",
+        gap: "40px", 
+      }}>
+        <div style={{
+          width: "200px",
+          height: "40px",
+          background: "#262626",
+          borderRadius: "8px",
+        }} />
+        <div style={{
           display: "grid",
-          gap: "30px",
-        }}
-      >
-        <div
-          style={{
-            width: "200px",
-            height: "32px",
-            background: "#262626",
-            borderRadius: "8px",
-          }}
-        />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          {[...Array(6)].map((_, i) => (
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+          gap: "24px",
+        }}>
+          {[...Array(8)].map((_, i) => (
             <div
               key={i}
               style={{
-                height: "350px", 
+                height: "400px",
                 background: "#1a1a1a",
                 borderRadius: "12px",
               }}
             />
           ))}
         </div>
-      </div>
+      </section>
     ),
   },
 );
