@@ -8,6 +8,7 @@ import Icon from "../Icon/Icon";
 import { getGenresTv } from "@/lib/series";
 import { useUiStore } from "@/store/uiStore";
 import { memo } from "react";
+import { useCallback } from "react";
 
 interface Genre {
   id: number;
@@ -27,24 +28,32 @@ function GenreSectionShows() {
   );
   const setPaginationState = useUiStore((state) => state.setPaginationState);
 
+  const handleItemsPerPage = useCallback(() => {
+    if (window.innerWidth < 1440) {
+      setPaginationState(paginationKey, { items: 2, mobile: true, page: 1 });
+    } else if (window.innerWidth < 1920) {
+      setPaginationState(paginationKey, { items: 5, mobile: false });
+    } else {
+      setPaginationState(paginationKey, { items: 5, mobile: false });
+    }
+  }, [paginationKey, setPaginationState]);
+
   useEffect(() => {
-    const handleItemsPerPage = () => {
-      if (window.innerWidth < 1440) {
-        setPaginationState(paginationKey, { items: 2, mobile: true, page: 1 });
-      } else if (window.innerWidth < 1920) {
-        setPaginationState(paginationKey, { items: 5, mobile: false });
-      } else {
-        setPaginationState(paginationKey, { items: 5, mobile: false });
-      }
+    handleItemsPerPage();
+
+    let timeoutId: NodeJS.Timeout;
+    const debouncedResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(handleItemsPerPage, 150);
     };
 
-    handleItemsPerPage();
-    window.addEventListener("resize", handleItemsPerPage);
+    window.addEventListener("resize", debouncedResize);
 
     return () => {
-      window.removeEventListener("resize", handleItemsPerPage);
+      clearTimeout(timeoutId);
+      window.removeEventListener("resize", debouncedResize);
     };
-  }, [paginationKey, setPaginationState]);
+  }, [handleItemsPerPage]);
 
   const { data: genresData, isLoading } = useQuery({
     queryKey: ["tvGenres"],

@@ -61,7 +61,12 @@ export default function RootLayout({
           href="https://image.tmdb.org"
           crossOrigin="anonymous"
         />
-        <link rel="dns-prefetch" href="https://api.themoviedb.org" />
+
+        <link
+          rel="preconnect"
+          href="https://api.themoviedb.org"
+          media="(max-width: 767px)"
+        />
       </head>
       <body className={manrope.className}>
         <TanStackProvider>

@@ -102,18 +102,23 @@ const GenreSectionShows = dynamic(
   },
 );
 
+const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false;
+  return window.innerWidth < 768;
+};
+
 const Trending = dynamic(() => import("@/components/Trending/Trending"), {
-  ssr: false,
+  ssr: !isMobileDevice(),
   loading: () => <div style={{ minHeight: "400px", padding: "60px 0" }} />,
 });
 
 const Releases = dynamic(() => import("@/components/Releases/Releases"), {
-  ssr: false,
+  ssr: !isMobileDevice(),
   loading: () => <div style={{ minHeight: "400px", padding: "60px 0" }} />,
 });
 
 const MustWatch = dynamic(() => import("@/components/MustWatch/MustWatch"), {
-  ssr: false,
+  ssr: !isMobileDevice(),
   loading: () => <div style={{ minHeight: "400px", padding: "60px 0" }} />,
 });
 
