@@ -57,11 +57,6 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://image.tmdb.org" />
         <link rel="preconnect" href="https://api.themoviedb.org" />
-        <link
-          rel="preload"
-          href="/_next/static/css/app/movies/page.css"
-          as="style"
-        />
       </head>
       <body className={manrope.className}>
         <TanStackProvider>

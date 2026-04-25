@@ -20,8 +20,8 @@ const GenreSectionMovies = dynamic(
     loading: () => (
       <div
         style={{
-          minHeight: "500px",
-          padding: "80px 0",
+          minHeight: "600px", 
+          padding: "80px 20px", 
           display: "grid",
           gap: "30px",
         }}
@@ -45,7 +45,7 @@ const GenreSectionMovies = dynamic(
             <div
               key={i}
               style={{
-                height: "300px",
+                height: "350px",
                 background: "#1a1a1a",
                 borderRadius: "12px",
               }}
@@ -63,8 +63,8 @@ const GenreSectionShows = dynamic(
     loading: () => (
       <div
         style={{
-          minHeight: "500px",
-          padding: "80px 0",
+          minHeight: "600px", 
+          padding: "80px 20px", 
           display: "grid",
           gap: "30px",
         }}
@@ -88,7 +88,7 @@ const GenreSectionShows = dynamic(
             <div
               key={i}
               style={{
-                height: "300px",
+                height: "350px", 
                 background: "#1a1a1a",
                 borderRadius: "12px",
               }}
@@ -179,20 +179,18 @@ if (slides.length === 0) {
     <div className={css.page}>
       <div className={css.container}>
         <section className={css.hero}>
-
           <div className={css.bg}>
             <div className={css.heroSkeleton} />
             <div className={css.overlay}></div>
           </div>
           
           <div className={css.content}>
-
             <div style={{ 
               width: '250px', 
-              height: '32px', 
+              height: '29px', 
               background: '#333', 
               borderRadius: '8px',
-              marginBottom: '20px'
+              marginBottom: '20px' 
             }} />
  
             <div style={{ 
@@ -200,16 +198,16 @@ if (slides.length === 0) {
               height: '52px', 
               background: '#E50000', 
               borderRadius: '8px',
-              opacity: 0.3
+              opacity: 0.3,
+              marginBottom: '20px'
             }} />
             
-
             <div className={css.pag}>
               {[...Array(4)].map((_, i) => (
                 <div
                   key={i}
                   className={css.dot}
-                  style={{ pointerEvents: 'none' }}
+                  style={{ pointerEvents: 'none', opacity: 0.3 }} 
                 />
               ))}
             </div>
