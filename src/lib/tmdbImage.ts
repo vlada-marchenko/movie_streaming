@@ -12,5 +12,5 @@ export function tmdbBackdropSrc(
 ): string {
 const path = backdropPath || posterPath;
   if (!path) return "/poster-placeholder.svg";
-  return `${TMDB_BASE}/w1280${path}`;
+  return `${TMDB_BASE}/original${path}`;
 }

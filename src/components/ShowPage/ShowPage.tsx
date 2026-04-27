@@ -26,6 +26,9 @@ export default function ShowPage({ data }: Props) {
             fill
             priority
             fetchPriority="high"
+            sizes="100vw"
+            quality={85}
+            style={{ objectFit: "cover" }}
           />
           <div className={css.overlay}></div>
         </div>

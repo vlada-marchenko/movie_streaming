@@ -27,6 +27,9 @@ export default function MoviePage({ data }: Props) {
             height={468}
             priority
             fetchPriority="high"
+            sizes="100vw"
+            quality={85}
+            style={{ objectFit: "cover" }}
           />
           <div className={css.overlay}></div>
         </div>
