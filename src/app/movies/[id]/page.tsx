@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { getMovieDetails } from "@/lib/movies";
 import { useParams, useSearchParams } from "next/navigation";
@@ -9,32 +9,33 @@ import ShowPage from "@/components/ShowPage/ShowPage";
 
 export default function MovieDetailPage() {
   const params = useParams();
-  const searchParams = useSearchParams()
+  const searchParams = useSearchParams();
   const id = params.id ? Number(params.id) : undefined;
-  const type = searchParams.get('type') as 'movies' | 'series' || 'movies';
+  const type = (searchParams.get("type") as "movies" | "series") || "movies";
 
   const { data, isLoading, error } = useQuery({
     queryKey: [type, id],
-    queryFn: () => id && (type === 'movies' ? getMovieDetails(id) : getSeriesDetails(id)),
+    queryFn: () =>
+      id && (type === "movies" ? getMovieDetails(id) : getSeriesDetails(id)),
     enabled: !!id,
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{ minHeight: "100vh" }}>
+        <div style={{ height: "468px" }} />
+        Loading...
+      </div>
+    );
   }
 
   if (error) {
     return <div>Error loading movie details</div>;
-
-}
+  }
 
   return (
     <div>
-      {type === 'movies' ? (
-        <MoviePage data={data} />
-      ) : (
-        <ShowPage data={data} />
-      )}
+      {type === "movies" ? <MoviePage data={data} /> : <ShowPage data={data} />}
     </div>
   );
 }

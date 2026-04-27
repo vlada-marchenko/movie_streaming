@@ -24,6 +24,8 @@ export default function ShowPage({ data }: Props) {
             alt={currentItem.name}
             className={css.bgImage}
             fill
+            priority
+            fetchPriority="high"
           />
           <div className={css.overlay}></div>
         </div>

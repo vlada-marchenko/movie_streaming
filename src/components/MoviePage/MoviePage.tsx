@@ -25,6 +25,8 @@ export default function MoviePage({ data }: Props) {
             className={css.bgImage}
             width={375}
             height={468}
+            priority
+            fetchPriority="high"
           />
           <div className={css.overlay}></div>
         </div>
@@ -38,7 +40,7 @@ export default function MoviePage({ data }: Props) {
           </button>
         </div>
       </section>
-     <ItemContent type="movie" data={currentItem} />
+      <ItemContent type="movie" data={currentItem} />
     </div>
   );
 }

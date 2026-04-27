@@ -32,11 +32,8 @@
     "eslint-config-next": "16.1.6",
     "typescript": "^5"
   },
-    "browserslist": [
-    "last 2 Chrome versions",
-    "last 2 Firefox versions", 
-    "last 2 Safari versions",
-    "last 2 Edge versions",
-    "not dead"
-  ]
+"browserslist": [
+  "defaults and fully supports es6-module",
+  "last 2 versions and > 0.2% and not dead"
+]
 }
