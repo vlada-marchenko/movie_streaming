@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['@tanstack/react-query', 'zustand', 'react-toastify'],
     optimizeCss: true,
   },
+
 };
 
 export default nextConfig;
