@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ['@tanstack/react-query', 'zustand', 'react-toastify'],
-    optimizeCss: true,
+    optimizeCss: false,
   },
 
 };

@@ -57,23 +57,16 @@ export default function RootLayout({
     <html lang="en" className={manrope.variable}>
       <head>
         <link
-          rel="preload"
-          href="/_next/static/media/manrope-latin-400-normal.woff2" // Adjust path if needed
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        <link
           rel="preconnect"
           href="https://image.tmdb.org"
           crossOrigin="anonymous"
         />
 
-        {/* <link
+        <link
           rel="preconnect"
           href="https://api.themoviedb.org"
           media="(max-width: 767px)"
-        /> */}
+        /> 
       </head>
       <body className={manrope.className}>
         <TanStackProvider>

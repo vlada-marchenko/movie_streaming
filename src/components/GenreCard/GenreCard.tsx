@@ -12,7 +12,7 @@ interface GenreCardProps {
   genreId: number;
   genreName: string;
   page?: number;
-  mediaType: 'movie' | 'tv';
+  mediaType: "movie" | "tv";
 }
 
 interface Movie {
@@ -25,12 +25,16 @@ export default function GenreCard({
   genreId,
   genreName,
   page,
-  mediaType
+  mediaType,
 }: GenreCardProps) {
   const { data, error, isLoading } = useQuery({
-    queryKey: [mediaType === 'movie' ? 'moviesByGenre' : 'tvByGenre', genreId, page],
-    queryFn: () => 
-      mediaType === 'movie'
+    queryKey: [
+      mediaType === "movie" ? "moviesByGenre" : "tvByGenre",
+      genreId,
+      page,
+    ],
+    queryFn: () =>
+      mediaType === "movie"
         ? getMoviesByGenre(genreId, page)
         : getSeriesByGenre(genreId, page),
   });
@@ -60,8 +64,8 @@ export default function GenreCard({
               src={tmdbPosterSrc(movie.poster_path)}
               alt={movie.title || "Preview"}
               className={css.image}
-              width={100}
-              height={100}
+              fill 
+              sizes="(max-width: 768px) 60px, 115px"
             />
           </div>
         ))}
@@ -69,8 +73,11 @@ export default function GenreCard({
 
       <div className={css.under}>
         <h3 className={css.text}>{genreName}</h3>
-        <button className={css.button}   aria-label={`View ${genreName} ${mediaType === 'movie' ? 'movies' : 'shows'}`}>
-        <Icon name='right' width={20} height={20}/>
+        <button
+          className={css.button}
+          aria-label={`View ${genreName} ${mediaType === "movie" ? "movies" : "shows"}`}
+        >
+          <Icon name="right" width={20} height={20} />
         </button>
       </div>
     </div>
