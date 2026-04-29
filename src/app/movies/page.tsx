@@ -256,6 +256,7 @@ export default function MoviesPage() {
               fill
               priority
               fetchPriority="high"
+              loading="eager"
               quality={75}
               sizes="100vw"
               placeholder="blur"

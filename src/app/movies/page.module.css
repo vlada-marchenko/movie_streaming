@@ -33,6 +33,10 @@
   contain: layout style paint; 
 }
 
+.hero {
+  height: 468px !important; 
+}
+
 .title {
   font-family: "Manrope";
   font-style: normal;
@@ -168,13 +172,12 @@
   border-radius: 6px;
 }
 
-/* .heroSkeleton {
+.movies, .shows {
+  min-height: 1200px;
   width: 100%;
-  height: 100%; 
-  background: linear-gradient(90deg, #1a1a1a 25%, #262626 50%, #1a1a1a 75%);
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-} */
+  display: flex;
+  flex-direction: column;
+}
 
 .bg {
   position: absolute;
@@ -202,6 +205,7 @@
     height: 420px;
     aspect-ratio: 708 / 420;
   }
+  .hero { height: 420px !important; }
 }
 
 @media (min-width: 768px) {
@@ -214,12 +218,13 @@
 
   .hero {
     width: 708px;
-    height: 420px;
     padding: 20px;
   }
 
+  .hero { height: 759px !important; }
+
   .overlay {
-    height: 420px;
+    height: 759px;
   }
 
   .content {
@@ -252,6 +257,8 @@
     width: 1224px;
     height: 759px;
   }
+
+  .hero { height: 835px !important; }
 
   .pag {
     margin-top: 30px;
