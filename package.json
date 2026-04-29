@@ -36,7 +36,7 @@
   "browserslist": [
     "last 1 Chrome versions",
     "last 1 Safari versions",
-    "edge >= 79",
-    "firefox >= 78"
+    "last 1 Firefox versions",
+    "edge >= 79"
   ]
 }

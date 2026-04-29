@@ -19,40 +19,12 @@ const GenreSectionMovies = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div
-        style={{
-          minHeight: "600px",
-          padding: "80px 20px",
-          display: "grid",
-          gap: "30px",
-        }}
-      >
-        <div
-          style={{
-            width: "200px",
-            height: "32px",
-            background: "#262626",
-            borderRadius: "8px",
-          }}
-        />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              style={{
-                height: "350px",
-                background: "#1a1a1a",
-                borderRadius: "12px",
-              }}
-            />
-          ))}
-        </div>
+      <div style={{ height: "342px", margin: "40px 0" }}> 
+         <div style={{ width: "150px", height: "30px", background: "#262626", marginBottom: "20px" }} />
+         <div style={{ display: "flex", gap: "10px" }}>
+            <div style={{ width: "178px", height: "201px", background: "#1a1a1a", borderRadius: "10px" }} />
+            <div style={{ width: "178px", height: "201px", background: "#1a1a1a", borderRadius: "10px" }} />
+         </div>
       </div>
     ),
   },
@@ -63,40 +35,12 @@ const GenreSectionShows = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div
-        style={{
-          minHeight: "600px",
-          padding: "80px 20px",
-          display: "grid",
-          gap: "30px",
-        }}
-      >
-        <div
-          style={{
-            width: "200px",
-            height: "32px",
-            background: "#262626",
-            borderRadius: "8px",
-          }}
-        />
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              style={{
-                height: "350px",
-                background: "#1a1a1a",
-                borderRadius: "12px",
-              }}
-            />
-          ))}
-        </div>
+      <div style={{ height: "342px", margin: "40px 0" }}> 
+         <div style={{ width: "150px", height: "30px", background: "#262626", marginBottom: "20px" }} />
+         <div style={{ display: "flex", gap: "10px" }}>
+            <div style={{ width: "178px", height: "201px", background: "#1a1a1a", borderRadius: "10px" }} />
+            <div style={{ width: "178px", height: "201px", background: "#1a1a1a", borderRadius: "10px" }} />
+         </div>
       </div>
     ),
   },
@@ -108,13 +52,10 @@ const isMobileDevice = () => {
 };
 
 const Trending = dynamic(() => import("@/components/Trending/Trending"), {
-  ssr: !isMobileDevice(),
-  loading: () => <div style={{ minHeight: "400px", padding: "60px 0" }} />,
+  loading: () => <div style={{ height: "400px" }} />,
 });
-
 const Releases = dynamic(() => import("@/components/Releases/Releases"), {
-  ssr: !isMobileDevice(),
-  loading: () => <div style={{ minHeight: "400px", padding: "60px 0" }} />,
+  loading: () => <div style={{ height: "400px" }} />,
 });
 
 const MustWatch = dynamic(() => import("@/components/MustWatch/MustWatch"), {

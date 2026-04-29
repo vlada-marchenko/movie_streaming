@@ -173,7 +173,7 @@
 }
 
 .movies, .shows {
-  min-height: 1200px;
+  min-height: 1800px;
   width: 100%;
   display: flex;
   flex-direction: column;
