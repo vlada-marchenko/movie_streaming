@@ -35,6 +35,7 @@
 
 .hero {
   height: 468px !important; 
+  contain: layout style;
 }
 
 .title {
@@ -173,11 +174,14 @@
 }
 
 .movies, .shows {
-  min-height: 1800px;
+  min-height: 1200px;
   width: 100%;
   display: flex;
   flex-direction: column;
   contain: content;
+  contain: layout style paint; 
+  content-visibility: auto; 
+  contain-intrinsic-size: 1200px;
 }
 
 .bg {
