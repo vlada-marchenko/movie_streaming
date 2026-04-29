@@ -75,7 +75,7 @@ function MustWatch({ type }: Props) {
         <div
           className={css.skeletonLoader}
           style={{
-            height: "280px",
+            height: "400px",
             background: "#1a1a1a",
             borderRadius: "12px",
           }}
