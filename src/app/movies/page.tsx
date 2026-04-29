@@ -119,35 +119,33 @@ export default function MoviesPage() {
 
   // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const slides = useMemo(() => {
-    const m = moviesData?.results ? moviesData.results.slice(0, 2) : [];
-    const t = tvData?.results ? tvData.results.slice(0, 2) : [];
-    return m.concat(t);
+    const m = moviesData?.results?.slice(0, 2) || [];
+    const t = tvData?.results?.slice(0, 2) || [];
+    return [...m, ...t];
   }, [moviesData?.results, tvData?.results]);
 
   useEffect(() => {
     if (slides.length === 0) return;
 
-    let timerId: NodeJS.Timeout;
-    let idleId: number;
-
-    const startSlider = () => {
-      timerId = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % slides.length);
+    const setupTimer = () => {
+      const timer = setInterval(() => {
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
       }, 10000);
+      return timer;
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let timerId: any;
     if ("requestIdleCallback" in window) {
-      idleId = window.requestIdleCallback(() => startSlider());
+      window.requestIdleCallback(() => {
+        timerId = setupTimer();
+      });
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      timerId = setTimeout(startSlider, 2000) as any;
+      timerId = setupTimer();
     }
 
-    return () => {
-      if (timerId) clearInterval(timerId);
-      if (idleId) window.cancelIdleCallback(idleId);
-    };
-  }, [slides.length, setCurrentSlide]);
+    return () => clearInterval(timerId);
+  }, [setCurrentSlide, slides.length]);
 
   const goToPrev = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
@@ -279,7 +277,7 @@ export default function MoviesPage() {
             </button>
 
             <div className={css.pag}>
-              {slides.map((_: unknown, i: number) => (
+              {slides.map((_, i) => (
                 <span
                   className={`${css.dot} ${i === currentSlide ? css.dotActive : ""}`}
                   key={i}
