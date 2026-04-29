@@ -35,6 +35,10 @@ a {
   min-height: 100vh;
 }
 
+footer {
+  margin-top: auto;
+}
+
 main {
   flex: 1;
 }

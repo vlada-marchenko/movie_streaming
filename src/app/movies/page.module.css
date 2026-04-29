@@ -24,11 +24,13 @@
 .hero, .heroSkeleton {
   position: relative;
   width: 375px;
-  height: 468px; 
+  min-height: 468px; 
+  aspect-ratio: 375 / 468; 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: end;
+  contain: layout style paint; 
 }
 
 .title {
@@ -79,6 +81,7 @@
   border-radius: 12px;
   width: 375px;
   height: 468px;
+  content-visibility: auto;
 }
 
 .btn {
@@ -197,6 +200,7 @@
 .hero, .heroSkeleton {
     width: 708px;
     height: 420px;
+    aspect-ratio: 708 / 420;
   }
 }
 
@@ -205,6 +209,7 @@
     max-width: 708px;
     padding: 0;
     height: 420px;
+    aspect-ratio: 1224 / 759;
   }
 
   .hero {
@@ -235,6 +240,7 @@
     max-width: 1224px;
     padding: 0;
     height: 759px;
+    aspect-ratio: 1644 / 835;
   }
 
   .content {

@@ -25,7 +25,7 @@ export default function Plans() {
         }
     ]
     return (
-        <div className={css.container}>
+        <div className={css.container} id="plans">
             <h2 className={css.title}>Choose the plan that`s right for you</h2>
             <p className={css.text}>Join StreamVibe and select from our flexible subscription options tailored to suit your viewing preferences. Get ready for non-stop entertainment!</p>
 

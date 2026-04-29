@@ -32,6 +32,7 @@ const manrope = Manrope({
   weight: ["200", "300", "400", "500", "600", "700", "800"],
   variable: "--font-manrope",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -62,11 +63,11 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
-        <link
+        {/* <link
           rel="preconnect"
           href="https://api.themoviedb.org"
           media="(max-width: 767px)"
-        /> 
+        />  */}
       </head>
       <body className={manrope.className}>
         <TanStackProvider>

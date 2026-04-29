@@ -62,7 +62,7 @@ const faqData: FAQItem[] = [
 
 export default function FAQ() {
   return (
-    <div className={css.container}>
+    <div className={css.container} id="faq">
       <h2 className={css.title}>Frequently Asked Questions</h2>
       <p className={css.text}>
         Got questions? We`ve got answers! Check out our FAQ section to find

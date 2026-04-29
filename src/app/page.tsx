@@ -4,7 +4,6 @@ import GenreSectionHome from "@/components/GenreSectionHome/GenreSectionHome";
 import Devices from "@/components/Devices/Devices";
 import FAQ from "@/components/FAQ/FAQ";
 import Plans from "@/components/Plans/Plans";
-import Trial from "@/components/Trial/Trial";
 
 export default function Home() {
   return (

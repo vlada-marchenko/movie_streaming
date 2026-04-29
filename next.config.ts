@@ -11,10 +11,10 @@ const nextConfig: NextConfig = {
       },
     ],
     formats: ['image/avif', 'image/webp'],
-    deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920, 2560], 
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512], 
+    deviceSizes: [375, 640, 750, 828, 1080, 1200, 1920, 2560],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 512],
     minimumCacheTTL: 31536000,
-    dangerouslyAllowSVG: true, 
+    dangerouslyAllowSVG: true,
     contentDispositionType: 'inline',
   },
   compiler: {
@@ -22,9 +22,9 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizePackageImports: ['@tanstack/react-query', 'zustand', 'react-toastify'],
-    optimizeCss: false,
+    optimizeCss: true, 
   },
-
+  transpilePackages: [],
 };
 
 export default nextConfig;

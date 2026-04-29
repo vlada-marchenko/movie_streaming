@@ -75,7 +75,7 @@ export default function Hero() {
   const gridContent = shuffled.slice(0, gridSize);
 
   return (
-    <section className={css.page}>
+    <section className={css.page} id="home">
       <div className={css.grid}>
         {gridContent.map((item, index) => (
           <div key={`${item.id}-${index}`} className={css.poster}>

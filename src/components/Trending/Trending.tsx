@@ -136,7 +136,7 @@ function Trending({ type }: Props) {
                 src={tmdbPosterSrc(item.poster_path)}
                 alt={item.title || item.name}
                 width={158}
-                height={237}
+                height={180}
                 priority={index < 3}
                 sizes="(max-width: 767px) 158px, (max-width: 1439px) 192px, 252px"
               />
