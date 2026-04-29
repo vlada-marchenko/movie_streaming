@@ -127,16 +127,6 @@ const slides = useMemo(() => {
   useEffect(() => {
     if (slides.length === 0) return;
 
-    const timer = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 10000);
-
-    return () => clearInterval(timer);
-  }, [setCurrentSlide, slides.length]);
-
-  useEffect(() => {
-    if (slides.length === 0) return;
-
     const setupTimer = () => {
       const timer = setInterval(() => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
@@ -250,7 +240,7 @@ const slides = useMemo(() => {
               fetchPriority="high"
               loading="eager"
               quality={75}
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1440px) 1224px, 1644px"
               placeholder="blur"
               blurDataURL="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1920 1080'%3E%3Crect fill='%231a1a1a' width='1920' height='1080'/%3E%3C/svg%3E"
             />
