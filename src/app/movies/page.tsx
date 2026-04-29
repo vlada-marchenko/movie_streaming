@@ -117,33 +117,44 @@ export default function MoviesPage() {
     staleTime: 1000 * 60 * 60,
   });
 
-  const slides = useMemo(() => {
-    const m = moviesData?.results?.slice(0, 2) || [];
-    const t = tvData?.results?.slice(0, 2) || [];
-    return [...m, ...t];
-  }, [moviesData?.results, tvData?.results]);
+  // eslint-disable-next-line react-hooks/preserve-manual-memoization
+const slides = useMemo(() => {
+  const m = moviesData?.results?.slice(0, 2) || [];
+  const t = tvData?.results?.slice(0, 2) || [];
+  return [...m, ...t];
+}, [moviesData?.results, tvData?.results]);
 
   useEffect(() => {
     if (slides.length === 0) return;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    let timerId: any;
+    const timer = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+    }, 10000);
+
+    return () => clearInterval(timer);
+  }, [setCurrentSlide, slides.length]);
+
+  useEffect(() => {
+    if (slides.length === 0) return;
+
     const setupTimer = () => {
-      timerId = setInterval(() => {
+      const timer = setInterval(() => {
         setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
       }, 10000);
+      return timer;
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let timerId: any;
     if ("requestIdleCallback" in window) {
-      const idleId = window.requestIdleCallback(() => setupTimer());
-      return () => {
-        window.cancelIdleCallback(idleId);
-        clearInterval(timerId);
-      };
+      window.requestIdleCallback(() => {
+        timerId = setupTimer();
+      });
     } else {
-      setupTimer();
-      return () => clearInterval(timerId);
+      timerId = setupTimer();
     }
+
+    return () => clearInterval(timerId);
   }, [setCurrentSlide, slides.length]);
 
   const goToPrev = () => {
