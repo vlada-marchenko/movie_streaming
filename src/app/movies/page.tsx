@@ -19,12 +19,33 @@ const GenreSectionMovies = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div style={{ height: "342px", margin: "40px 0" }}> 
-         <div style={{ width: "150px", height: "30px", background: "#262626", marginBottom: "20px" }} />
-         <div style={{ display: "flex", gap: "10px" }}>
-            <div style={{ width: "178px", height: "201px", background: "#1a1a1a", borderRadius: "10px" }} />
-            <div style={{ width: "178px", height: "201px", background: "#1a1a1a", borderRadius: "10px" }} />
-         </div>
+      <div style={{ height: "342px", margin: "40px 0" }}>
+        <div
+          style={{
+            width: "150px",
+            height: "30px",
+            background: "#262626",
+            marginBottom: "20px",
+          }}
+        />
+        <div style={{ display: "flex", gap: "10px" }}>
+          <div
+            style={{
+              width: "178px",
+              height: "201px",
+              background: "#1a1a1a",
+              borderRadius: "10px",
+            }}
+          />
+          <div
+            style={{
+              width: "178px",
+              height: "201px",
+              background: "#1a1a1a",
+              borderRadius: "10px",
+            }}
+          />
+        </div>
       </div>
     ),
   },
@@ -35,21 +56,37 @@ const GenreSectionShows = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div style={{ height: "342px", margin: "40px 0" }}> 
-         <div style={{ width: "150px", height: "30px", background: "#262626", marginBottom: "20px" }} />
-         <div style={{ display: "flex", gap: "10px" }}>
-            <div style={{ width: "178px", height: "201px", background: "#1a1a1a", borderRadius: "10px" }} />
-            <div style={{ width: "178px", height: "201px", background: "#1a1a1a", borderRadius: "10px" }} />
-         </div>
+      <div style={{ height: "342px", margin: "40px 0" }}>
+        <div
+          style={{
+            width: "150px",
+            height: "30px",
+            background: "#262626",
+            marginBottom: "20px",
+          }}
+        />
+        <div style={{ display: "flex", gap: "10px" }}>
+          <div
+            style={{
+              width: "178px",
+              height: "201px",
+              background: "#1a1a1a",
+              borderRadius: "10px",
+            }}
+          />
+          <div
+            style={{
+              width: "178px",
+              height: "201px",
+              background: "#1a1a1a",
+              borderRadius: "10px",
+            }}
+          />
+        </div>
       </div>
     ),
   },
 );
-
-const isMobileDevice = () => {
-  if (typeof window === 'undefined') return false;
-  return window.innerWidth < 768;
-};
 
 const Trending = dynamic(() => import("@/components/Trending/Trending"), {
   loading: () => <div style={{ height: "400px" }} />,
@@ -59,8 +96,7 @@ const Releases = dynamic(() => import("@/components/Releases/Releases"), {
 });
 
 const MustWatch = dynamic(() => import("@/components/MustWatch/MustWatch"), {
-  ssr: !isMobileDevice(),
-  loading: () => <div style={{ minHeight: "400px", padding: "60px 0" }} />,
+  loading: () => <div style={{ height: "400px" }} />,
 });
 
 export default function MoviesPage() {
@@ -101,10 +137,26 @@ export default function MoviesPage() {
 
   useEffect(() => {
     if (slides.length === 0) return;
-    if (currentSlide >= slides.length) {
-      setCurrentSlide(0);
+
+    const setupTimer = () => {
+      const timer = setInterval(() => {
+        setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
+      }, 10000);
+      return timer;
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let timerId: any;
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(() => {
+        timerId = setupTimer();
+      });
+    } else {
+      timerId = setupTimer();
     }
-  }, [currentSlide, setCurrentSlide, slides.length]);
+
+    return () => clearInterval(timerId);
+  }, [setCurrentSlide, slides.length]);
 
   const goToPrev = () => {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
