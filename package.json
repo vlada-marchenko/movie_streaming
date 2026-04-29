@@ -37,6 +37,6 @@
     "last 1 Chrome versions",
     "last 1 Safari versions",
     "last 1 Firefox versions",
-    "edge >= 79"
+    "edge >= 100"
   ]
 }
