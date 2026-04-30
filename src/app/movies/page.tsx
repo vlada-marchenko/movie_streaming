@@ -14,6 +14,7 @@ import { tmdbBackdropSrc } from "@/lib/tmdbImage";
 import { useUiStore } from "@/store/uiStore";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const GenreSectionMovies = dynamic(
   () => import("@/components/GenreSectionMovies/GenreSectionMovies"),
@@ -100,7 +101,7 @@ const MustWatch = dynamic(() => import("@/components/MustWatch/MustWatch"), {
   loading: () => <div style={{ height: "400px" }} />,
 });
 
-export default function MoviesPage() {
+ function MoviesPageContent() {
   const currentSlide = useUiStore((state) => state.movieCurrentSlide);
   const setCurrentSlide = useUiStore((state) => state.setMovieCurrentSlide);
   const activeTab = useUiStore((state) => state.movieActiveTab);
@@ -126,7 +127,7 @@ export default function MoviesPage() {
     }
   }, [searchParams, setActiveTab]);
 
-  // eslint-disable-next-line react-hooks/preserve-manual-memoization
+
   const slides = useMemo(() => {
     const m = moviesData?.results?.slice(0, 2) || [];
     const t = tvData?.results?.slice(0, 2) || [];
@@ -170,59 +171,6 @@ export default function MoviesPage() {
   const goToNext = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
   };
-
-  // if (slides.length === 0) {
-  //   return (
-  //     <div className={css.page}>
-  //       <div className={css.container}>
-  //         <section className={css.hero}>
-  //           <div className={css.bg}>
-  //             <div className={css.heroSkeleton} />
-  //             <div className={css.overlay}></div>
-  //           </div>
-
-  //           <div className={css.content}>
-  //             <div
-  //               style={{
-  //                 width: "250px",
-  //                 height: "29px",
-  //                 background: "#333",
-  //                 borderRadius: "8px",
-  //                 marginBottom: "20px",
-  //               }}
-  //             />
-
-  //             <div
-  //               style={{
-  //                 width: "310px",
-  //                 height: "52px",
-  //                 background: "#E50000",
-  //                 borderRadius: "8px",
-  //                 opacity: 0.3,
-  //                 marginBottom: "20px",
-  //               }}
-  //             />
-
-  //             <div className={css.pag}>
-  //               {[...Array(4)].map((_, i) => (
-  //                 <div
-  //                   key={i}
-  //                   className={css.dot}
-  //                   style={{ pointerEvents: "none", opacity: 0.3 }}
-  //                 />
-  //               ))}
-  //             </div>
-  //           </div>
-  //         </section>
-  //       </div>
-
-  //       <div className={css.switch} style={{ opacity: 0.5 }}>
-  //         <div className={css.btnn}>Movies</div>
-  //         <div className={css.btnn}>Shows</div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   const handleTabSwitch = (tab: "movies" | "shows") => {
     setActiveTab(tab);
@@ -327,5 +275,13 @@ export default function MoviesPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function MoviesPage() {
+  return (
+    <Suspense fallback={<div>Loading page...</div>}>
+      <MoviesPageContent />
+    </Suspense>
   );
 }
