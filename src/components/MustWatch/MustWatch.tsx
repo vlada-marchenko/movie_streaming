@@ -92,7 +92,7 @@ function MustWatch({ type }: Props) {
   const total = data ? Math.ceil(filteredResults.length / items) : 0;
 
   return (
-    <section className={css.container}>
+    <section className={css.container} id={type === "movies" ? "must-watch" : "must-watch-series"}>
       <div className={css.content}>
         <div className={css.up}>
           <h3 className={css.title}>Must-watch {type}</h3>

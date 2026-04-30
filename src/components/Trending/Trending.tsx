@@ -81,7 +81,7 @@ function Trending({ type }: Props) {
     : data.results.slice((page - 1) * items, page * items);
 
   return (
-    <section className={css.container}>
+    <section className={css.container} id={type === "movies" ? "trending" : "show-trending"}>
       <div className={css.content}>
         <div className={css.up}>
           <h3 className={css.title}>Trending Now</h3>

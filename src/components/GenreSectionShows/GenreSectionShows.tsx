@@ -90,10 +90,9 @@ function GenreSectionShows() {
     ? genresData.genres
     : genresData.genres.slice(startInx, startInx + items);
 
-  // const showPag = !mobile && total > 1
 
   return (
-    <section className={css.section}>
+    <section className={css.section} id="show-genres">
       <div className={css.content}>
         <div className={css.top}>
           <div>

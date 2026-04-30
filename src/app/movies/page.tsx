@@ -13,6 +13,7 @@ import { useSwipeable } from "react-swipeable";
 import { tmdbBackdropSrc } from "@/lib/tmdbImage";
 import { useUiStore } from "@/store/uiStore";
 import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
 
 const GenreSectionMovies = dynamic(
   () => import("@/components/GenreSectionMovies/GenreSectionMovies"),
@@ -104,6 +105,7 @@ export default function MoviesPage() {
   const setCurrentSlide = useUiStore((state) => state.setMovieCurrentSlide);
   const activeTab = useUiStore((state) => state.movieActiveTab);
   const setActiveTab = useUiStore((state) => state.setMovieActiveTab);
+  const searchParams = useSearchParams();
 
   const { data: moviesData } = useQuery({
     queryKey: ["trendingMovies"],
@@ -116,6 +118,13 @@ export default function MoviesPage() {
     queryFn: () => getTrendingSeries("week"),
     staleTime: 1000 * 60 * 60,
   });
+
+  useEffect(() => {
+    const tabParam = searchParams.get("tab");
+    if (tabParam === "shows" || tabParam === "movies") {
+      setActiveTab(tabParam);
+    }
+  }, [searchParams, setActiveTab]);
 
   // eslint-disable-next-line react-hooks/preserve-manual-memoization
   const slides = useMemo(() => {

@@ -64,7 +64,7 @@ export default function SubscriptionsPage() {
   return (
     <div className={css.containerr}>
       <Plans />
-      <div className={css.content}>
+      <div className={css.content} id="features">
         <h2 className={css.title}>
           Compare our plans and find the right one for you
         </h2>

@@ -89,7 +89,7 @@ function Releases({ type }: Props) {
     : data.results.slice((page - 1) * items, page * items);
 
   return (
-    <section className={css.container}>
+    <section className={css.container} id={type === "movies" ? "new" : "show-new"}>
       <div className={css.content}>
         <div className={css.up}>
           <h3 className={css.title}>New Releases</h3>
