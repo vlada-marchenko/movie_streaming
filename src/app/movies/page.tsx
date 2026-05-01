@@ -101,20 +101,20 @@ const MustWatch = dynamic(() => import("@/components/MustWatch/MustWatch"), {
   loading: () => <div style={{ height: "400px" }} />,
 });
 
- function MoviesPageContent() {
+function MoviesPageContent() {
   const currentSlide = useUiStore((state) => state.movieCurrentSlide);
   const setCurrentSlide = useUiStore((state) => state.setMovieCurrentSlide);
   const activeTab = useUiStore((state) => state.movieActiveTab);
   const setActiveTab = useUiStore((state) => state.setMovieActiveTab);
   const searchParams = useSearchParams();
 
-  const { data: moviesData } = useQuery({
+  const { data: moviesData, isLoading: isLoadingMovies } = useQuery({
     queryKey: ["trendingMovies"],
     queryFn: () => getTrendingMovies("week"),
     staleTime: 1000 * 60 * 60,
   });
 
-  const { data: tvData } = useQuery({
+  const { data: tvData, isLoading: isLoadingTV } = useQuery({
     queryKey: ["trendingTVShows"],
     queryFn: () => getTrendingSeries("week"),
     staleTime: 1000 * 60 * 60,
@@ -126,7 +126,6 @@ const MustWatch = dynamic(() => import("@/components/MustWatch/MustWatch"), {
       setActiveTab(tabParam);
     }
   }, [searchParams, setActiveTab]);
-
 
   const slides = useMemo(() => {
     const m = moviesData?.results?.slice(0, 2) || [];
@@ -177,7 +176,26 @@ const MustWatch = dynamic(() => import("@/components/MustWatch/MustWatch"), {
   };
 
   const currentItem = slides[currentSlide];
-  if (!currentItem) return null;
+
+  if (isLoadingMovies || isLoadingTV || !currentItem) {
+    return (
+      <div className={css.page}>
+        <div className={css.container}>
+          <div className={css.heroSkeleton}>
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                background: "#1a1a1a",
+                borderRadius: "12px",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   const itemType = currentItem.title ? "movies" : "series";
 
   return (
