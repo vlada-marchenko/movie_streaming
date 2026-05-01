@@ -11,6 +11,7 @@
   border-radius: 12px;
   overflow: hidden;
   min-height: 468px;
+  aspect-ratio: 375 / 468;
 }
 
 .page {
@@ -24,19 +25,15 @@
 
 .hero, .heroSkeleton {
   position: relative;
-  width: 375px;
+  width: 100%;
   min-height: 468px; 
   aspect-ratio: 375 / 468; 
   display: flex;
   flex-direction: column;
   align-items: center;
+  aspect-ratio: 375 / 468;
   justify-content: end;
   contain: layout style paint; 
-}
-
-.hero {
-  height: 468px !important; 
-  contain: layout style;
 }
 
 .title {
@@ -211,7 +208,12 @@
     min-height: 420px;
     aspect-ratio: 708 / 420;
   }
-  .hero { height: 420px !important; }
+
+  .container {
+    width: 708px;
+    min-height: 420px;
+    aspect-ratio: 708 / 420;
+  }
 }
 
 @media (min-width: 768px) {
@@ -219,12 +221,14 @@
     max-width: 708px;
     padding: 0;
     min-height: 420px;
-    aspect-ratio: 1224 / 759;
+    aspect-ratio: 708 / 420;
   }
 
   .hero {
     width: 708px;
     padding: 20px;
+    min-height: 420px;
+    aspect-ratio: 708 / 420;
   }
 
   .hero { height: 759px !important; }
@@ -251,7 +255,7 @@
     max-width: 1224px;
     padding: 0;
     height: 759px;
-    aspect-ratio: 1644 / 835;
+    aspect-ratio: 1224 / 759;
   }
 
   .content {
@@ -262,6 +266,7 @@
 .hero, .heroSkeleton {
     width: 1224px;
     height: 759px;
+    aspect-ratio: 1224 / 759;
   }
 
   .hero { height: 835px !important; }
@@ -324,12 +329,14 @@
     max-width: 1644px;
     min-height: 835px;
     padding: 0;
+    aspect-ratio: 1644 / 835;
   }
 
   .hero {
     width: 1644px;
     height: 835px;
     padding: 60px;
+    aspect-ratio: 1644 / 835;
   }
 
   .overlay {
@@ -352,10 +359,6 @@
     right: -120px;
   }
 }
-
-
-
-
 
 .dot {
   width: 15px;

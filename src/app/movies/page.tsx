@@ -13,7 +13,7 @@ import { useSwipeable } from "react-swipeable";
 import { tmdbBackdropSrc } from "@/lib/tmdbImage";
 import { useUiStore } from "@/store/uiStore";
 import dynamic from "next/dynamic";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter, usePathname} from "next/navigation";
 import { Suspense } from "react";
 
 const GenreSectionMovies = dynamic(
@@ -91,10 +91,15 @@ const GenreSectionShows = dynamic(
 );
 
 const Trending = dynamic(() => import("@/components/Trending/Trending"), {
-  loading: () => <div style={{ height: "400px" }} />,
+  loading: () => (
+    <div style={{ height: "400px", padding: "5px 0", marginTop: "20px" }} />
+  ),
 });
+
 const Releases = dynamic(() => import("@/components/Releases/Releases"), {
-  loading: () => <div style={{ height: "400px" }} />,
+  loading: () => (
+    <div style={{ height: "400px", padding: "5px 0", marginTop: "20px" }} />
+  ),
 });
 
 const MustWatch = dynamic(() => import("@/components/MustWatch/MustWatch"), {
@@ -107,6 +112,8 @@ function MoviesPageContent() {
   const activeTab = useUiStore((state) => state.movieActiveTab);
   const setActiveTab = useUiStore((state) => state.setMovieActiveTab);
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const { data: moviesData, isLoading: isLoadingMovies } = useQuery({
     queryKey: ["trendingMovies"],
@@ -122,25 +129,30 @@ function MoviesPageContent() {
 
 useEffect(() => {
   const tabParam = searchParams.get("tab");
+  
   if (tabParam === "shows" || tabParam === "movies") {
     if (activeTab !== tabParam) {
       setActiveTab(tabParam);
     }
+  } else {
+    if (activeTab !== "movies") {
+      setActiveTab("movies");
+    }
   }
 }, [searchParams, setActiveTab, activeTab]);
 
-useEffect(() => {
-  const hash = window.location.hash;
-  if (hash) {
-    const timer = setTimeout(() => {
-      const element = document.getElementById(hash.replace("#", ""));
-      if (element) {
-        element.scrollIntoView();
-      }
-    }, 10);
-    return () => clearTimeout(timer);
-  }
-}, [activeTab]);
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById(hash.replace("#", ""));
+        if (element) {
+          element.scrollIntoView();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [activeTab]);
 
   const slides = useMemo(() => {
     const m = moviesData?.results?.slice(0, 2) || [];
@@ -187,27 +199,31 @@ useEffect(() => {
   };
 
   const handleTabSwitch = (tab: "movies" | "shows") => {
-    setActiveTab(tab);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("tab", tab);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   const currentItem = slides[currentSlide];
 
-if (isLoadingMovies || isLoadingTV || !currentItem) {
-  return (
-    <div className={css.page}>
-      <div className={css.container}>
-        <section className={css.hero}> 
-          <div style={{
-            width: "100%",
-            height: "100%",
-            background: "#1a1a1a",
-            borderRadius: "12px",
-          }} />
-        </section>
+  if (isLoadingMovies || isLoadingTV || !currentItem) {
+    return (
+      <div className={css.page}>
+        <div className={css.container}>
+          <section className={css.heroSkeleton}>
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                background: "#1a1a1a",
+                borderRadius: "12px",
+              }}
+            />
+          </section>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   const itemType = currentItem.title ? "movies" : "series";
 
