@@ -110,6 +110,7 @@ export default function SupportPage() {
     }
   };
 
+
   return (
     <div className={css.containerr}>
       <div className={css.content}>

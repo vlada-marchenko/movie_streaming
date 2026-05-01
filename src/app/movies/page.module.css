@@ -10,6 +10,7 @@
   position: relative;
   border-radius: 12px;
   overflow: hidden;
+  min-height: 468px;
 }
 
 .page {
@@ -207,7 +208,7 @@
 @media (max-width: 768px) {
 .hero, .heroSkeleton {
     width: 708px;
-    height: 420px;
+    min-height: 420px;
     aspect-ratio: 708 / 420;
   }
   .hero { height: 420px !important; }
@@ -217,7 +218,7 @@
   .container {
     max-width: 708px;
     padding: 0;
-    height: 420px;
+    min-height: 420px;
     aspect-ratio: 1224 / 759;
   }
 
@@ -304,11 +305,11 @@
   }
 
   .arrowLeft {
-    left: -30px;
+    left: 10px;
   }
 
   .arrowRight {
-    right: -30px;
+    right: 10px;
   }
 
   .arrowLeft:hover,
@@ -321,7 +322,7 @@
 @media (min-width: 1920px) {
   .container {
     max-width: 1644px;
-    height: 835px;
+    min-height: 835px;
     padding: 0;
   }
 

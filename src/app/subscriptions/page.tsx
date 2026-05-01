@@ -3,6 +3,7 @@
 import Plans from "@/components/Plans/Plans";
 import css from "./page.module.css";
 import { useUiStore } from "@/store/uiStore";
+import { useEffect } from "react";
 
 export default function SubscriptionsPage() {
   const plans = [

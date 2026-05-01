@@ -23,16 +23,16 @@ export default function Footer() {
           </div>
           <div className={css.box}>
             <span className={css.title}>Movies</span>
-            <Link href="/movies?tab=movies/#genres" className={css.item}>
+            <Link href="/movies?tab=movies#genres" className={css.item}>
               Genres
             </Link>
-            <Link href="/movies?tab=movies/#trending" className={css.item}>
+            <Link href="/movies?tab=movies#trending" className={css.item}>
               Trending
             </Link>
-            <Link href="/movies?tab=movies/#new" className={css.item}>
+            <Link href="/movies?tab=movies#new" className={css.item}>
               New Release
             </Link>
-            <Link href="/movies?tab=movies/#must-watch" className={css.item}>
+            <Link href="/movies?tab=movies#must-watch" className={css.item}>
               Popular
             </Link>
           </div>

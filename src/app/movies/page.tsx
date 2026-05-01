@@ -120,12 +120,27 @@ function MoviesPageContent() {
     staleTime: 1000 * 60 * 60,
   });
 
-  useEffect(() => {
-    const tabParam = searchParams.get("tab");
-    if (tabParam === "shows" || tabParam === "movies") {
+useEffect(() => {
+  const tabParam = searchParams.get("tab");
+  if (tabParam === "shows" || tabParam === "movies") {
+    if (activeTab !== tabParam) {
       setActiveTab(tabParam);
     }
-  }, [searchParams, setActiveTab]);
+  }
+}, [searchParams, setActiveTab, activeTab]);
+
+useEffect(() => {
+  const hash = window.location.hash;
+  if (hash) {
+    const timer = setTimeout(() => {
+      const element = document.getElementById(hash.replace("#", ""));
+      if (element) {
+        element.scrollIntoView();
+      }
+    }, 10);
+    return () => clearTimeout(timer);
+  }
+}, [activeTab]);
 
   const slides = useMemo(() => {
     const m = moviesData?.results?.slice(0, 2) || [];
@@ -177,24 +192,22 @@ function MoviesPageContent() {
 
   const currentItem = slides[currentSlide];
 
-  if (isLoadingMovies || isLoadingTV || !currentItem) {
-    return (
-      <div className={css.page}>
-        <div className={css.container}>
-          <div className={css.heroSkeleton}>
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                background: "#1a1a1a",
-                borderRadius: "12px",
-              }}
-            />
-          </div>
-        </div>
+if (isLoadingMovies || isLoadingTV || !currentItem) {
+  return (
+    <div className={css.page}>
+      <div className={css.container}>
+        <section className={css.hero}> 
+          <div style={{
+            width: "100%",
+            height: "100%",
+            background: "#1a1a1a",
+            borderRadius: "12px",
+          }} />
+        </section>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   const itemType = currentItem.title ? "movies" : "series";
 
