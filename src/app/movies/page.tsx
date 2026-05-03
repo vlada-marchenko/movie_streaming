@@ -339,7 +339,103 @@ useEffect(() => {
 
 export default function MoviesPage() {
   return (
-    <Suspense fallback={<div>Loading page...</div>}>
+    <Suspense fallback={
+      <div style={{ 
+        display: "flex", 
+        flexDirection: "column", 
+        alignItems: "center",
+        minHeight: "100vh",
+        marginBottom: "40px"
+      }}>
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "100%",
+          maxWidth: "375px",
+          margin: "20px auto 40px",
+          backgroundColor: "black",
+          position: "relative",
+          borderRadius: "12px",
+          overflow: "hidden",
+          minHeight: "468px",
+          aspectRatio: "375 / 468"
+        }}>
+          <section style={{
+            position: "relative",
+            width: "100%",
+            minHeight: "468px",
+            aspectRatio: "375 / 468",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "end"
+          }}>
+            <div style={{
+              width: "100%",
+              height: "100%",
+              background: "#1a1a1a",
+              borderRadius: "12px",
+            }} />
+          </section>
+        </div>
+        <div style={{
+          display: "flex",
+          alignItems: "center",
+          padding: "8px",
+          width: "375px",
+          height: "61px",
+          background: "#0f0f0f",
+          border: "1px solid #262626",
+          borderRadius: "8px",
+          marginTop: "20px"
+        }}>
+          <button style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontWeight: "500",
+            fontSize: "14px",
+            color: "#999999",
+            backgroundColor: "#1f1f1f",
+            border: "none",
+            cursor: "pointer",
+            width: "185px",
+            height: "45px",
+            borderRadius: "6px"
+          }}>
+            Movies
+          </button>
+          <button style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            fontWeight: "500",
+            fontSize: "14px",
+            color: "#999999",
+            backgroundColor: "transparent",
+            border: "none",
+            cursor: "pointer",
+            width: "185px",
+            height: "45px"
+          }}>
+            Shows
+          </button>
+        </div>
+        <div style={{
+          minHeight: "1200px",
+          width: "100%",
+          display: "flex",
+          flexDirection: "column"
+        }}>
+          <div style={{ minHeight: "342px", margin: "40px 0" }} />
+          <div style={{ minHeight: "400px", margin: "20px 0" }} />
+          <div style={{ minHeight: "400px", margin: "20px 0" }} />
+          <div style={{ minHeight: "400px", margin: "20px 0" }} />
+        </div>
+      </div>
+    }>
       <MoviesPageContent />
     </Suspense>
   );
