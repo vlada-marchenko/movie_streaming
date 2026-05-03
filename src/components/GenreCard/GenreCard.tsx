@@ -39,11 +39,11 @@ export default function GenreCard({
         : getSeriesByGenre(genreId, page),
   });
 
-  if (!isLoading && (!data.results || data.results.length === 0)) {
-    return null;
+  if (isLoading) {
+    return <div className={css.skeleton} />;
   }
-
-  if (error || !data) {
+ 
+  if (!data || error || !data.results || data.results.length === 0) {
     return null;
   }
 

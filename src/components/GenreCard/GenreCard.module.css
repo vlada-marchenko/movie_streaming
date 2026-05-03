@@ -85,6 +85,24 @@
   cursor: pointer;
 }
 
+.skeleton {
+  width: 178px;
+  height: 201px;
+  background: #1a1a1a;
+  border: 1px solid #262626;
+  border-radius: 10px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
 @media (min-width: 1440px) {
   .container {
     width: 228px;
