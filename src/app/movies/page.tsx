@@ -19,7 +19,6 @@ import { Suspense } from "react";
 const GenreSectionMovies = dynamic(
   () => import("@/components/GenreSectionMovies/GenreSectionMovies"),
   {
-    ssr: false,
     loading: () => (
       <div style={{ height: "342px", margin: "40px 0" }}>
         <div
@@ -56,7 +55,6 @@ const GenreSectionMovies = dynamic(
 const GenreSectionShows = dynamic(
   () => import("@/components/GenreSectionShows/GenreSectionShows"),
   {
-    ssr: false,
     loading: () => (
       <div style={{ height: "342px", margin: "40px 0" }}>
         <div
@@ -220,6 +218,20 @@ useEffect(() => {
               }}
             />
           </section>
+        </div>
+        <div className={css.switch}>
+          <button className={`${css.btnn} ${css.btnActive}`}>
+            Movies
+          </button>
+          <button className={css.btnn}>
+            Shows
+          </button>
+        </div>
+        <div className={css.movies}>
+          <div style={{ minHeight: "342px", margin: "40px 0" }} />
+          <div style={{ minHeight: "400px", margin: "20px 0" }} />
+          <div style={{ minHeight: "400px", margin: "20px 0" }} />
+          <div style={{ minHeight: "400px", margin: "20px 0" }} />
         </div>
       </div>
     );
