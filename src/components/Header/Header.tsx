@@ -57,10 +57,16 @@ export default function Header() {
             </Link>
           </div>
         </nav>
-        <div className={css.empty}></div>
+        <div className={css.right}>
+        <div className={css.empty}>
+          <Link href="/">
+            <Icon className={css.search} name="search" width={23} height={23} />
+          </Link>
+        </div>
         <button className={css.burger} onClick={toggleMenu} aria-label="Open navigation menu" >
           <Icon name="menu" width={32} height={32} className={css.menu} />
         </button>
+        </div>
         {openMenu && (
           <div className={css.backdrop} onClick={toggleMenu}>
             <nav className={css.navMob} onClick={(e) => e.stopPropagation()}>
