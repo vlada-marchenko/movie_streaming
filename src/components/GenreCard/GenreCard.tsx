@@ -7,6 +7,7 @@ import css from "./GenreCard.module.css";
 import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Icon from "@/components/Icon/Icon";
 import { getSeriesByGenre } from "@/lib/series";
+import Link from "next/link";
 
 interface GenreCardProps {
   genreId: number;
@@ -55,6 +56,8 @@ export default function GenreCard({
     return null;
   }
 
+  const catalogType = mediaType === "movie" ? "movie" : "tv";
+
   return (
     <div className={css.container}>
       <div className={css.content}>
@@ -73,12 +76,13 @@ export default function GenreCard({
 
       <div className={css.under}>
         <h3 className={css.text}>{genreName}</h3>
-        <button
+        <Link
+          href={`/catalog?genre=${genreId}&type=${catalogType}`}
           className={css.button}
           aria-label={`View ${genreName} ${mediaType === "movie" ? "movies" : "shows"}`}
         >
           <Icon name="right" width={20} height={20} />
-        </button>
+        </Link>
       </div>
     </div>
   );
