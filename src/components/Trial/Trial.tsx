@@ -9,6 +9,7 @@ import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Image from "next/image";
 import { useEffect } from "react";
 import { useUiStore } from "@/store/uiStore";
+import Link from "next/link";
 
 export default function Trial() {
   const gridSize = useUiStore((state) => state.trialGridSize);
@@ -93,7 +94,9 @@ return (
             <h2 className={css.title}>Start your free trial today!</h2>
             <p className={css.text}>This is a clear and concise call to action that encourages users to sign up for a free trial of StreamVibe.</p>
             </div>
-            <button className={css.button}>Start a Free Trial</button>
+            <Link href="/subscriptions" className={css.button}>
+              Start a Free Trial
+            </Link>
         </div>
     </div>
 )

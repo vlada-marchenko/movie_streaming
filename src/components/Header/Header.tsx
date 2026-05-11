@@ -59,7 +59,7 @@ export default function Header() {
         </nav>
         <div className={css.right}>
         <div className={css.empty}>
-          <Link href="/">
+          <Link href="/catalog">
             <Icon className={css.search} name="search" width={23} height={23} />
           </Link>
         </div>

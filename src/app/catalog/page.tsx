@@ -1,8 +1,9 @@
+import Catalog from "../../components/Catalog/Catalog";
 
-
-export default function Catalog() {
-return (
-    <div>Catalog</div>
-)
+export default function CatalogPage() {
+  return (
+    <div>
+      <Catalog />
+    </div>
+  );
 }
-
