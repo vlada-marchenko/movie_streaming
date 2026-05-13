@@ -6,21 +6,32 @@ import MediaGrid from "../MediaGrid/MediaGrid";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { getSearchMovies } from "@/lib/movies";
-import { getSearchSeries } from "@/lib/series";
-
-type TabType = "all" | "movies" | "series";
-type SortType = "popularity" | "rating" | "newest" | "title";
+import {
+  getSearchMovies,
+  getGenres,
+  getMoviesByGenre,
+  getPopularMovies,
+} from "@/lib/movies";
+import {
+  getSearchSeries,
+  getSeriesByGenre,
+  getPopularSeries,
+  getGenresTv,
+} from "@/lib/series";
+import { useUiStore } from "@/store/uiStore";
 
 export default function Catalog() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
   const [movies, setMovies] = useState([]);
   const [series, setSeries] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [page, setPage] = useState(1);
+
+  const { catalogSearchTerm, setCatalogSearchTerm } = useUiStore();
 
   return (
     <div>
-      <SearchBar value={searchTerm} onChange={setSearchTerm} />
+      <SearchBar value={catalogSearchTerm} onChange={setCatalogSearchTerm} />
       <MediaGrid items={movies || series} isLoading={true} />
     </div>
   );
