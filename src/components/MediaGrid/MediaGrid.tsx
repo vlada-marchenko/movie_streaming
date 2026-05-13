@@ -1,0 +1,72 @@
+"use client";
+
+import css from "./MediaGrid.module.css";
+import Image from "next/image";
+import { tmdbPosterSrc } from "@/lib/tmdbImage";
+import Link from "next/link";
+import Icon from "../Icon/Icon";
+
+interface MediaItem {
+  id: number;
+  title: string;
+  name: string;
+  poster_path: string;
+  vote_average: number;
+  mediaType: "movie" | "tv";
+}
+
+interface MediaGridProps {
+  items: MediaItem[];
+  isLoading: boolean;
+}
+
+export default function MediaGrid({ items, isLoading }: MediaGridProps) {
+  if (isLoading) {
+    return (
+      <div className={css.grid}>
+        {[...Array(10)].map((_, i) => (
+          <div key={i} className={css.skeleton} />
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className={css.grid}>
+      {items.map((item) => (
+        <Link
+          key={"${item.mediaType}-${item.id}"}
+          href={
+            "/movies/{item.id}/type={item.mediaType === 'movie' ? 'movie' : 'series'}"
+          }
+          className={css.gridItem}
+        >
+          {item.poster_path ? (
+            <Image
+              src={tmdbPosterSrc(item.poster_path)}
+              alt={item.title || item.name}
+              sizes="(max-width: 767px) 45vw, (max-width: 1439px) 20vw, 15vw"
+              fill
+              className={css.gridImage}
+            />
+          ) : (
+            <div className={css.noPoster}>
+              <Icon name="genres" width={32} height={32} />
+            </div>
+          )}
+          <div className={css.cardOverlay}>
+            <span
+              className={`${css.badge} ${item.mediaType === "movie" ? css.movieBadge : css.tvBadge}`}
+            >
+              {item.mediaType === "movie" ? "Movie" : "TV"}
+            </span>
+            <p className={css.cardTitle}>{item.title || item.name}</p>
+            {item.vote_average > 0 && (
+              <p className={css.cardRating}>★ {item.vote_average.toFixed(1)}</p>
+            )}
+          </div>
+        </Link>
+      ))}
+    </div>
+  );
+}

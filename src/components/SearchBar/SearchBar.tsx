@@ -16,11 +16,11 @@ export default function SearchBar({
 }: SearchBarProps) {
   return (
     <div className={css.searchBar}>
-      <Icon name="search" className={css.icon} width={13} height={13} />
+      <Icon name="search" className={css.iconSearch} width={18} height={18} />
       <input
         type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={value ?? ""}
+        onChange={(e) => onChange?.(e.target.value)}
         placeholder={placeholder}
         className={css.input}
       />
@@ -30,7 +30,7 @@ export default function SearchBar({
           className={css.clearButton}
           aria-label="Clear search"
         >
-          <Icon name="x" className={css.icon} width={13} height={13} />
+          <Icon name="x" className={css.iconX} width={18} height={18} />
         </button>
       )}
     </div>
