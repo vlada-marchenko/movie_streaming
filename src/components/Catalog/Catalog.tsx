@@ -22,6 +22,7 @@ import {
 } from "@/lib/series";
 import { useUiStore } from "@/store/uiStore";
 import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
 
 type Genre = {
   id: number;
@@ -30,6 +31,18 @@ type Genre = {
 
 type CatalogTabType = "all" | "movies" | "series";
 type CatalogSortType = "popularity" | "rating" | "newest" | "title";
+
+interface CatalogItem {
+  id: number;
+  title: string;
+  name: string;
+  poster_path: string;
+  vote_average: number;
+  mediaType: "movie" | "tv";
+  release_date?: string;
+  first_air_date?: string;
+  popularity?: number;
+}
 
 export default function Catalog() {
   const router = useRouter();
@@ -173,6 +186,123 @@ export default function Catalog() {
     },
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const normalize = (items: CatalogItem[], mediaType: "movie" | "tv") => {
+    return (
+      items ??
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      []
+    ).map((item: CatalogItem) => {
+      return {
+        ...item,
+        mediaType,
+      };
+    });
+  };
+
+  const rawItems = useMemo(() => {
+    if (debouncedSearchTerm) {
+      return [
+        ...(catalogTab !== "series"
+          ? normalize(movieSearchData?.results, "movie")
+          : []),
+        ...(catalogTab !== "movies"
+          ? normalize(seriesSearchData?.results, "tv")
+          : []),
+      ];
+    }
+
+    if (genreId) {
+      return [
+        ...(catalogTab !== "series"
+          ? normalize(moviesByGenre?.results, "movie")
+          : []),
+        ...(catalogTab !== "movies"
+          ? normalize(seriesByGenre?.results, "tv")
+          : []),
+      ];
+    }
+
+    return [
+      ...(catalogTab !== "series"
+        ? normalize(popularMoviesData?.results, "movie")
+        : []),
+      ...(catalogTab !== "movies"
+        ? normalize(popularSeriesData?.results, "tv")
+        : []),
+    ];
+  }, [
+    debouncedSearchTerm,
+    genreId,
+    catalogTab,
+    movieSearchData,
+    seriesSearchData,
+    moviesByGenre,
+    seriesByGenre,
+    popularMoviesData,
+    popularSeriesData,
+  ]);
+
+  const sortedItems = useMemo(() => {
+    const items = [...rawItems];
+    switch (catalogSort) {
+      case "rating":
+        return items.sort(
+          (a, b) => (b.vote_average ?? 0) - (a.vote_average ?? 0),
+        );
+      case "newest":
+        return items.sort((a, b) =>
+          (b.release_date || b.first_air_date || "").localeCompare(
+            a.release_date || a.first_air_date || "",
+          ),
+        );
+      case "title":
+        return items.sort((a, b) =>
+          (a.title || a.name || "").localeCompare(b.title || b.name || ""),
+        );
+      default:
+        return items.sort((a, b) => (b.popularity ?? 0) - (a.popularity ?? 0));
+    }
+  }, [rawItems, catalogSort]);
+
+  const genres = useMemo(() => {
+    const all = [
+      ...(catalogTab !== "series" ? (moviesGenreData?.genres ?? []) : []),
+      ...(catalogTab !== "movies" ? (seriesGenreData?.genres ?? []) : []),
+    ];
+
+    const seen = new Set<number>();
+    return all.filter((genre: Genre) => {
+      if (seen.has(genre.id)) {
+        return false;
+      } else {
+        seen.add(genre.id);
+        return true;
+      }
+    });
+  }, [moviesGenreData, seriesGenreData, catalogTab]);
+
+  const totalPages = Math.min(
+    Math.max(
+      debouncedSearchTerm
+        ? Math.max(
+            movieSearchData?.total_pages ?? 1,
+            seriesSearchData?.total_pages ?? 1,
+          )
+        : genreId
+          ? Math.max(
+              moviesByGenre?.total_pages ?? 1,
+              seriesByGenre?.total_pages ?? 1,
+            )
+          : Math.max(
+              popularMoviesData?.total_pages ?? 1,
+              popularSeriesData?.total_pages ?? 1,
+            ),
+      1,
+    ),
+    20,
+  );
+
   const isLoading =
     movieSearchLoading ||
     seriesSearchLoading ||
@@ -184,10 +314,7 @@ export default function Catalog() {
   return (
     <div>
       <SearchBar value={catalogSearchTerm} onChange={setCatalogSearchTerm} />
-      <MediaGrid
-        items={popularMoviesData || popularSeriesData}
-        isLoading={isLoading}
-      />
+      <MediaGrid items={sortedItems} isLoading={isLoading} />
     </div>
   );
 }
