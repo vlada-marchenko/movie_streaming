@@ -28,7 +28,7 @@ type Genre = {
 };
 
 type CatalogTabType = "all" | "movies" | "series";
-type CatalogSortType = "popularity" | "rating" | "newest" | "title";
+type CatalogSortType = "popularity" | "rating" | "newest";
 
 interface CatalogItem {
   id: number;
@@ -256,10 +256,6 @@ export default function Catalog() {
             a.release_date || a.first_air_date || "",
           ),
         );
-      case "title":
-        return items.sort((a, b) =>
-          (a.title || a.name || "").localeCompare(b.title || b.name || ""),
-        );
       default:
         return items.sort((a, b) => (b.popularity ?? 0) - (a.popularity ?? 0));
     }
@@ -395,7 +391,6 @@ export default function Catalog() {
             <option value="popularity">Popularity</option>
             <option value="rating">Rating</option>
             <option value="newest">Newest</option>
-            <option value="title">A-Z</option>
           </select>
         </div>
 

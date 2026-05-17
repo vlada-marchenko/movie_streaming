@@ -132,9 +132,11 @@ export async function getSeriesReviews(series_id: number) {
   }
 }
 
-
 // Get the details of season of a TV show.
-export async function getSeasonDetails(season_number: number ,series_id: number) {
+export async function getSeasonDetails(
+  season_number: number,
+  series_id: number,
+) {
   try {
     const res = await api.get(`tv/${series_id}/season/${season_number}`);
     return res.data;
@@ -145,13 +147,18 @@ export async function getSeasonDetails(season_number: number ,series_id: number)
 }
 
 // Get the details of episode of season of a TV show.
-export async function getEpisodeDetails(episode_number: number ,season_number: number ,series_id: number) {
+export async function getEpisodeDetails(
+  episode_number: number,
+  season_number: number,
+  series_id: number,
+) {
   try {
-    const res = await api.get(`tv/${series_id}/season/${season_number}/episode/${episode_number}`);
+    const res = await api.get(
+      `tv/${series_id}/season/${season_number}/episode/${episode_number}`,
+    );
     return res.data;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
-
