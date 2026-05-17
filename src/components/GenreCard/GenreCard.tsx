@@ -7,7 +7,8 @@ import css from "./GenreCard.module.css";
 import { tmdbPosterSrc } from "@/lib/tmdbImage";
 import Icon from "@/components/Icon/Icon";
 import { getSeriesByGenre } from "@/lib/series";
-import Link from "next/link";
+import { useUiStore } from "@/store/uiStore";
+import { useRouter } from "next/navigation";
 
 interface GenreCardProps {
   genreId: number;
@@ -40,10 +41,19 @@ export default function GenreCard({
         : getSeriesByGenre(genreId, page),
   });
 
+  const { setCatalogSearchTerm, setCatalogSort } = useUiStore();
+  const router = useRouter();
+
+  const handleNavigate = () => {
+    setCatalogSearchTerm("");
+    setCatalogSort("popularity");
+    router.push(`/catalog?genre=${genreId}&type=${catalogType}`);
+  };
+
   if (isLoading) {
     return <div className={css.skeleton} />;
   }
- 
+
   if (!data || error || !data.results || data.results.length === 0) {
     return null;
   }
@@ -67,7 +77,7 @@ export default function GenreCard({
               src={tmdbPosterSrc(movie.poster_path)}
               alt={movie.title || "Preview"}
               className={css.image}
-              fill 
+              fill
               sizes="(max-width: 768px) 60px, 115px"
             />
           </div>
@@ -76,13 +86,13 @@ export default function GenreCard({
 
       <div className={css.under}>
         <h3 className={css.text}>{genreName}</h3>
-        <Link
-          href={`/catalog?genre=${genreId}&type=${catalogType}`}
+        <button
+          onClick={handleNavigate}
           className={css.button}
           aria-label={`View ${genreName} ${mediaType === "movie" ? "movies" : "shows"}`}
         >
           <Icon name="right" width={20} height={20} />
-        </Link>
+        </button>
       </div>
     </div>
   );
