@@ -12,7 +12,7 @@ interface SearchBarProps {
 export default function SearchBar({
   value,
   onChange,
-  placeholder = "Search...",
+  placeholder,
 }: SearchBarProps) {
   return (
     <div className={css.searchBar}>

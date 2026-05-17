@@ -2,7 +2,7 @@ import Catalog from "../../components/Catalog/Catalog";
 
 export default function CatalogPage() {
   return (
-    <div>
+    <div >
       <Catalog />
     </div>
   );

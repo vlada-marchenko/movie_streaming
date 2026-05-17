@@ -10,13 +10,11 @@ import {
   getSearchMovies,
   getGenres,
   getMoviesByGenre,
-  getNewMovies,
   getPopularMovies,
 } from "@/lib/movies";
 import {
   getSearchSeries,
   getSeriesByGenre,
-  getNewSeries,
   getPopularSeries,
   getGenresTv,
 } from "@/lib/series";
@@ -61,38 +59,51 @@ export default function Catalog() {
     setCatalogPagination,
   } = useUiStore();
 
+  const [genresExpanded, setGenresExpanded] = useState(false);
+
+  const COLLAPSED_GENRE_COUNT = 8;
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1280);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   const [debouncedSearchTerm, setDebouncedSearchTerm] =
     useState(catalogSearchTerm);
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearchTerm(catalogSearchTerm.trim());
     }, 500);
-    return () => clearTimeout(timer); // the key here
+    return () => clearTimeout(timer);
   }, [catalogSearchTerm]);
 
   useEffect(() => {
-    const type = searchParams.get("type"); // get it from url
+    const type = searchParams.get("type");
     if (type === "all" || type === "movies" || type === "series") {
-      setCatalogTab(type as CatalogTabType); // set to the variable
+      setCatalogTab(type as CatalogTabType);
     }
 
-    const genre = searchParams.get("genre"); // get from url
+    const genre = searchParams.get("genre");
     if (genre) {
-      setCatalogGenre(genre); // set to the variable
+      setCatalogGenre(genre);
     }
   }, []);
 
   useEffect(() => {
-    const params = new URLSearchParams(); // create new url
+    const params = new URLSearchParams();
     if (catalogTab !== "all") {
-      params.set("type", catalogTab); // set new params there
+      params.set("type", catalogTab);
     }
     if (catalogGenre) {
       params.set("genre", catalogGenre);
     }
 
     const qs = params.toString();
-    router.replace(qs ? `/catalog?${qs}` : "/catalog", { scroll: false }); // put params to new url
+    router.replace(qs ? `/catalog?${qs}` : "/catalog", { scroll: false });
   }, [catalogTab, catalogGenre, router]);
 
   const page = catalogPagination[catalogTab]?.page ?? 1;
@@ -156,20 +167,6 @@ export default function Catalog() {
     enabled: !debouncedSearchTerm && !!genreId && catalogTab !== "movies",
   });
 
-  // new media
-  // const { data: newMoviesData, isLoading: newMoviesLoading } = useQuery({
-  //   queryKey: ["new-movies", page],
-  //   queryFn: () => getNewMovies(page),
-  //   enabled: !debouncedSearchTerm && !genreId && catalogTab !== "series",
-  // });
-
-  // const { data: newSeriesData, isLoading: newSeriesLoading } = useQuery({
-  //   queryKey: ["new-series", page],
-  //   queryFn: () => getNewSeries(page),
-  //   enabled: !debouncedSearchTerm && !genreId && catalogTab !== "movies",
-  // });
-
-  // popular media
   const { data: popularMoviesData, isLoading: popularMoviesLoading } = useQuery(
     {
       queryKey: ["popular-movies", page],
@@ -201,13 +198,16 @@ export default function Catalog() {
   };
 
   const rawItems = useMemo(() => {
+    const sliceForAll = (arr: CatalogItem[]) =>
+      catalogTab === "all" ? arr.slice(0, 10) : arr;
+
     if (debouncedSearchTerm) {
       return [
         ...(catalogTab !== "series"
-          ? normalize(movieSearchData?.results, "movie")
+          ? sliceForAll(normalize(movieSearchData?.results, "movie"))
           : []),
         ...(catalogTab !== "movies"
-          ? normalize(seriesSearchData?.results, "tv")
+          ? sliceForAll(normalize(seriesSearchData?.results, "tv"))
           : []),
       ];
     }
@@ -215,20 +215,20 @@ export default function Catalog() {
     if (genreId) {
       return [
         ...(catalogTab !== "series"
-          ? normalize(moviesByGenre?.results, "movie")
+          ? sliceForAll(normalize(moviesByGenre?.results, "movie"))
           : []),
         ...(catalogTab !== "movies"
-          ? normalize(seriesByGenre?.results, "tv")
+          ? sliceForAll(normalize(seriesByGenre?.results || [], "tv"))
           : []),
       ];
     }
 
     return [
       ...(catalogTab !== "series"
-        ? normalize(popularMoviesData?.results, "movie")
+        ? sliceForAll(normalize(popularMoviesData?.results, "movie"))
         : []),
       ...(catalogTab !== "movies"
-        ? normalize(popularSeriesData?.results, "tv")
+        ? sliceForAll(normalize(popularSeriesData?.results, "tv"))
         : []),
     ];
   }, [
@@ -312,9 +312,128 @@ export default function Catalog() {
     popularSeriesLoading;
 
   return (
-    <div>
-      <SearchBar value={catalogSearchTerm} onChange={setCatalogSearchTerm} />
-      <MediaGrid items={sortedItems} isLoading={isLoading} />
+    <div className={css.page}>
+      <div className={css.inner}>
+        <div className={css.header}>
+          <h1 className={css.title}>Catalog</h1>
+          <p className={css.subtitle}>Browse movies and series</p>
+        </div>
+
+        <SearchBar
+          value={catalogSearchTerm}
+          onChange={handleSearchChange}
+          placeholder="Search movies or series..."
+        />
+
+        {/* Tabs */}
+        <div className={css.tabs}>
+          {(["all", "movies", "series"] as CatalogTabType[]).map((tab) => (
+            <button
+              key={tab}
+              className={`${css.tab} ${catalogTab === tab ? css.activeTab : ""}`}
+              onClick={() => handleTabChange(tab)}
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          ))}
+        </div>
+
+        {/* Filters row */}
+        <div className={css.filtersRow}>
+          <div className={css.genreChipsWrapper}>
+            <div
+              className={`${css.genreChips} ${debouncedSearchTerm ? css.chipsDisabled : ""}`}
+            >
+              <button
+                className={`${css.chip} ${!genreId ? css.activeChip : ""}`}
+                disabled={!!debouncedSearchTerm}
+                onClick={() => handleGenreChange(null)}
+              >
+                All Genres
+              </button>
+              {(!isMobile || genresExpanded
+                ? genres
+                : genres.slice(0, COLLAPSED_GENRE_COUNT)
+              ).map((g) => (
+                <button
+                  key={g.id}
+                  className={`${css.chip} ${genreId === g.id ? css.activeChip : ""}`}
+                  disabled={!!debouncedSearchTerm}
+                  onClick={() => handleGenreChange(g.id)}
+                >
+                  {g.name}
+                </button>
+              ))}
+            </div>
+            {isMobile &&
+              genres.length > COLLAPSED_GENRE_COUNT &&
+              !debouncedSearchTerm && (
+                <button
+                  className={css.showMoreGenres}
+                  onClick={() => setGenresExpanded((prev) => !prev)}
+                >
+                  {genresExpanded
+                    ? "Show less ↑"
+                    : `+${genres.length - COLLAPSED_GENRE_COUNT} more genres ↓`}
+                </button>
+              )}
+            {debouncedSearchTerm && (
+              <p className={css.genreHint}>
+                Genre filters are unavailable while searching. Clear the search
+                to browse by genre.
+              </p>
+            )}
+          </div>
+
+          <select
+            className={css.sortSelect}
+            value={catalogSort}
+            onChange={(e) =>
+              handleSortChange(e.target.value as CatalogSortType)
+            }
+          >
+            <option value="popularity">Popularity</option>
+            <option value="rating">Rating</option>
+            <option value="newest">Newest</option>
+            <option value="title">A-Z</option>
+          </select>
+        </div>
+
+        <MediaGrid items={sortedItems} isLoading={isLoading} />
+
+        {!isLoading && sortedItems.length === 0 && (
+          <p className={css.empty}>
+            No results found. Try a different search or genre.
+          </p>
+        )}
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className={css.pagination}>
+            <button
+              className={css.pageBtn}
+              disabled={page === 1}
+              onClick={() =>
+                setCatalogPagination(catalogTab, { page: page - 1 })
+              }
+            >
+              Prev
+            </button>
+            <span className={css.pageNum}>
+              {page} / {totalPages}
+            </span>
+            <button
+              className={css.pageBtn}
+              disabled={page === totalPages}
+              onClick={() =>
+                setCatalogPagination(catalogTab, { page: page + 1 })
+              }
+            >
+              Next
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

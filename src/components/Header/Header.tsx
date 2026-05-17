@@ -14,13 +14,22 @@ export default function Header() {
   const pathname = usePathname();
 
   const closeMenu = () => {
-  if (openMenu) toggleHeaderMenu();
-};
-  
-  const activeClass = (path: string, subPath?: string) => 
-    (pathname === path || (subPath && pathname.startsWith(subPath))) ? css.active : "";
-  const activeMobClass = (path: string) =>
-    (pathname === path || (path === "/movies" && pathname.startsWith("/movies/"))) ? css.activeMob : "";
+    if (openMenu) toggleHeaderMenu();
+  };
+
+  const activeClass = (path: string, subPath?: string, subPath2?: string) =>
+    pathname === path ||
+    (subPath && pathname.startsWith(subPath)) ||
+    (subPath2 && pathname.startsWith(subPath2))
+      ? css.active
+      : "";
+  const activeMobClass = (path: string, subPath?: string, subPath2?: string) =>
+    pathname === path ||
+    (path === "/movies" && pathname.startsWith("/movies/")) ||
+    (subPath && pathname.startsWith(subPath)) ||
+    (subPath2 && pathname.startsWith(subPath2))
+      ? css.activeMob
+      : "";
   const id = pathname.split("/")[2];
 
   return (
@@ -41,7 +50,9 @@ export default function Header() {
               Home
             </Link>
           </div>
-          <div className={`${css.cont} ${activeClass("/movies", `/movies/${id}`)}`}>
+          <div
+            className={`${css.cont} ${activeClass(`/movies`, `/movies/${id}`, `/catalog`)}`}
+          >
             <Link href="/movies" className={css.navLink}>
               Movies&Shows
             </Link>
@@ -58,14 +69,23 @@ export default function Header() {
           </div>
         </nav>
         <div className={css.right}>
-        <div className={css.empty}>
-          <Link href="/catalog">
-            <Icon className={css.search} name="search" width={23} height={23} />
-          </Link>
-        </div>
-        <button className={css.burger} onClick={toggleMenu} aria-label="Open navigation menu" >
-          <Icon name="menu" width={32} height={32} className={css.menu} />
-        </button>
+          <div className={css.empty}>
+            <Link href="/catalog">
+              <Icon
+                className={css.search}
+                name="search"
+                width={23}
+                height={23}
+              />
+            </Link>
+          </div>
+          <button
+            className={css.burger}
+            onClick={toggleMenu}
+            aria-label="Open navigation menu"
+          >
+            <Icon name="menu" width={32} height={32} className={css.menu} />
+          </button>
         </div>
         {openMenu && (
           <div className={css.backdrop} onClick={toggleMenu}>
@@ -80,7 +100,7 @@ export default function Header() {
                 </Link>
                 <Link
                   href="/movies"
-                  className={`${css.navLinkMob} ${activeMobClass("/movies")}`}
+                  className={`${css.navLinkMob} ${activeMobClass(`/movies`, `/movies/${id}`, `/catalog`)}`}
                   onClick={closeMenu}
                 >
                   Movies&Shows

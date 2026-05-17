@@ -35,35 +35,44 @@ export default function MediaGrid({ items, isLoading }: MediaGridProps) {
     <div className={css.grid}>
       {items.map((item) => (
         <Link
-          key={"${item.mediaType}-${item.id}"}
+          key={`${item.mediaType}-${item.id}`}
           href={
-            "/movies/{item.id}/type={item.mediaType === 'movie' ? 'movie' : 'series'}"
+            item.mediaType === "movie"
+              ? `/movies/${item.id}`
+              : `/movies/${item.id}?type=series`
           }
           className={css.gridItem}
         >
-          {item.poster_path ? (
-            <Image
-              src={tmdbPosterSrc(item.poster_path)}
-              alt={item.title || item.name}
-              sizes="(max-width: 767px) 45vw, (max-width: 1439px) 20vw, 15vw"
-              fill
-              className={css.gridImage}
-            />
-          ) : (
-            <div className={css.noPoster}>
-              <Icon name="genres" width={32} height={32} />
-            </div>
-          )}
-          <div className={css.cardOverlay}>
-            <span
-              className={`${css.badge} ${item.mediaType === "movie" ? css.movieBadge : css.tvBadge}`}
-            >
-              {item.mediaType === "movie" ? "Movie" : "TV"}
-            </span>
-            <p className={css.cardTitle}>{item.title || item.name}</p>
-            {item.vote_average > 0 && (
-              <p className={css.cardRating}>★ {item.vote_average.toFixed(1)}</p>
+          <div className={css.imageWrapper}>
+            {item.poster_path ? (
+              <Image
+                src={tmdbPosterSrc(item.poster_path)}
+                alt={item.title || item.name}
+                sizes="(max-width: 767px) 45vw, (max-width: 1439px) 20vw, 15vw"
+                fill
+                className={css.gridImage}
+              />
+            ) : (
+              <div className={css.noPoster}>
+                <Icon name="genres" width={32} height={32} />
+              </div>
             )}
+          </div>
+
+          <div className={css.cardInfo}>
+            <p className={css.cardTitle}>{item.title || item.name}</p>
+            <div className={css.cardMeta}>
+              <span
+                className={`${css.badge} ${item.mediaType === "movie" ? css.movieBadge : css.tvBadge}`}
+              >
+                {item.mediaType === "movie" ? "Movie" : "TV"}
+              </span>
+              {item.vote_average > 0 && (
+                <p className={css.cardRating}>
+                  ★ {item.vote_average.toFixed(1)}
+                </p>
+              )}
+            </div>
           </div>
         </Link>
       ))}
