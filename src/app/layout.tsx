@@ -14,8 +14,7 @@ const Trial = dynamic(() => import("../components/Trial/Trial"), {
   loading: () => (
     <div
       style={{
-        minHeight: "400px",
-        padding: "60px 20px",
+        minHeight: "464px",
         background: "transparent",
       }}
     />
@@ -58,6 +57,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={manrope.variable}>
       <head>
+        <link rel="preconnect" href="https://api.themoviedb.org" />
+        <link rel="dns-prefetch" href="https://api.themoviedb.org" />
         <link
           rel="preconnect"
           href="https://image.tmdb.org"
