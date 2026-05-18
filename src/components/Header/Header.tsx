@@ -70,7 +70,7 @@ export default function Header() {
         </nav>
         <div className={css.right}>
           <div className={css.empty}>
-            <Link href="/catalog">
+            <Link href="/catalog" aria-label="Search catalog">
               <Icon
                 className={css.search}
                 name="search"

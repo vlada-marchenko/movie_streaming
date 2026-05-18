@@ -33,7 +33,7 @@ export default function MediaGrid({ items, isLoading }: MediaGridProps) {
 
   return (
     <div className={css.grid}>
-      {items.map((item) => (
+      {items.map((item, index) => (
         <Link
           key={`${item.mediaType}-${item.id}`}
           href={
@@ -51,6 +51,7 @@ export default function MediaGrid({ items, isLoading }: MediaGridProps) {
                 sizes="(max-width: 767px) 45vw, (max-width: 1439px) 20vw, 15vw"
                 fill
                 className={css.gridImage}
+                priority={index === 0}
               />
             ) : (
               <div className={css.noPoster}>

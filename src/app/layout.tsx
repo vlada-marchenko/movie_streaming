@@ -5,9 +5,10 @@ import { Manrope } from "next/font/google";
 import { Viewport } from "next";
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-// import { ToastContainer } from "react-toastify";
 import dynamic from "next/dynamic";
-const ToastWrapper = dynamic(() => import("../components/ToastWrapper/ToastWrapper"));
+const ToastWrapper = dynamic(
+  () => import("../components/ToastWrapper/ToastWrapper"),
+);
 
 const Trial = dynamic(() => import("../components/Trial/Trial"), {
   loading: () => (
@@ -57,6 +58,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={manrope.variable}>
       <head>
+        <link rel="preconnect" href="https://api.themoviedb.org" />
+        <link
+          rel="preconnect"
+          href="https://image.tmdb.org"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://api.themoviedb.org" />
         <link rel="dns-prefetch" href="https://image.tmdb.org" />
       </head>
       <body className={manrope.className}>

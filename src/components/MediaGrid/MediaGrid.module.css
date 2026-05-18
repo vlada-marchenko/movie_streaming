@@ -86,14 +86,14 @@
 }
 
 .tvBadge {
-  color: #0070f3;
-  border-color: #0070f3;
+  color: #4da3ff;
+  border-color: #4da3ff;
 }
 
 .cardRating {
   font-family: "Manrope", sans-serif;
   font-size: 11px;
-  color: #9999;
+  color: #a0a0a0;
   margin: 0;
 }
 

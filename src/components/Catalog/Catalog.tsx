@@ -381,7 +381,11 @@ export default function Catalog() {
             )}
           </div>
 
+          <label htmlFor="sort-select" className="sr-only">
+            Sort by
+          </label>
           <select
+            id="sort-select"
             className={css.sortSelect}
             value={catalogSort}
             onChange={(e) =>

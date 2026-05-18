@@ -113,7 +113,8 @@
 
 @media (min-width: 768px) {
   .content {
-    width: 768px;
+    width: 100%;
+    max-width: 768px;
     padding: 40px;
   }
 
@@ -126,7 +127,7 @@
 
 @media (min-width: 1440px) {
   .content {
-    width: 1440px;
+    max-width: 1440px;
     padding: 40px 108px;
   }
 
@@ -159,7 +160,7 @@
 
 @media (min-width: 1920px) {
   .content {
-    width: 1920px;
+    max-width: 1920px;
     padding: 30px 138px;
   }
 }
