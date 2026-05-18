@@ -58,13 +58,11 @@ export default function RootLayout({
   return (
     <html lang="en" className={manrope.variable}>
       <head>
-        <link rel="preconnect" href="https://api.themoviedb.org" />
         <link
           rel="preconnect"
           href="https://image.tmdb.org"
           crossOrigin="anonymous"
         />
-        <link rel="dns-prefetch" href="https://api.themoviedb.org" />
         <link rel="dns-prefetch" href="https://image.tmdb.org" />
       </head>
       <body className={manrope.className}>
